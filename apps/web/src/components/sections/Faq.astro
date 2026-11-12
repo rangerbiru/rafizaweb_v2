@@ -1,0 +1,138 @@
+---
+/**
+ * FAQ (PRD §6.12): kolom kiri sticky (desktop), accordion h3 > button[aria-expanded].
+ * Semua jawaban ada di HTML; tanpa JS semua terbuka. Item pertama terbuka.
+ */
+import { useT, type Locale } from '../../i18n';
+import { ALLOW_DUMMY, isPlaceholder, settings } from '../../lib/data';
+import { waHref, waTrack } from '../../lib/wa';
+
+interface Props {
+  locale: Locale;
+  faqs: { question: string; answer: string }[];
+  id?: string;
+  title?: string;
+  lead?: string;
+  bg?: 'surface' | 'white';
+  showFounder?: boolean;
+}
+const { locale, faqs, id = 'faq', title, lead, bg = 'surface', showFounder = true } = Astro.props;
+const t = useT(locale);
+const founder = settings.founder;
+const founderOk = !isPlaceholder(founder.name);
+const showBy = showFounder && (founderOk || ALLOW_DUMMY);
+const by = t.faq.by(founder.name);
+const visible = faqs.filter((f) => ALLOW_DUMMY || !/\[[A-Z][^\]]*\]/.test(f.answer));
+---
+
+{visible.length > 0 && (
+  <section
+    id={id}
+    aria-labelledby={`${id}-title`}
+    class:list={[bg === 'surface' ? 'bg-surface' : 'bg-white']}
+  >
+    <div class="rz-container rz-section-pad flex flex-wrap items-start gap-x-[64px] gap-y-[24px]">
+      <div class="flex min-w-0 flex-[1_1_300px] flex-col items-start gap-[16px] md:sticky md:top-[104px]">
+        <h2 id={`${id}-title`} class="rz-h2">
+          {title ?? t.faq.title}
+        </h2>
+        <p class="m-0 max-w-[26em] text-[16px] leading-[1.65] text-text-2">
+          {lead ?? t.faq.lead(t.common.replyPromise)}
+        </p>
+        {showBy && (
+          <div
+            class="flex items-center gap-[12px] rounded-card border border-border bg-white py-[12px] ps-[12px] pe-[16px]"
+            data-placeholder={!founderOk ? '' : undefined}
+          >
+            {founder.photo ? (
+              <img
+                src={founder.photo}
+                alt=""
+                width="40"
+                height="40"
+                class="size-[40px] shrink-0 rounded-full object-cover"
+              />
+            ) : (
+              <span
+                class="size-[40px] shrink-0 rounded-full border-[1.5px] border-dashed border-muted"
+                aria-hidden="true"
+              />
+            )}
+            <span class="text-[14px] leading-[1.45] text-text-2">
+              {by[0]}
+              <strong class="text-navy">{by[1]}</strong>
+              {by[2]}
+            </span>
+          </div>
+        )}
+        <a
+          href={waHref(t.wa.general)}
+          class="rz-btn inline-flex h-[46px] items-center rounded-pill border border-border bg-white px-[20px] text-[15px] font-bold text-navy no-underline hover:text-navy"
+          {...waTrack('faq', { locale })}
+        >
+          {t.common.cta}
+        </a>
+      </div>
+      <div class="flex min-w-0 flex-[999_1_560px] flex-col" data-faq>
+        {visible.map((f, i) => (
+          <div class="rz-faq border-b border-border" data-open={i === 0 ? '' : undefined}>
+            <h3 class="m-0">
+              <button
+                type="button"
+                id={`${id}-q-${i}`}
+                aria-expanded={i === 0 ? 'true' : 'false'}
+                aria-controls={`${id}-a-${i}`}
+                class="rz-faqq flex min-h-[64px] w-full items-center justify-between gap-[20px] border-0 bg-transparent px-[4px] py-[18px] text-start text-[clamp(16px,1.3vw,18px)] leading-[1.45] font-semibold text-navy"
+              >
+                <span>{f.question}</span>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  aria-hidden="true"
+                  class="shrink-0 text-text-2"
+                >
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" class="rz-plus-v" />
+                </svg>
+              </button>
+            </h3>
+            <div id={`${id}-a-${i}`} role="region" aria-labelledby={`${id}-q-${i}`} class="rz-faq-a">
+              <p
+                class="m-0 pe-[44px] ps-[4px] pb-[24px] text-[16px] leading-[1.75] text-text-2"
+                data-placeholder={/\[[A-Z]/.test(f.answer) ? '' : undefined}
+              >
+                {f.answer}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .rz-plus-v {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+  [aria-expanded='true'] .rz-plus-v {
+    transform: rotate(90deg);
+  }
+  :global(.js) .rz-faq:not([data-open]) .rz-faq-a {
+    display: none;
+  }
+  :global(.js) .rz-faq[data-open] .rz-faq-a {
+    animation: var(--animate-swap);
+  }
+</style>
+
+<script>
+  import '../../scripts/faq';
+</script>

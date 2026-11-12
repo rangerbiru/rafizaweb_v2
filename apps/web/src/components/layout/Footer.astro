@@ -1,0 +1,116 @@
+---
+import Icon from '../ui/Icon.astro';
+import { path, useT, type Locale } from '../../i18n';
+import { getServices, isPlaceholder, settings } from '../../lib/data';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const home = path('home', locale);
+const services = getServices(locale).filter((s) => s.slug);
+const a = settings.address;
+const year = new Date().getFullYear();
+const linkCls = 'text-border no-underline hover:text-white';
+const cols = [
+  {
+    title: t.footer.company,
+    links: [
+      { label: t.nav.tentang, href: path('about', locale) },
+      { label: t.nav.portofolio, href: path('portfolio', locale) },
+      { label: t.nav.harga, href: path('pricing', locale) },
+      { label: t.nav.blog, href: path('blog', locale) },
+      { label: t.nav.kontak, href: path('contact', locale) },
+    ],
+  },
+  {
+    title: t.footer.eco,
+    links: [
+      { label: t.nav.academy, href: `${home}#ekosistem` },
+      { label: t.nav.store, href: settings.socials.lynk, ext: true },
+    ],
+  },
+];
+const socials = [
+  { label: 'Instagram', href: settings.socials.instagram, icon: 'instagram' },
+  { label: 'TikTok', href: settings.socials.tiktok, icon: 'tiktok' },
+  { label: 'YouTube', href: settings.socials.youtube, icon: 'youtube' },
+  { label: 'Facebook', href: settings.socials.facebook, icon: 'facebook' },
+] as const;
+---
+
+<footer data-dark class="bg-navy text-border">
+  <div class="rz-container flex flex-col gap-[clamp(32px,4vw,48px)] pt-[clamp(48px,6vw,72px)] pb-[32px]">
+    <div class="flex flex-wrap gap-x-[48px] gap-y-[24px]">
+      <div class="flex min-w-0 flex-[1_1_300px] flex-col gap-[12px]">
+        <span class="font-heading text-[24px] font-extrabold tracking-[-0.03em] text-white" dir="ltr">
+          rafizaweb
+        </span>
+        <span class="text-[15px] font-semibold text-white">{settings.tagline}</span>
+        <p class="m-0 max-w-[30em] text-[15px] leading-[1.65]">{t.footer.desc}</p>
+        <address class="text-[14.5px] leading-[1.75] not-italic">
+          {`${a.street}, ${a.city}, ${a.region} ${a.postal}`}
+          <br />
+          <a href={`https://wa.me/${settings.whatsapp}`} class={linkCls} dir="ltr">
+            WhatsApp {settings.whatsappDisplay}
+          </a>
+          <br />
+          <a href={`mailto:${settings.email}`} class={linkCls}>
+            {settings.email}
+          </a>
+          <br />
+          {t.footer.hours}:{' '}
+          <span data-placeholder={isPlaceholder(settings.hours) ? '' : undefined}>{t.footer.hoursValue}</span>
+        </address>
+      </div>
+      <nav aria-label={t.footer.services} class="flex flex-[1_1_150px] flex-col gap-[8px] text-[15px]">
+        <span class="mb-[4px] font-bold text-white">{t.footer.services}</span>
+        {services.map((s) => (
+          <a href={path(`service:${s.key}`, locale)} class={linkCls}>
+            {t.footer.serviceLinks[s.key] ?? s.name}
+          </a>
+        ))}
+      </nav>
+      {cols.map((c) => (
+        <nav aria-label={c.title} class="flex flex-[1_1_150px] flex-col gap-[8px] text-[15px]">
+          <span class="mb-[4px] font-bold text-white">{c.title}</span>
+          {c.links.map((l) => (
+            <a
+              href={l.href}
+              class={linkCls}
+              {...('ext' in l && l.ext ? { target: '_blank', rel: 'noopener' } : {})}
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
+      ))}
+      <nav aria-label={t.footer.social} class="flex flex-[1_1_150px] flex-col gap-[8px] text-[15px]">
+        <span class="mb-[4px] font-bold text-white">{t.footer.social}</span>
+        {socials.map((s) => (
+          <a
+            href={s.href}
+            class:list={[linkCls, 'flex items-center gap-[8px]']}
+            target="_blank"
+            rel="noopener me"
+          >
+            <Icon name={s.icon} size={16} />
+            {s.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+    <div class="flex flex-wrap justify-between gap-x-[24px] gap-y-[12px] border-t border-text-2 pt-[24px] text-[14px]">
+      <span>{t.footer.copyright(year)}</span>
+      <span class="flex flex-wrap gap-[20px]">
+        <a href={path('privacy', locale)} class="text-border hover:text-white">
+          {t.footer.privacy}
+        </a>
+        <a href={path('terms', locale)} class="text-border hover:text-white">
+          {t.footer.terms}
+        </a>
+      </span>
+    </div>
+  </div>
+</footer>

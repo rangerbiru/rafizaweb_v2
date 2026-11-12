@@ -1,0 +1,32 @@
+---
+/** Judul section: eyebrow opsional, H2 (atau H1 di halaman inner), lead. */
+interface Props {
+  id?: string;
+  title: string;
+  lead?: string;
+  eyebrow?: string;
+  as?: 'h1' | 'h2';
+  tone?: 'dark' | 'light';
+  maxWidth?: string;
+  class?: string;
+}
+const {
+  id,
+  title,
+  lead,
+  eyebrow,
+  as: Tag = 'h2',
+  tone = 'dark',
+  maxWidth = '640px',
+  class: cls,
+} = Astro.props;
+---
+
+<div class:list={['flex flex-col gap-[12px]', cls]} style={`max-width:${maxWidth}`}>
+  {eyebrow && <span class="text-[14px] font-bold text-brand">{eyebrow}</span>}
+  <Tag id={id} class:list={[Tag === 'h1' ? 'rz-h1' : 'rz-h2', tone === 'light' && 'text-white']}>
+    {title}
+  </Tag>
+  {lead && <p class:list={['rz-lead', tone === 'light' && 'text-border!']} set:html={lead} />}
+  <slot />
+</div>

@@ -1,0 +1,9 @@
+{
+  "question": "Berapa harga Toko Online di Rafizaweb?",
+  "answer": "Harga Toko Online ditentukan lewat konsultasi gratis sesuai jumlah produk dan fitur yang Anda butuhkan. Toko online dari Rafizaweb memungkinkan Anda mengelola produk, harga, dan stok dari dashboard, dengan pesanan langsung masuk ke WhatsApp dan panduan video untuk mengelola toko.",
+  "scope": [
+    "layanan:toko"
+  ],
+  "order": 1,
+  "locale": "id"
+}

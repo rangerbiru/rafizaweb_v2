@@ -1,0 +1,41 @@
+---
+/** Hero ringkas halaman inner: breadcrumb, badge, H1, lead, CTA (slot). */
+import Badge from '../ui/Badge.astro';
+import Breadcrumb from '../ui/Breadcrumb.astro';
+import { useT, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+  crumbs?: { name: string; href?: string }[];
+  badge?: string;
+  title: string;
+  lead?: string;
+  narrow?: boolean;
+}
+const { locale, crumbs, badge, title, lead, narrow = false } = Astro.props;
+const t = useT(locale);
+---
+
+<section class="rz-phero relative overflow-hidden">
+  <div class="rz-container flex flex-col items-start gap-[20px] pt-[clamp(104px,9vw,136px)] pb-[clamp(32px,4.5vw,64px)]">
+    {crumbs && crumbs.length > 1 && <Breadcrumb items={crumbs} label={t.common.breadcrumb} />}
+    {badge && <Badge>{badge}</Badge>}
+    <h1 class:list={['rz-h1', narrow ? 'max-w-[20ch]' : 'max-w-[24ch]']}>{title}</h1>
+    {lead && <p class="m-0 max-w-[40em] text-[clamp(16px,1.2vw,18px)] leading-[1.65] text-text-2">{lead}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .rz-phero {
+    background-color: #f5f8ff;
+    background-image:
+      radial-gradient(640px 420px at 88% 20%, rgba(29, 78, 216, 0.12), transparent 70%),
+      linear-gradient(180deg, #f5f8ff 0%, #ffffff 100%);
+  }
+  :global([dir='rtl']) .rz-phero {
+    background-image:
+      radial-gradient(640px 420px at 12% 20%, rgba(29, 78, 216, 0.12), transparent 70%),
+      linear-gradient(180deg, #f5f8ff 0%, #ffffff 100%);
+  }
+</style>

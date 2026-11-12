@@ -1,0 +1,42 @@
+{
+  "name": "rafizaweb",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @rafizaweb/web dev",
+    "build": "pnpm --filter @rafizaweb/web build",
+    "preview": "pnpm --filter @rafizaweb/web preview",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "pnpm --filter @rafizaweb/web typecheck",
+    "test": "pnpm --filter @rafizaweb/web test",
+    "test:e2e": "pnpm --filter @rafizaweb/web test:e2e",
+    "check:placeholders": "tsx scripts/check-placeholders.ts",
+    "import:wp": "tsx scripts/import-wp.ts",
+    "build:preview": "pnpm --filter @rafizaweb/web build:preview",
+    "test:unit": "pnpm --filter @rafizaweb/web test",
+    "screenshots": "pnpm --filter @rafizaweb/web screenshots"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@rafizaweb/config": "workspace:*",
+    "@types/node": "^24.19.2",
+    "@types/turndown": "^5.0.6",
+    "eslint": "^10.14.0",
+    "eslint-plugin-astro": "^3.2.1",
+    "globals": "^17.14.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.2",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "tsx": "^4.23.15",
+    "turndown": "^7.2.5",
+    "turndown-plugin-gfm": "^1.0.2",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "@playwright/test": "^1.65.0"
+  }
+}

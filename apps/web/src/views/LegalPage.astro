@@ -1,0 +1,70 @@
+---
+import PageHero from '../components/layout/PageHero.astro';
+import { formatDate, path, useT, type Locale } from '../i18n';
+import { useLegal } from '../i18n/legal';
+import { usePages } from '../i18n/pages';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ALLOW_DUMMY, PLACEHOLDER_RE } from '../lib/data';
+import { breadcrumbNode, graph, webPageNode } from '../lib/schema';
+
+interface Props {
+  locale: Locale;
+  kind: 'privacy' | 'terms';
+}
+const { locale, kind } = Astro.props;
+const t = useT(locale);
+const l = usePages(locale).legal;
+const doc = useLegal(locale)[kind];
+const title = kind === 'privacy' ? l.privacyTitle : l.termsTitle;
+const description = kind === 'privacy' ? l.privacyDesc : l.termsDesc;
+const h1 = kind === 'privacy' ? l.privacyH1 : l.termsH1;
+const url = path(kind, locale);
+const crumbs = [
+  { name: t.common.home, href: path('home', locale) },
+  { name: h1, href: url },
+];
+const jsonLd = graph(locale, [
+  webPageNode({ url, name: title, description, locale }),
+  breadcrumbNode(crumbs.map((c) => ({ name: c.name, url: c.href }))),
+]);
+const sections = doc.sections
+  .map((s) => ({ ...s, p: s.p.filter((x) => ALLOW_DUMMY || !PLACEHOLDER_RE.test(x)) }))
+  .filter((s) => s.p.length);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  locale={locale}
+  routeKey={kind}
+  jsonLd={jsonLd}
+  bannerAbove="white"
+>
+  <PageHero locale={locale} crumbs={crumbs} title={h1}>
+    <p class="m-0 text-[14px] text-muted">
+      {l.updated}:{' '}
+      <time datetime={doc.updated}>{formatDate(new Date(`${doc.updated}T00:00:00+07:00`), locale)}</time>
+    </p>
+    {import.meta.env.DEV && (
+      <p class="m-0 rounded-[12px] bg-amber px-[14px] py-[8px] text-[14px] font-bold text-navy">{l.draft}</p>
+    )}
+  </PageHero>
+  <section class="bg-white">
+    <div class="rz-container pb-[clamp(48px,7.5vw,104px)]">
+      <div class="flex max-w-[72ch] flex-col gap-[28px] text-[17px] leading-[1.75]">
+        {sections.map((s, i) => (
+          <section aria-labelledby={`legal-${i}`} class="flex flex-col gap-[10px]">
+            <h2 id={`legal-${i}`} class="rz-h3">
+              {s.h}
+            </h2>
+            {s.p.map((x) => (
+              <p class="m-0 text-text-2" data-placeholder={PLACEHOLDER_RE.test(x) ? '' : undefined}>
+                {x}
+              </p>
+            ))}
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

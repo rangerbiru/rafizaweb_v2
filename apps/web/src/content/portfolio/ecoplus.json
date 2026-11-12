@@ -1,0 +1,43 @@
+{
+  "name": "Ecoplus Indonesia",
+  "industry": "produk",
+  "domain": "ecoplusindonesia.com",
+  "url": "https://ecoplusindonesia.com/",
+  "year": "",
+  "package": "",
+  "showInMarquee": true,
+  "order": 3,
+  "tint": "amber",
+  "screenshotDesktop": "/images/portfolio/ecoplus/desktop.webp",
+  "screenshotMobile": "/images/portfolio/ecoplus/mobile.webp",
+  "challenge": "",
+  "solution": "",
+  "result": "",
+  "testimonial": "ecoplus",
+  "isDummy": false,
+  "summary": {
+    "id": "Website produsen air mineral kemasan. Pengunjung bisa mengenal produk, melihat sertifikat dan jangkauan distribusi, lalu menghubungi tim.",
+    "en": "A website for a packaged mineral water producer. Visitors can get to know the products, see the certificates and distribution reach, then contact the team.",
+    "ar": "موقع لمنتج مياه معدنية معبأة. يمكن للزوار التعرّف على المنتجات والاطلاع على الشهادات ونطاق التوزيع ثم التواصل مع الفريق."
+  },
+  "highlights": {
+    "id": [
+      "Halaman tentang kami, produk, sertifikat, distribusi, dan artikel",
+      "Penjelasan manfaat produk: sumber alami, teknologi modern, mutu terjamin, dan standar nasional",
+      "Testimoni pelanggan dan peta jangkauan distribusi",
+      "Halaman hubungi untuk pemesanan dan kerja sama"
+    ],
+    "en": [
+      "About us, products, certificates, distribution, and articles pages",
+      "Product benefits explained: natural source, modern technology, assured quality, and national standard",
+      "Customer testimonials and a distribution reach map",
+      "A contact page for orders and partnerships"
+    ],
+    "ar": [
+      "صفحات من نحن والمنتجات والشهادات والتوزيع والمقالات",
+      "شرح مزايا المنتج: مصدر طبيعي وتقنية حديثة وجودة مضمونة ومعيار وطني",
+      "آراء العملاء وخريطة نطاق التوزيع",
+      "صفحة تواصل للطلبات والتعاون"
+    ]
+  }
+}

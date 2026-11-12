@@ -1,0 +1,420 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/sora/wght.css';
+@import '@fontsource-variable/plus-jakarta-sans/wght.css';
+
+/*
+ * Token desain Rafizaweb. Sumber: CLAUDE.md (bagian Token) dan design/home.dc.html.
+ * Jangan menambah warna baru di luar daftar ini.
+ */
+@theme {
+  --color-*: initial;
+  --color-brand: #1d4ed8;
+  --color-navy: #0b1a2e;
+  --color-amber: #f5b83d;
+  --color-brand-50: #e6edfd;
+  --color-surface: #f5f8ff;
+  --color-white: #ffffff;
+  --color-text-2: #3f4d5e;
+  --color-muted: #5a6878;
+  --color-border: #dce2e9;
+  --color-wa: #16a34a;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-heading: 'Sora Variable', 'Plus Jakarta Sans Variable', 'Noto Sans Arabic', system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans Variable', 'Noto Sans Arabic', system-ui, sans-serif;
+
+  --radius-sm: 12px;
+  --radius-card: 20px;
+  --radius-panel: 28px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 12px 32px -20px rgba(11, 26, 46, 0.25);
+  --shadow-raised: 0 30px 60px -30px rgba(29, 78, 216, 0.45);
+  --shadow-lift: 0 40px 80px -36px rgba(29, 78, 216, 0.6);
+
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --container-site: 1200px;
+
+  --animate-swap: rzSwap 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-pop: rzPop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-grow: rzGrow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-bar: rzBar 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-float: rzFloat 6s ease-in-out infinite;
+  --animate-blink: rzBlink 1s step-end infinite;
+  --animate-marquee: rzMarquee 42s linear infinite;
+}
+
+/* Keyframes dari desain (nama asli dipertahankan agar mudah ditelusuri ke home.dc.html). */
+@keyframes rzBlink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes rzMarquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes rzMarqueeRtl {
+  to {
+    transform: translateX(50%);
+  }
+}
+@keyframes rzFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes rzSwap {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes rzGrow {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes rzBar {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes rzPop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--color-white);
+    color: var(--color-navy);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+  *,
+  *::before,
+  *::after {
+    -webkit-tap-highlight-color: transparent;
+  }
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  a {
+    color: var(--color-brand);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  a:hover {
+    color: var(--color-navy);
+  }
+  button {
+    cursor: pointer;
+  }
+  section[id] {
+    scroll-margin-top: 92px;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-amber);
+    outline-offset: 3px;
+  }
+  button:focus:not(:focus-visible),
+  a:focus:not(:focus-visible) {
+    outline: none;
+  }
+  [dir='rtl'] .rz-flip {
+    transform: scaleX(-1);
+  }
+  [lang='ar'] {
+    --font-heading: 'Noto Sans Arabic', 'Sora Variable', system-ui, sans-serif;
+    --font-sans: 'Noto Sans Arabic', 'Plus Jakarta Sans Variable', system-ui, sans-serif;
+  }
+  [lang='ar'] h1,
+  [lang='ar'] h2,
+  [lang='ar'] h3 {
+    letter-spacing: 0 !important;
+  }
+}
+
+/* Tipografi bersama (nilai persis dari desain). */
+@utility rz-h1 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--color-navy);
+}
+@utility rz-h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(28px, 2.8vw, 40px);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+@utility rz-h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(19px, 1.6vw, 22px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+@utility rz-lead {
+  margin: 0;
+  font-size: clamp(16px, 1.2vw, 17px);
+  line-height: 1.65;
+  color: var(--color-text-2);
+}
+@utility rz-container {
+  max-width: var(--container-site);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3.4vw, 48px);
+}
+@utility rz-section-pad {
+  padding-block: clamp(48px, 7.5vw, 104px);
+}
+
+/* Microinteraction global (§6.15). */
+@layer components {
+  .rz-btn {
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .rz-btn:hover {
+    transform: translateY(-2px);
+  }
+  .rz-btn:active {
+    transform: scale(0.98);
+  }
+  .rz-card {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
+  }
+  .rz-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-raised);
+    border-color: rgba(29, 78, 216, 0.35) !important;
+  }
+  .rz-pick {
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .rz-pick:hover {
+    border-color: var(--color-brand) !important;
+  }
+  a.rz-nav {
+    color: var(--color-text-2);
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  a.rz-nav:hover {
+    background-color: var(--color-surface);
+    color: var(--color-brand);
+  }
+  a.rz-nav.rz-on {
+    background-color: var(--color-brand-50);
+    color: var(--color-brand);
+  }
+  a.rz-dnav {
+    color: var(--color-navy);
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  a.rz-dnav:hover {
+    background-color: var(--color-surface);
+    color: var(--color-brand);
+  }
+  a.rz-dnav.rz-on {
+    background-color: var(--color-brand);
+    color: var(--color-white);
+  }
+  .rz-navbtn {
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  .rz-navbtn:hover {
+    background-color: var(--color-surface) !important;
+    color: var(--color-brand) !important;
+  }
+  .rz-menuopt {
+    transition: background-color 0.2s ease;
+  }
+  .rz-menuopt:hover {
+    background-color: var(--color-surface);
+    color: var(--color-navy);
+  }
+  .rz-langopt {
+    background-color: transparent;
+    color: var(--color-navy);
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  .rz-langopt:hover {
+    background-color: var(--color-surface);
+    color: var(--color-navy);
+  }
+  .rz-langopt.rz-on {
+    background-color: var(--color-brand-50);
+    color: var(--color-brand);
+  }
+  .rz-seg {
+    background-color: transparent;
+    color: var(--color-text-2);
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .rz-seg.rz-on {
+    background-color: var(--color-white);
+    color: var(--color-brand);
+    box-shadow: var(--shadow-card);
+  }
+  .rz-stg {
+    background-color: transparent;
+    color: var(--color-text-2);
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  .rz-stg:hover {
+    background-color: var(--color-surface);
+    color: var(--color-brand);
+  }
+  .rz-stg[aria-checked='true'],
+  .rz-stg[aria-checked='true']:hover {
+    background-color: var(--color-brand);
+    color: var(--color-white);
+    box-shadow: var(--shadow-raised);
+  }
+  .rz-faqq {
+    transition: color 0.2s ease;
+  }
+  .rz-faqq:hover {
+    color: var(--color-brand) !important;
+  }
+  .rz-hscroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rz-hscroll::-webkit-scrollbar {
+    display: none;
+  }
+  .rz-hscroll > * {
+    scroll-snap-align: start;
+  }
+  .rz-link {
+    color: var(--color-navy);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .rz-link:hover {
+    color: var(--color-brand);
+  }
+
+  .rz-caret::after {
+    content: '';
+    display: inline-block;
+    width: 0.07em;
+    height: 0.82em;
+    margin-inline-start: 0.05em;
+    vertical-align: -0.04em;
+    border-radius: 2px;
+    background: var(--color-amber);
+    animation: var(--animate-blink);
+  }
+
+  /* Reveal saat masuk viewport. Kelas pending hanya dipasang JS pada elemen di bawah fold. */
+  .rz-reveal-pending {
+    opacity: 0;
+  }
+  .rz-reveal-in {
+    animation: rzPop 0.6s var(--ease-standard) both;
+  }
+
+  .sr-only {
+    position: absolute;
+    /* Tanpa ini, span sr-only di baris panjang bisa memperlebar area scroll halaman. */
+    inset-inline-start: 0;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

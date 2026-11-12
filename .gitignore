@@ -1,0 +1,35 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.vercel/
+.output/
+coverage/
+playwright-report/
+test-results/
+blob-report/
+.lighthouseci/
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
+.dev.vars
+apps/web/.keystatic/
+
+# Variabel lingkungan: jangan pernah di-commit (hanya .env.example)
+apps/web/.env
+apps/web/.env.*
+!apps/web/.env.example
+
+# Tidak ikut repo: dokumen, desain, migrasi, dan berkas Claude
+docs/
+design/
+supabase/
+CLAUDE.md
+.claude/
+.playwright-mcp/
+graphify-out/
+
+# Berkas bayangan FUSE (muncul bila file dihapus saat masih dibuka proses lain)
+.fuse_hidden*

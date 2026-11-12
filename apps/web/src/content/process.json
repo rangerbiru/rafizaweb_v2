@@ -1,0 +1,65 @@
+{
+  "arReviewed": false,
+  "steps": [
+    {
+      "day": "",
+      "id": {
+        "title": "Konsultasi gratis",
+        "desc": "Ceritakan bisnis dan target Anda lewat WhatsApp, online, atau tatap muka di Bekasi."
+      },
+      "en": {
+        "title": "Free consultation",
+        "desc": "Tell us about your business and goals via WhatsApp, online, or face to face in Bekasi."
+      },
+      "ar": {
+        "title": "استشارة مجانية",
+        "desc": "أخبرنا عن نشاطك وأهدافك عبر واتساب أو عبر الإنترنت أو وجهًا لوجه في بيكاسي."
+      }
+    },
+    {
+      "day": "",
+      "id": {
+        "title": "Desain dan copywriting",
+        "desc": "Kami susun struktur halaman dan teks yang menjual, lalu kirim desainnya untuk Anda review."
+      },
+      "en": {
+        "title": "Design and copywriting",
+        "desc": "We plan the page structure and persuasive copy, then send you the design to review."
+      },
+      "ar": {
+        "title": "التصميم وكتابة المحتوى",
+        "desc": "نُعدّ هيكل الصفحات ونصوصًا مقنعة، ثم نرسل لك التصميم لمراجعته."
+      }
+    },
+    {
+      "day": "",
+      "id": {
+        "title": "Development",
+        "desc": "Website dibangun dan dioptimasi untuk kecepatan dan SEO, dengan laporan progres berkala."
+      },
+      "en": {
+        "title": "Development",
+        "desc": "Your website is built and optimized for speed and SEO, with regular progress reports."
+      },
+      "ar": {
+        "title": "التطوير",
+        "desc": "نبني الموقع ونحسّنه للسرعة ومحركات البحث، مع تقارير تقدم دورية."
+      }
+    },
+    {
+      "day": "",
+      "id": {
+        "title": "Launch dan support",
+        "desc": "Website tayang. Anda dapat panduan kelola sendiri dan support 1–3 bulan sesuai paket."
+      },
+      "en": {
+        "title": "Launch and support",
+        "desc": "Your website goes live. You get a self-management guide and 1–3 months of support depending on the package."
+      },
+      "ar": {
+        "title": "الإطلاق والدعم",
+        "desc": "يُنشر موقعك. تحصل على دليل لإدارته بنفسك ودعم لمدة 1–3 أشهر حسب الباقة."
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "question": "Can I manage products myself?",
+  "answer": "Yes. Products, prices, and stock are managed from a dashboard, and you get a video guide for managing the store.",
+  "scope": ["layanan:toko"],
+  "order": 2,
+  "locale": "en"
+}

@@ -1,0 +1,149 @@
+---
+/**
+ * Styleguide internal: hanya dirender saat dev. Di production halaman ini 404 + noindex
+ * (lihat getStaticPaths kosong di bawah, sehingga tidak ada file yang dihasilkan).
+ */
+import Badge from '../../components/ui/Badge.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import Button from '../../components/ui/Button.astro';
+import Chip from '../../components/ui/Chip.astro';
+import Icon from '../../components/ui/Icon.astro';
+import PricingCard from '../../components/ui/PricingCard.astro';
+import Stars from '../../components/ui/Stars.astro';
+import ReviewCard from '../../components/ui/ReviewCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPlans } from '../../lib/data';
+
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { dev: undefined } }] : [];
+}
+
+const tokens = [
+  ['--color-brand', '#1D4ED8'],
+  ['--color-navy', '#0B1A2E'],
+  ['--color-amber', '#F5B83D'],
+  ['--color-brand-50', '#E6EDFD'],
+  ['--color-surface', '#F5F8FF'],
+  ['--color-white', '#FFFFFF'],
+  ['--color-text-2', '#3F4D5E'],
+  ['--color-muted', '#5A6878'],
+  ['--color-border', '#DCE2E9'],
+  ['--color-wa', '#16A34A'],
+];
+const icons = [
+  'check',
+  'star',
+  'chevron',
+  'chevron-right',
+  'arrow',
+  'wa',
+  'globe',
+  'menu',
+  'close',
+  'search',
+  'pen',
+  'shield',
+] as const;
+const plan = getPlans('id')[1]!;
+---
+
+<BaseLayout
+  title="Styleguide | Rafizaweb"
+  description="Token desain dan komponen UI Rafizaweb (internal, hanya dev)."
+  noindex
+  banner={false}
+>
+  <div class="rz-container flex flex-col gap-[48px] pt-[120px] pb-[80px]">
+    <h1 class="rz-h1">Styleguide</h1>
+    <section class="flex flex-col gap-[16px]">
+      <h2 class="rz-h2">Warna</h2>
+      <div class="grid grid-cols-2 gap-[12px] md:grid-cols-5">
+        {tokens.map(([n, v]) => (
+          <div class="rounded-card border border-border p-[12px]">
+            <div
+              class="mb-[8px] h-[56px] rounded-[12px] border border-border"
+              style={`background:var(${n})`}
+            />
+            <code class="text-[13px]">{n}</code>
+            <br />
+            <span class="text-[13px] text-muted">{v}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+    <section class="flex flex-col gap-[16px]">
+      <h2 class="rz-h2">Tipografi</h2>
+      <p class="rz-h1">H1 Sora 800 clamp(34px,4vw,56px)</p>
+      <p class="rz-h2">H2 Sora 800 clamp(28px,2.8vw,40px)</p>
+      <p class="rz-h3">H3 Sora 700 clamp(19px,1.6vw,22px)</p>
+      <p class="rz-lead">Lead clamp(16px,1.2vw,17px) — Plus Jakarta Sans.</p>
+    </section>
+    <section class="flex flex-col gap-[16px]">
+      <h2 class="rz-h2">Tombol, chip, badge</h2>
+      <div class="flex flex-wrap items-center gap-[12px]">
+        <Button href="#" icon="wa" size="lg">
+          Primary
+        </Button>
+        <Button href="#" variant="outline" size="lg">
+          Outline
+        </Button>
+        <Button href="#" variant="brand-outline">
+          Brand outline
+        </Button>
+        <Button href="#" variant="dark">
+          Dark
+        </Button>
+        <Button href="#" variant="wa" icon="wa">
+          WhatsApp
+        </Button>
+        <Button href="#" variant="ghost">
+          Ghost
+        </Button>
+      </div>
+      <div class="flex flex-wrap items-center gap-[12px]">
+        <Chip>Chip brand</Chip>
+        <Chip tone="amber">Amber</Chip>
+        <Chip tone="navy">Navy</Chip>
+        <Chip tone="solid">Solid</Chip>
+        <Badge>Badge brand</Badge>
+        <Badge tone="amber">Segera hadir</Badge>
+        <Stars label="5 dari 5 bintang" />
+      </div>
+      <Breadcrumb
+        label="Breadcrumb"
+        items={[
+          { name: 'Beranda', href: '/' },
+          { name: 'Layanan', href: '/layanan/' },
+          { name: 'Company Profile' },
+        ]}
+      />
+    </section>
+    <section class="flex flex-col gap-[16px]">
+      <h2 class="rz-h2">Ikon</h2>
+      <div class="flex flex-wrap gap-[16px]">
+        {icons.map((i) => (
+          <span class="flex flex-col items-center gap-[4px] text-[12px]">
+            <Icon name={i} size={24} />
+            {i}
+          </span>
+        ))}
+      </div>
+    </section>
+    <section class="flex flex-wrap gap-[24px]">
+      <h2 class="rz-h2 w-full">Kartu</h2>
+      <PricingCard plan={plan} locale="id" rec />
+      <div class="flex-[1_1_300px]">
+        <ReviewCard
+          name="Nama Klien"
+          industry="Industri"
+          quote="Contoh kutipan ulasan."
+          rating={5}
+          initial="N"
+          tint="brand"
+          locale="id"
+          source="google"
+        />
+      </div>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+import PageHero from '../components/layout/PageHero.astro';
+import Icon from '../components/ui/Icon.astro';
+import { path, useT, type Locale } from '../i18n';
+import { usePages } from '../i18n/pages';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { waHref, waTrack } from '../lib/wa';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const p = usePages(locale).notFound;
+const links = [
+  { label: t.common.home, href: path('home', locale) },
+  { label: t.nav.layanan, href: path('services', locale) },
+  { label: t.nav.harga, href: path('pricing', locale) },
+  { label: t.nav.blog, href: path('blog', locale) },
+];
+---
+
+<BaseLayout
+  title={p.title}
+  description={p.description}
+  locale={locale}
+  routeKey="notFound"
+  noindex
+  canonicalPath={path('notFound', locale)}
+  bannerAbove="white"
+>
+  <PageHero locale={locale} badge="404" title={p.h1} lead={p.lead}>
+    <nav aria-label={p.links}>
+      <ul class="m-0 flex list-none flex-wrap gap-[10px] p-0">
+        {links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="rz-btn inline-flex min-h-[44px] items-center rounded-pill border border-border bg-white px-[18px] text-[15px] font-bold text-navy no-underline hover:text-brand"
+            >
+              {l.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <a
+      href={waHref(t.wa.general)}
+      class="rz-btn inline-flex h-[52px] items-center justify-center gap-[10px] rounded-pill bg-brand px-[24px] text-[16px] font-bold text-white no-underline shadow-raised hover:text-white max-md:w-full"
+      {...waTrack('not_found', { locale })}
+    >
+      <Icon name="wa" />
+      {t.common.cta}
+    </a>
+  </PageHero>
+</BaseLayout>

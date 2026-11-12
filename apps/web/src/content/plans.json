@@ -1,0 +1,164 @@
+{
+  "arReviewed": false,
+  "defaultStage": "tumbuh",
+  "stages": [
+    {
+      "key": "baru",
+      "plan": "starter",
+      "id": "Baru mulai online",
+      "en": "Just getting online",
+      "ar": "بدأت للتو على الإنترنت"
+    },
+    {
+      "key": "tumbuh",
+      "plan": "growth",
+      "id": "Ingin dapat pelanggan dari Google",
+      "en": "Want customers from Google",
+      "ar": "أريد عملاء من جوجل"
+    },
+    {
+      "key": "scale",
+      "plan": "prime",
+      "id": "Siap jualan dan berkembang",
+      "en": "Ready to sell and scale",
+      "ar": "مستعد للبيع والتوسع"
+    }
+  ],
+  "plans": [
+    {
+      "key": "starter",
+      "price": 699000,
+      "renewal": 500000,
+      "pages": "1",
+      "articles": 0,
+      "emails": 0,
+      "supportMonths": 1,
+      "id": {
+        "name": "Starter UMKM",
+        "desc": "Untuk UMKM yang baru mau punya website.",
+        "time": "4–7 hari kerja",
+        "features": [
+          "Landing page 1 halaman",
+          "Desain responsif di semua perangkat",
+          "Integrasi WhatsApp, sosial media, dan Google Maps",
+          "SEO dasar dan schema markup",
+          "Garansi dan support 1 bulan"
+        ]
+      },
+      "en": {
+        "name": "Small Business Starter",
+        "desc": "For small businesses getting their first website.",
+        "time": "4–7 working days",
+        "features": [
+          "1-page landing page",
+          "Responsive design on every device",
+          "WhatsApp, social media, and Google Maps integration",
+          "Basic SEO and schema markup",
+          "1-month warranty and support"
+        ]
+      },
+      "ar": {
+        "name": "باقة البداية للمشاريع الصغيرة",
+        "desc": "للمشاريع الصغيرة التي تريد موقعها الأول.",
+        "time": "4–7 أيام عمل",
+        "features": [
+          "صفحة هبوط واحدة",
+          "تصميم متجاوب على جميع الأجهزة",
+          "ربط واتساب ووسائل التواصل وخرائط جوجل",
+          "تحسين أساسي لمحركات البحث وترميز Schema",
+          "ضمان ودعم لمدة شهر"
+        ]
+      }
+    },
+    {
+      "key": "growth",
+      "price": 1499000,
+      "renewal": 500000,
+      "pages": "2–4",
+      "articles": 3,
+      "emails": 1,
+      "supportMonths": 3,
+      "id": {
+        "name": "Bisnis Growth",
+        "desc": "Untuk bisnis yang ingin dapat pelanggan dari Google.",
+        "time": "5–9 hari kerja",
+        "features": [
+          "2–4 halaman website",
+          "3 artikel blog untuk SEO",
+          "Integrasi WhatsApp, sosial media, dan Google Maps",
+          "1 email bisnis",
+          "Garansi dan support 3 bulan"
+        ]
+      },
+      "en": {
+        "name": "Business Growth",
+        "desc": "For businesses that want customers from Google.",
+        "time": "5–9 working days",
+        "features": [
+          "2–4 page website",
+          "3 blog articles for SEO",
+          "WhatsApp, social media, and Google Maps integration",
+          "1 business email",
+          "3-month warranty and support"
+        ]
+      },
+      "ar": {
+        "name": "باقة النمو",
+        "desc": "للأعمال التي تريد عملاء من جوجل.",
+        "time": "5–9 أيام عمل",
+        "features": [
+          "موقع من 2–4 صفحات",
+          "3 مقالات مدونة لتحسين البحث",
+          "ربط واتساب ووسائل التواصل وخرائط جوجل",
+          "بريد إلكتروني واحد للأعمال",
+          "ضمان ودعم لمدة 3 أشهر"
+        ]
+      }
+    },
+    {
+      "key": "prime",
+      "price": 4999000,
+      "renewal": 1000000,
+      "pages": "10+",
+      "articles": 10,
+      "emails": 2,
+      "supportMonths": 3,
+      "id": {
+        "name": "Bisnis Prime",
+        "desc": "Untuk bisnis yang siap jualan dan berkembang secara online.",
+        "time": "sekitar 15 hari kerja",
+        "features": [
+          "10+ halaman dan fitur custom",
+          "10 artikel blog untuk SEO",
+          "Optimasi SEO lengkap",
+          "2 email bisnis",
+          "Garansi dan support 3 bulan"
+        ]
+      },
+      "en": {
+        "name": "Business Prime",
+        "desc": "For businesses ready to sell and scale online.",
+        "time": "about 15 working days",
+        "features": [
+          "10+ pages and custom features",
+          "10 blog articles for SEO",
+          "Full SEO optimization",
+          "2 business emails",
+          "3-month warranty and support"
+        ]
+      },
+      "ar": {
+        "name": "الباقة المميزة",
+        "desc": "للأعمال المستعدة للبيع والتوسع عبر الإنترنت.",
+        "time": "حوالي 15 يوم عمل",
+        "features": [
+          "أكثر من 10 صفحات وميزات مخصصة",
+          "10 مقالات مدونة لتحسين البحث",
+          "تحسين شامل لمحركات البحث",
+          "بريدان إلكترونيان للأعمال",
+          "ضمان ودعم لمدة 3 أشهر"
+        ]
+      }
+    }
+  ]
+}

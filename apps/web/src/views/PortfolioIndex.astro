@@ -1,0 +1,97 @@
+---
+import PageHero from '../components/layout/PageHero.astro';
+import ProjectCard from '../components/ui/ProjectCard.astro';
+import { path, useT, type Locale } from '../i18n';
+import { usePages } from '../i18n/pages';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPortfolioProjects } from '../lib/data';
+import { breadcrumbNode, graph, itemListNode, webPageNode } from '../lib/schema';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const p = usePages(locale).portfolio;
+const projects = await getPortfolioProjects();
+const industries = [...new Set(projects.map((x) => x.data.industry))];
+const url = path('portfolio', locale);
+const crumbs = [
+  { name: t.common.home, href: path('home', locale) },
+  { name: t.nav.portofolio, href: url },
+];
+const jsonLd = graph(locale, [
+  webPageNode({ url, name: p.title, description: p.description, locale, type: 'CollectionPage' }),
+  breadcrumbNode(crumbs.map((c) => ({ name: c.name, url: c.href }))),
+  itemListNode(projects.map((x) => ({ name: x.data.name, url: path(`project:${x.id}`, locale) }))),
+]);
+---
+
+<BaseLayout
+  title={p.title}
+  description={p.description}
+  locale={locale}
+  routeKey="portfolio"
+  jsonLd={jsonLd}
+  bannerAbove="white"
+>
+  <PageHero locale={locale} crumbs={crumbs} badge={p.badge} title={p.h1} lead={p.lead} />
+  <section class="bg-white" aria-label={p.h1}>
+    <div class="rz-container flex flex-col gap-[24px] pb-[clamp(48px,7.5vw,104px)]" data-filter-root>
+      <div role="group" aria-label={p.filterLabel} class="rz-js-only flex flex-wrap gap-[8px]">
+        <button type="button" aria-pressed="true" data-filter="" class="rz-filter">
+          {p.all}
+        </button>
+        {industries.map((i) => (
+          <button type="button" aria-pressed="false" data-filter={i} class="rz-filter">
+            {t.portfolio.industries[i]}
+          </button>
+        ))}
+      </div>
+      <p class="m-0 max-w-[760px] text-[17px] text-text-2">{p.intro}</p>
+      <div class="grid gap-[24px] md:grid-cols-2 lg:grid-cols-3" aria-live="polite">
+        {projects.map((x) => (
+          <ProjectCard project={x} locale={locale} headingLevel="h2" />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .rz-filter {
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    color: var(--color-text-2);
+    font-weight: 700;
+    font-size: 14.5px;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  .rz-filter[aria-pressed='true'] {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: var(--color-white);
+  }
+  :global(.no-js) .rz-js-only {
+    display: none;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-filter-root]').forEach((root) => {
+    const btns = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-industry]')];
+    btns.forEach((b) =>
+      b.addEventListener('click', () => {
+        const f = b.dataset.filter;
+        btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        cards.forEach((c) => (c.hidden = !!f && c.dataset.industry !== f));
+      }),
+    );
+  });
+</script>

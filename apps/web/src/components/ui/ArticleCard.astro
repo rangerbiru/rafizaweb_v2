@@ -1,0 +1,118 @@
+---
+/** Kartu artikel dengan stretched link (seluruh kartu bisa diklik lewat satu link utama). */
+import { Image } from 'astro:assets';
+import ArticleIllustration from './ArticleIllustration.astro';
+import { formatDate, type Locale } from '../../i18n';
+import type { Article } from '../../lib/data';
+
+interface Props {
+  article: Article;
+  categoryName: string;
+  variant?: 'feature' | 'row' | 'grid';
+  locale?: Locale;
+  headingLevel?: 'h2' | 'h3';
+  langNote?: string;
+  preferIllustration?: boolean;
+  eager?: boolean;
+}
+const {
+  article,
+  categoryName,
+  variant = 'grid',
+  locale = 'id',
+  headingLevel: H = 'h3',
+  langNote,
+  preferIllustration = false,
+  eager = false,
+} = Astro.props;
+const d = article.data;
+const href = `/${article.id}/`;
+const illo =
+  d.illustration !== 'auto'
+    ? d.illustration
+    : ({ bisnis: 'chart', website: 'browser', tips: 'checklist' }[d.category.id] ?? 'browser');
+const useIllo = !d.cover || (preferIllustration && d.illustration !== 'auto');
+const isRow = variant === 'row';
+---
+
+<article
+  class:list={[
+    'rz-card relative flex min-w-0 rounded-card border border-border bg-white text-navy',
+    isRow
+      ? 'flex-1 flex-wrap gap-x-[20px] gap-y-[16px] p-[12px]'
+      : 'flex-col gap-[16px] px-[12px] pt-[12px] pb-[24px]',
+    variant === 'feature' && 'flex-[1.15_1_440px]',
+  ]}
+  lang="id"
+>
+  {useIllo ? (
+    <ArticleIllustration kind={illo} variant={isRow ? 'row' : 'feature'} />
+  ) : (
+    <div
+      class:list={[
+        'overflow-hidden rounded-[12px] bg-surface',
+        isRow ? 'min-h-[160px] flex-[1_1_160px]' : 'aspect-video',
+      ]}
+    >
+      <Image
+        src={d.cover!}
+        alt={d.coverAlt}
+        widths={[360, 560, 720, 960]}
+        sizes={isRow ? '(min-width: 768px) 200px, 100vw' : '(min-width: 1024px) 560px, 100vw'}
+        class="size-full object-cover"
+        loading={eager ? 'eager' : 'lazy'}
+      />
+    </div>
+  )}
+  <div
+    class:list={[
+      'flex min-w-0 flex-col gap-[8px]',
+      isRow ? 'flex-[2_1_220px] pt-[4px] pe-[8px] pb-[8px]' : 'px-[12px]',
+    ]}
+  >
+    <div class="flex flex-wrap items-center gap-x-[12px] gap-y-[4px]">
+      <span class="rounded-pill bg-brand-50 px-[10px] py-[3px] text-[13px] font-bold text-brand">
+        {categoryName}
+      </span>
+      <time datetime={d.publishedAt.toISOString().slice(0, 10)} class="text-[14px] text-muted">
+        {formatDate(d.publishedAt, locale)}
+      </time>
+      {langNote && (
+        <span class="text-[13px] text-muted" lang={locale}>
+          {langNote}
+        </span>
+      )}
+    </div>
+    <H
+      class:list={[
+        'm-0 font-heading leading-[1.3] font-bold',
+        isRow ? 'text-[18px] tracking-[-0.015em]' : 'text-[clamp(19px,1.6vw,22px)] tracking-[-0.02em]',
+      ]}
+    >
+      <a href={href} class="rz-stretch text-navy no-underline hover:text-brand">
+        {d.title}
+      </a>
+    </H>
+    <p
+      class:list={['m-0 text-text-2', isRow ? 'text-[14.5px] leading-[1.6]' : 'text-[15.5px] leading-[1.65]']}
+    >
+      {d.excerpt}
+    </p>
+  </div>
+</article>
+
+<style>
+  .rz-stretch::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+  }
+  .rz-stretch:focus-visible {
+    outline: none;
+  }
+  .rz-stretch:focus-visible::after {
+    outline: 3px solid var(--color-amber);
+    outline-offset: 3px;
+  }
+</style>

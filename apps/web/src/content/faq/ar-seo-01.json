@@ -1,0 +1,7 @@
+{
+  "question": "ما هو SEO وGEO؟",
+  "answer": "SEO هو تحسين ظهور نشاطك في جوجل، وGEO هو تحسين يجعل مساعدات الذكاء الاصطناعي مثل ChatGPT وGemini توصي بنشاطك.",
+  "scope": ["layanan:seo"],
+  "order": 1,
+  "locale": "ar"
+}

@@ -1,0 +1,23 @@
+---
+interface Props {
+  tone?: 'brand' | 'amber' | 'navy' | 'solid';
+  class?: string;
+}
+const { tone = 'brand', class: cls } = Astro.props;
+const tones = {
+  brand: 'bg-brand-50 text-brand',
+  amber: 'bg-amber text-navy',
+  navy: 'bg-navy text-white',
+  solid: 'bg-brand text-white',
+};
+---
+
+<span
+  class:list={[
+    'inline-flex items-center rounded-pill px-[10px] py-[3px] text-[13px] font-bold',
+    tones[tone],
+    cls,
+  ]}
+>
+  <slot />
+</span>

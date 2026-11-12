@@ -1,0 +1,14 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getPortfolioProjects } from '../../../lib/data';
+import PortfolioDetail from '../../../views/PortfolioDetail.astro';
+
+export const getStaticPaths = (async () => {
+  const all = await getPortfolioProjects();
+  return all.map((project) => ({ params: { slug: project.id }, props: { project, all } }));
+}) satisfies GetStaticPaths;
+
+const { project, all } = Astro.props;
+---
+
+<PortfolioDetail locale="en" project={project} all={all} />

@@ -1,0 +1,15 @@
+---
+import { blogData, pageSlice, PER_PAGE } from '../../lib/blog';
+import BlogList from '../../views/BlogList.astro';
+
+const { articles, cats } = await blogData();
+const lastPage = Math.max(1, Math.ceil(articles.length / PER_PAGE));
+---
+
+<BlogList
+  articles={pageSlice(articles, 1)}
+  categories={cats}
+  currentPage={1}
+  lastPage={lastPage}
+  baseUrl="/blog/"
+/>

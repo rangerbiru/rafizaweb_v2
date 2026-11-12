@@ -1,0 +1,7 @@
+{
+  "question": "Apakah Company Profile sudah termasuk email bisnis?",
+  "answer": "Ya. Paket Bisnis Growth termasuk 1 email bisnis dengan domain sendiri, dan Bisnis Prime termasuk 2 email bisnis.",
+  "scope": ["layanan:cp"],
+  "order": 2,
+  "locale": "id"
+}

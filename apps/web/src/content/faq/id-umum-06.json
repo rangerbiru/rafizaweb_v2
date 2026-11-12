@@ -1,0 +1,10 @@
+{
+  "question": "Berapa biaya perpanjangan setiap tahun?",
+  "answer": "Rp500.000/tahun untuk Starter UMKM dan Bisnis Growth, serta Rp1.000.000/tahun untuk Bisnis Prime. Biaya ini sudah mencakup hosting dan domain. Perpanjangan dimulai pada tahun kedua, karena hosting dan domain .com tahun pertama sudah termasuk di harga paket.",
+  "scope": [
+    "home",
+    "harga"
+  ],
+  "order": 6,
+  "locale": "id"
+}

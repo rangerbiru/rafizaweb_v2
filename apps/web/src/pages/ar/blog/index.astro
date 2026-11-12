@@ -1,0 +1,16 @@
+---
+import { blogData, pageSlice, PER_PAGE } from '../../../lib/blog';
+import { path } from '../../../i18n';
+import BlogList from '../../../views/BlogList.astro';
+
+const { articles, cats } = await blogData();
+---
+
+<BlogList
+  articles={pageSlice(articles, 1)}
+  categories={cats}
+  currentPage={1}
+  lastPage={Math.max(1, Math.ceil(articles.length / PER_PAGE))}
+  baseUrl={path('blog', 'ar')}
+  locale="ar"
+/>

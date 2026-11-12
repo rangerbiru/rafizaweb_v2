@@ -1,0 +1,9 @@
+{
+  "question": "Apakah saya bisa mengubah isi website sendiri?",
+  "answer": "Bisa. Anda mendapat akses admin dan panduan video untuk mengubah teks, gambar, dan harga tanpa coding, jadi pembaruan kecil tidak perlu menunggu developer. Jika butuh bantuan, konsultasi update konten tersedia selama masa support: 1 bulan untuk Starter UMKM dan 3 bulan untuk Bisnis Growth dan Bisnis Prime.",
+  "scope": [
+    "home"
+  ],
+  "order": 5,
+  "locale": "id"
+}

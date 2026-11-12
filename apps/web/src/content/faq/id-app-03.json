@@ -1,0 +1,7 @@
+{
+  "question": "Apakah aplikasi bisa dikembangkan bertahap?",
+  "answer": "Bisa. Sistem dapat dikembangkan bertahap, dengan akses berbasis akun untuk tim Anda.",
+  "scope": ["layanan:app"],
+  "order": 3,
+  "locale": "id"
+}

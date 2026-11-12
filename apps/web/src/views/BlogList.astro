@@ -1,0 +1,168 @@
+---
+import PageHero from '../components/layout/PageHero.astro';
+import ArticleCard from '../components/ui/ArticleCard.astro';
+import Icon from '../components/ui/Icon.astro';
+import { path, useT, type Locale } from '../i18n';
+import { usePages } from '../i18n/pages';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Article } from '../lib/data';
+import { breadcrumbNode, graph, itemListNode, webPageNode } from '../lib/schema';
+
+interface Props {
+  articles: Article[];
+  categories: { id: string; name: string }[];
+  currentPage: number;
+  lastPage: number;
+  baseUrl: string;
+  activeCategory?: { id: string; name: string; description: string };
+  locale?: Locale;
+}
+const { articles, categories, currentPage, lastPage, baseUrl, activeCategory, locale = 'id' } = Astro.props;
+const t = useT(locale);
+const note = locale === 'id' ? undefined : t.common.idOnly;
+const p = usePages(locale).blog;
+const catName = new Map(categories.map((c) => [c.id, c.name]));
+const pageUrl = (n: number) => (n === 1 ? baseUrl : `${baseUrl}${n}/`);
+const url = pageUrl(currentPage);
+const featured = currentPage === 1 && !activeCategory ? articles[0] : undefined;
+const list = featured ? articles.slice(1) : articles;
+const suffix = currentPage > 1 ? ` – ${p.pageTpl(currentPage)}` : '';
+const title = activeCategory
+  ? `${p.catTitleTpl(activeCategory.name)}${suffix}`
+  : `${p.title.replace(' | Rafizaweb', '')}${suffix} | Rafizaweb`.replace(/^(.{0,60}).*$/, '$1');
+const h1 = activeCategory ? p.catH1Tpl(activeCategory.name) : p.h1;
+let description = activeCategory
+  ? `${activeCategory.description} Kumpulan artikel kategori ${activeCategory.name} dari Rafizaweb, jasa pembuatan website di Bekasi.`
+  : p.description;
+if (currentPage > 1)
+  description = `${description.slice(0, 140).replace(/\s+\S*$/, '')} (${p.pageTpl(currentPage)}).`;
+const crumbs = [
+  { name: t.common.home, href: path('home', locale) },
+  { name: t.nav.blog, href: path('blog', locale) },
+  ...(activeCategory ? [{ name: activeCategory.name, href: baseUrl }] : []),
+];
+const jsonLd = graph(locale, [
+  webPageNode({ url, name: title, description, locale, type: activeCategory ? 'CollectionPage' : 'Blog' }),
+  breadcrumbNode(crumbs.map((c) => ({ name: c.name, url: c.href }))),
+  itemListNode(articles.map((a) => ({ name: a.data.title, url: `/${a.id}/` }))),
+]);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  locale={locale}
+  routeKey={activeCategory ? undefined : 'blog'}
+  canonicalPath={url}
+  jsonLd={jsonLd}
+  bannerAbove="white"
+>
+  <PageHero locale={locale} crumbs={crumbs} title={h1} lead={activeCategory?.description ?? p.lead}>
+    {locale === 'id' && (
+      <nav aria-label={p.categories}>
+        <ul class="m-0 flex list-none flex-wrap gap-[8px] p-0">
+          <li>
+            <a
+              href={path('blog', locale)}
+              class:list={['rz-cat', !activeCategory && 'rz-on']}
+              aria-current={!activeCategory ? 'page' : undefined}
+            >
+              {p.all}
+            </a>
+          </li>
+          {categories.map((c) => (
+            <li>
+              <a
+                href={`/blog/kategori/${c.id}/`}
+                class:list={['rz-cat', activeCategory?.id === c.id && 'rz-on']}
+                aria-current={activeCategory?.id === c.id ? 'page' : undefined}
+              >
+                {c.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+  </PageHero>
+  <section class="bg-white" aria-label={h1}>
+    <div class="rz-container flex flex-col gap-[32px] pb-[clamp(48px,7.5vw,104px)]">
+      {articles.length === 0 && <p class="rz-lead">{p.empty}</p>}
+      {featured && (
+        <div class="flex flex-col gap-[12px]">
+          <span class="text-[14px] font-bold text-brand">{p.featured}</span>
+          <div class="flex">
+            <ArticleCard
+              article={featured}
+              categoryName={catName.get(featured.data.category.id) ?? ''}
+              variant="feature"
+              locale={locale}
+              langNote={note}
+              headingLevel="h2"
+              eager
+            />
+          </div>
+        </div>
+      )}
+      <div class="grid gap-[24px] md:grid-cols-2 lg:grid-cols-3">
+        {list.map((a) => (
+          <ArticleCard
+            article={a}
+            categoryName={catName.get(a.data.category.id) ?? ''}
+            locale={locale}
+            langNote={note}
+            headingLevel="h2"
+          />
+        ))}
+      </div>
+      {lastPage > 1 && (
+        <nav aria-label={p.pagination} class="flex flex-wrap items-center justify-center gap-[8px]">
+          {currentPage > 1 && (
+            <a href={pageUrl(currentPage - 1)} class="rz-cat" rel="prev">
+              <Icon name="arrow" size={16} class="rotate-180" /> {p.prev}
+            </a>
+          )}
+          {Array.from({ length: lastPage }, (_, i) => i + 1).map((n) => (
+            <a
+              href={pageUrl(n)}
+              class:list={['rz-cat', n === currentPage && 'rz-on']}
+              aria-current={n === currentPage ? 'page' : undefined}
+            >
+              {n}
+            </a>
+          ))}
+          {currentPage < lastPage && (
+            <a href={pageUrl(currentPage + 1)} class="rz-cat" rel="next">
+              {p.next} <Icon name="arrow" size={16} />
+            </a>
+          )}
+        </nav>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .rz-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    color: var(--color-text-2);
+    font-weight: 700;
+    font-size: 14.5px;
+    text-decoration: none;
+  }
+  .rz-cat:hover {
+    color: var(--color-brand);
+  }
+  .rz-cat.rz-on {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: var(--color-white);
+  }
+</style>

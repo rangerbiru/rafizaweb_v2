@@ -1,0 +1,9 @@
+{
+  "question": "Can I edit the website content myself?",
+  "answer": "Yes. You get admin access and a video guide for changing text, images, and prices without coding, so small updates never have to wait for a developer. If you need help, content update consultations are available during the support period: 1 month on Small Business Starter and 3 months on Business Growth and Business Prime.",
+  "scope": [
+    "home"
+  ],
+  "order": 5,
+  "locale": "en"
+}

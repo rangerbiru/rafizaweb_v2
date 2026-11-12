@@ -1,0 +1,17 @@
+---
+/** Scroll horizontal dengan scroll-snap tanpa scrollbar (di mobile), wrap/grid di desktop diatur pemanggil. */
+interface Props {
+  class?: string;
+  label?: string;
+}
+const { class: cls, label } = Astro.props;
+---
+
+<div
+  class:list={['rz-hscroll flex overflow-x-auto', cls]}
+  role={label ? 'region' : undefined}
+  aria-label={label}
+  tabindex={label ? 0 : undefined}
+>
+  <slot />
+</div>

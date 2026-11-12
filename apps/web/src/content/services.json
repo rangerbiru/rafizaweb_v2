@@ -1,0 +1,343 @@
+{
+  "arReviewed": false,
+  "items": [
+    {
+      "key": "lp",
+      "slug": "landing-page-umkm",
+      "slugEn": "landing-page",
+      "soon": false,
+      "priceFrom": 699000,
+      "plan": "starter",
+      "id": {
+        "name": "Landing Page UMKM",
+        "tagline": "Untuk usaha yang baru mulai online",
+        "priceShort": "Mulai Rp699.000",
+        "price": "Mulai Rp699.000",
+        "desc": "Satu halaman yang fokus mengubah pengunjung jadi chat WhatsApp. Cocok untuk katering, salon, bengkel, dan toko lokal.",
+        "points": [
+          "Tombol WhatsApp dengan pesan otomatis",
+          "Integrasi Google Maps dan sosial media",
+          "Selesai 4–7 hari kerja"
+        ],
+        "problems": [
+          "Calon pelanggan sulit menemukan info dan kontak usaha Anda di internet",
+          "Pertanyaan pelanggan tersebar di banyak tempat dan mudah terlewat",
+          "Usaha belum punya alamat online yang bisa dibagikan di sosial media dan Google Maps"
+        ]
+      },
+      "en": {
+        "name": "Small Business Landing Page",
+        "tagline": "For businesses just getting online",
+        "priceShort": "From Rp699,000",
+        "price": "From Rp699,000",
+        "desc": "A single page focused on turning visitors into WhatsApp chats. Ideal for caterers, salons, repair shops, and local stores.",
+        "points": [
+          "WhatsApp button with a pre-filled message",
+          "Google Maps and social media integration",
+          "Done in 4–7 working days"
+        ],
+        "problems": [
+          "Prospective customers struggle to find your business details and contact online",
+          "Customer questions are scattered across many places and easy to miss",
+          "Your business has no online address to share on social media and Google Maps"
+        ]
+      },
+      "ar": {
+        "name": "صفحة هبوط للمشاريع الصغيرة",
+        "tagline": "للمشاريع التي بدأت للتو على الإنترنت",
+        "priceShort": "تبدأ من 699,000 روبية",
+        "price": "تبدأ من 699,000 روبية",
+        "desc": "صفحة واحدة تركّز على تحويل الزوار إلى محادثات واتساب. مناسبة لخدمات الطعام والصالونات وورش الإصلاح والمتاجر المحلية.",
+        "points": [
+          "زر واتساب برسالة جاهزة",
+          "ربط مع خرائط جوجل ووسائل التواصل الاجتماعي",
+          "التسليم خلال 4–7 أيام عمل"
+        ],
+        "problems": [
+          "يصعب على العملاء المحتملين العثور على معلومات نشاطك ووسيلة التواصل عبر الإنترنت",
+          "أسئلة العملاء متفرقة في أماكن كثيرة ويسهل تفويتها",
+          "لا يملك نشاطك عنوانًا إلكترونيًا لمشاركته على وسائل التواصل وخرائط جوجل"
+        ]
+      }
+    },
+    {
+      "key": "cp",
+      "slug": "company-profile",
+      "slugEn": "company-profile",
+      "soon": false,
+      "priceFrom": 1499000,
+      "plan": "growth",
+      "id": {
+        "name": "Company Profile",
+        "tagline": "Untuk perusahaan, CV, dan yayasan",
+        "priceShort": "Mulai Rp1.499.000",
+        "price": "Mulai Rp1.499.000",
+        "desc": "Profil perusahaan yang rapi untuk meyakinkan calon klien, mitra, dan panitia tender.",
+        "points": [
+          "Halaman tentang, layanan, portofolio, dan kontak",
+          "Email bisnis dengan domain sendiri",
+          "Siap dicantumkan di proposal dan kartu nama"
+        ],
+        "problems": [
+          "Calon klien dan mitra ingin memeriksa profil perusahaan sebelum bekerja sama",
+          "Proposal dan dokumen tender butuh alamat website dan email resmi",
+          "Informasi layanan dan portofolio perusahaan belum tersusun di satu tempat"
+        ]
+      },
+      "en": {
+        "name": "Company Profile",
+        "tagline": "For companies, firms, and foundations",
+        "priceShort": "From Rp1,499,000",
+        "price": "From Rp1,499,000",
+        "desc": "A polished company profile that convinces prospective clients, partners, and tender committees.",
+        "points": [
+          "About, services, portfolio, and contact pages",
+          "Business email on your own domain",
+          "Ready to put on proposals and business cards"
+        ],
+        "problems": [
+          "Prospective clients and partners want to check your company profile before working together",
+          "Proposals and tender documents need an official website and email address",
+          "Your services and portfolio are not yet organized in one place"
+        ]
+      },
+      "ar": {
+        "name": "الملف التعريفي للشركة",
+        "tagline": "للشركات والمؤسسات والجمعيات",
+        "priceShort": "تبدأ من 1,499,000 روبية",
+        "price": "تبدأ من 1,499,000 روبية",
+        "desc": "ملف تعريفي منظّم للشركة يقنع العملاء المحتملين والشركاء ولجان المناقصات.",
+        "points": [
+          "صفحات من نحن والخدمات والأعمال والتواصل",
+          "بريد إلكتروني للأعمال باسم نطاقك الخاص",
+          "جاهز لإدراجه في العروض وبطاقات العمل"
+        ],
+        "problems": [
+          "يرغب العملاء والشركاء المحتملون في الاطلاع على ملف الشركة قبل التعاون",
+          "تحتاج العروض ووثائق المناقصات إلى موقع وبريد إلكتروني رسميين",
+          "معلومات الخدمات والأعمال غير منظمة في مكان واحد"
+        ]
+      }
+    },
+    {
+      "key": "toko",
+      "slug": "toko-online",
+      "slugEn": "online-store",
+      "soon": false,
+      "priceFrom": null,
+      "plan": "prime",
+      "id": {
+        "name": "Toko Online",
+        "tagline": "Untuk jualan produk langsung",
+        "priceShort": "Lewat konsultasi",
+        "price": "Estimasi lewat konsultasi gratis",
+        "desc": "Katalog produk dan pemesanan yang bisa Anda kelola sendiri, tanpa potongan komisi marketplace.",
+        "points": [
+          "Kelola produk, harga, dan stok dari dashboard",
+          "Pesanan langsung masuk ke WhatsApp",
+          "Panduan video kelola toko"
+        ],
+        "problems": [
+          "Komisi marketplace memotong keuntungan setiap penjualan",
+          "Katalog produk, harga, dan stok sulit diperbarui",
+          "Pesanan dari banyak kanal sulit dicatat"
+        ]
+      },
+      "en": {
+        "name": "Online Store",
+        "tagline": "For selling products directly",
+        "priceShort": "By consultation",
+        "price": "Estimate via free consultation",
+        "desc": "A product catalog and ordering system you manage yourself, with no marketplace commission.",
+        "points": [
+          "Manage products, prices, and stock from a dashboard",
+          "Orders go straight to WhatsApp",
+          "Video guide for managing your store"
+        ],
+        "problems": [
+          "Marketplace commissions cut into every sale",
+          "Your product catalog, prices, and stock are hard to keep updated",
+          "Orders from many channels are hard to track"
+        ]
+      },
+      "ar": {
+        "name": "متجر إلكتروني",
+        "tagline": "لبيع المنتجات مباشرة",
+        "priceShort": "حسب الاستشارة",
+        "price": "التقدير عبر استشارة مجانية",
+        "desc": "كتالوج منتجات ونظام طلبات تديره بنفسك، دون عمولة الأسواق الإلكترونية.",
+        "points": [
+          "إدارة المنتجات والأسعار والمخزون من لوحة التحكم",
+          "تصل الطلبات مباشرة إلى واتساب",
+          "دليل فيديو لإدارة المتجر"
+        ],
+        "problems": [
+          "عمولات الأسواق الإلكترونية تقتطع من أرباح كل عملية بيع",
+          "يصعب تحديث كتالوج المنتجات والأسعار والمخزون",
+          "يصعب تسجيل الطلبات الواردة من قنوات متعددة"
+        ]
+      }
+    },
+    {
+      "key": "app",
+      "slug": "aplikasi-web-mobile",
+      "slugEn": "web-mobile-apps",
+      "soon": false,
+      "priceFrom": null,
+      "plan": "",
+      "id": {
+        "name": "Aplikasi Web & Mobile",
+        "tagline": "Untuk sistem internal bisnis",
+        "priceShort": "Lewat konsultasi",
+        "price": "Estimasi lewat konsultasi gratis",
+        "desc": "Sistem custom untuk kebutuhan spesifik, dari kasir dan absensi sampai booking dan dashboard laporan.",
+        "points": [
+          "Dirancang mengikuti alur kerja bisnis Anda",
+          "Akses berbasis akun untuk tim",
+          "Bisa dikembangkan bertahap"
+        ],
+        "problems": [
+          "Pekerjaan harian masih dicatat manual di kertas atau spreadsheet",
+          "Aplikasi jadi tidak cocok dengan alur kerja bisnis Anda",
+          "Tim butuh akses data yang sama dengan hak akses berbeda"
+        ]
+      },
+      "en": {
+        "name": "Web & Mobile Apps",
+        "tagline": "For internal business systems",
+        "priceShort": "By consultation",
+        "price": "Estimate via free consultation",
+        "desc": "Custom systems for specific needs, from point of sale and attendance to bookings and reporting dashboards.",
+        "points": [
+          "Designed around your business workflow",
+          "Account-based access for your team",
+          "Can be developed in stages"
+        ],
+        "problems": [
+          "Daily work is still recorded manually on paper or spreadsheets",
+          "Off-the-shelf apps do not fit your business workflow",
+          "Your team needs access to the same data with different permissions"
+        ]
+      },
+      "ar": {
+        "name": "تطبيقات الويب والجوال",
+        "tagline": "للأنظمة الداخلية للأعمال",
+        "priceShort": "حسب الاستشارة",
+        "price": "التقدير عبر استشارة مجانية",
+        "desc": "أنظمة مخصصة لاحتياجات محددة، من نقاط البيع والحضور إلى الحجوزات ولوحات التقارير.",
+        "points": ["مصمم وفق سير عمل نشاطك التجاري", "وصول بحسابات لأعضاء الفريق", "قابل للتطوير على مراحل"],
+        "problems": [
+          "لا يزال العمل اليومي يُسجَّل يدويًا على الورق أو الجداول",
+          "التطبيقات الجاهزة لا تناسب سير عمل نشاطك",
+          "يحتاج فريقك إلى الوصول إلى البيانات نفسها بصلاحيات مختلفة"
+        ]
+      }
+    },
+    {
+      "key": "seo",
+      "slug": "seo-geo",
+      "slugEn": "seo-geo",
+      "soon": false,
+      "priceFrom": null,
+      "plan": "growth",
+      "id": {
+        "name": "SEO & GEO",
+        "tagline": "Agar ditemukan di Google dan AI",
+        "priceShort": "Lewat konsultasi",
+        "price": "Estimasi lewat konsultasi gratis",
+        "desc": "Optimasi agar bisnis Anda muncul di Google dan direkomendasikan asisten AI seperti ChatGPT dan Gemini.",
+        "points": [
+          "Riset kata kunci lokal Bekasi",
+          "Schema markup dan Google Business Profile",
+          "Artikel yang menjawab pertanyaan pelanggan"
+        ],
+        "problems": [
+          "Website sudah ada tetapi jarang muncul di hasil pencarian Google",
+          "Bisnis belum direkomendasikan saat pelanggan bertanya ke asisten AI",
+          "Profil Google Business dan konten website belum dioptimasi"
+        ]
+      },
+      "en": {
+        "name": "SEO & GEO",
+        "tagline": "Get found on Google and AI",
+        "priceShort": "By consultation",
+        "price": "Estimate via free consultation",
+        "desc": "Optimization so your business shows up on Google and gets recommended by AI assistants such as ChatGPT and Gemini.",
+        "points": [
+          "Local keyword research for Bekasi",
+          "Schema markup and Google Business Profile",
+          "Articles that answer your customers' questions"
+        ],
+        "problems": [
+          "You have a website but it rarely shows up in Google search results",
+          "Your business is not recommended when customers ask AI assistants",
+          "Your Google Business Profile and website content are not optimized"
+        ]
+      },
+      "ar": {
+        "name": "تحسين محركات البحث وGEO",
+        "tagline": "ليجدك العملاء على جوجل والذكاء الاصطناعي",
+        "priceShort": "حسب الاستشارة",
+        "price": "التقدير عبر استشارة مجانية",
+        "desc": "تحسين يجعل نشاطك يظهر على جوجل وتوصي به مساعدات الذكاء الاصطناعي مثل ChatGPT وGemini.",
+        "points": [
+          "بحث الكلمات المفتاحية المحلية في بيكاسي",
+          "ترميز Schema وملف جوجل التجاري",
+          "مقالات تجيب عن أسئلة عملائك"
+        ],
+        "problems": [
+          "لديك موقع لكنه نادرًا ما يظهر في نتائج بحث جوجل",
+          "لا يُوصى بنشاطك عندما يسأل العملاء مساعدات الذكاء الاصطناعي",
+          "ملفك التجاري على جوجل ومحتوى موقعك غير مُحسَّنين"
+        ]
+      }
+    },
+    {
+      "key": "kelas",
+      "slug": "",
+      "slugEn": "",
+      "soon": true,
+      "priceFrom": null,
+      "plan": "",
+      "id": {
+        "name": "Kelas Coding Web",
+        "tagline": "Belajar bikin website sendiri",
+        "priceShort": "Segera hadir",
+        "price": "Segera hadir di Rafizaweb Academy",
+        "desc": "Belajar membuat website dari nol sampai online bersama Rafizaweb Academy.",
+        "points": [
+          "Materi bertahap dari HTML sampai website online",
+          "Proyek nyata untuk portofolio",
+          "Belajar sesuai jadwal sendiri"
+        ],
+        "problems": []
+      },
+      "en": {
+        "name": "Web Coding Class",
+        "tagline": "Learn to build your own website",
+        "priceShort": "Coming soon",
+        "price": "Coming soon at Rafizaweb Academy",
+        "desc": "Learn to build a website from scratch to live with Rafizaweb Academy.",
+        "points": [
+          "Step-by-step lessons from HTML to a live website",
+          "Real projects for your portfolio",
+          "Learn on your own schedule"
+        ],
+        "problems": []
+      },
+      "ar": {
+        "name": "دورة برمجة المواقع",
+        "tagline": "تعلّم بناء موقعك بنفسك",
+        "priceShort": "قريبًا",
+        "price": "قريبًا في أكاديمية رافيزا ويب",
+        "desc": "تعلّم بناء موقع إلكتروني من الصفر حتى النشر مع أكاديمية رافيزا ويب.",
+        "points": [
+          "دروس متدرجة من HTML حتى موقع منشور",
+          "مشاريع حقيقية لملف أعمالك",
+          "تعلّم وفق جدولك الخاص"
+        ],
+        "problems": []
+      }
+    }
+  ]
+}

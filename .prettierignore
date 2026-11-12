@@ -1,0 +1,13 @@
+design/
+docs/
+pnpm-lock.yaml
+dist/
+.astro/
+**/src/content/articles/**
+apps/web/public/
+*.md
+apps/web/src/content/
+supabase/
+**/*.mdoc
+apps/web/test-results/
+apps/web/playwright-report/

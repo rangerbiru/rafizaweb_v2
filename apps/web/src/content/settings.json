@@ -1,0 +1,67 @@
+{
+  "businessName": "Rafizaweb",
+  "tagline": "Solusi Digital Terpercaya",
+  "whatsapp": "6281317435630",
+  "whatsappDisplay": "+62 813-1743-5630",
+  "email": "admin@rafizaweb.com",
+  "address": {
+    "street": "Kampung Cibitung Seberang RT.04/RW.008, Cimuning, Kec. Mustika Jaya",
+    "city": "Kota Bekasi",
+    "region": "Jawa Barat",
+    "postal": "17155",
+    "country": "ID"
+  },
+  "hours": "Setiap hari, 06.00–22.00 WIB",
+  "geo": {
+    "lat": "[PLACEHOLDER koordinat]",
+    "lng": "[PLACEHOLDER koordinat]"
+  },
+  "gbpUrl": "https://www.google.com/maps/search/Rafizaweb+Bekasi",
+  "gbpUrlIsPlaceholder": true,
+  "foundingDate": "2025-01",
+  "rating": "5,0",
+  "reviewCount": 6,
+  "ratingIsDummy": true,
+  "reviewsEnabled": false,
+  "liveSites": "6+",
+  "liveSitesVerified": false,
+  "replyPromise": "1 jam kerja",
+  "replyPromiseVerified": true,
+  "socials": {
+    "instagram": "https://www.instagram.com/rafizaweb/",
+    "tiktok": "https://www.tiktok.com/@rafizaweb",
+    "youtube": "https://www.youtube.com/@rafizaweb",
+    "facebook": "https://www.facebook.com/profile.php?id=61574234344308",
+    "lynk": "https://lynk.id/rafizastore"
+  },
+  "founder": {
+    "name": "Arrafi Septiawan",
+    "fullName": "Muhammad Arrafi Septiawan",
+    "jobTitle": "Founder Rafizaweb & Front-End Developer",
+    "photo": "/images/founder.webp",
+    "bio": "Muhammad Arrafi Septiawan adalah founder Rafizaweb dan front-end developer di Bekasi. Ia membangun website dengan HTML, CSS, JavaScript, PHP, React, Next.js, Laravel, dan WordPress, serta pernah mengajar pengembangan web untuk siswa SMK jurusan RPL.",
+    "sameAs": [
+      "https://www.linkedin.com/in/muhammad-arrafi-septiawan-2619b3224/",
+      "https://github.com/rangerbiru",
+      "https://www.instagram.com/arrafi_septiawan/",
+      "https://arrafi-septiawan.vercel.app/"
+    ],
+    "knowsAbout": [
+      "Pengembangan web",
+      "Front-end development",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "PHP",
+      "React",
+      "Next.js",
+      "Laravel",
+      "Tailwind CSS",
+      "WordPress",
+      "WooCommerce",
+      "React Native",
+      "Supabase"
+    ]
+  },
+  "revisionCount": "3"
+}

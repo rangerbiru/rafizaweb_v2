@@ -1,0 +1,7 @@
+{
+  "question": "What kinds of apps can you build?",
+  "answer": "Custom systems for specific needs, such as point of sale, attendance, bookings, and reporting dashboards.",
+  "scope": ["layanan:app"],
+  "order": 2,
+  "locale": "en"
+}

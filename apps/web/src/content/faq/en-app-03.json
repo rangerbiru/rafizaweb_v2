@@ -1,0 +1,7 @@
+{
+  "question": "Can the app be developed in stages?",
+  "answer": "Yes. The system can be developed in stages, with account-based access for your team.",
+  "scope": ["layanan:app"],
+  "order": 3,
+  "locale": "en"
+}

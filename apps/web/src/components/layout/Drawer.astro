@@ -1,0 +1,179 @@
+---
+import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
+import { alternate, LOCALES, path, useT, type Locale, type RouteKey } from '../../i18n';
+import { settings } from '../../lib/data';
+import { waHref, waTrack } from '../../lib/wa';
+
+interface Props {
+  locale: Locale;
+  routeKey?: RouteKey;
+  isHome?: boolean;
+}
+const { locale, routeKey, isHome = false } = Astro.props;
+const t = useT(locale);
+const home = path('home', locale);
+const a = (id: string) => (isHome ? `#${id}` : `${home}#${id}`);
+
+const items = [
+  { id: 'layanan', href: path('services', locale) },
+  { id: 'portofolio', href: path('portfolio', locale) },
+  { id: 'proses', href: a('proses') },
+  { id: 'harga', href: path('pricing', locale) },
+  { id: 'blog', href: path('blog', locale) },
+  { id: 'faq', href: a('faq') },
+  { id: 'kontak', href: path('contact', locale) },
+] as const;
+const more = [
+  { label: t.nav.tentang, href: path('about', locale), ext: false },
+  { label: t.nav.academy, href: a('ekosistem'), ext: false },
+  { label: t.nav.store, href: settings.socials.lynk, ext: true },
+];
+const langCodes: Record<Locale, string> = { id: 'ID', en: 'EN', ar: 'AR' };
+---
+
+<div data-drawer-root class="rz-droot fixed inset-0 z-40 overflow-hidden lg:hidden">
+  <div data-drawer-overlay class="rz-overlay absolute inset-0 bg-navy/50" aria-hidden="true"></div>
+  <nav
+    id="drawer"
+    aria-label={t.common.mobileNavLabel}
+    data-drawer
+    class="rz-drawer absolute top-0 end-0 flex h-dvh max-h-dvh w-[320px] max-w-[88%] flex-col gap-[16px] overflow-y-auto bg-white px-[16px] pt-[16px] pb-[20px] shadow-raised"
+  >
+    <div class="flex items-center justify-between gap-[12px]">
+      <Logo mark={false} />
+      <button
+        type="button"
+        class="flex size-[44px] items-center justify-center rounded-pill border border-border bg-white p-0 text-navy"
+        aria-label={t.common.closeMenu}
+        data-drawer-close
+      >
+        <Icon name="close" size={20} />
+      </button>
+    </div>
+    <ul class="m-0 flex list-none flex-col gap-[2px] p-0">
+      {items.map((n) => (
+        <li>
+          <a
+            href={n.href}
+            data-drawer-link
+            class="rz-dnav flex min-h-[48px] items-center justify-between gap-[12px] rounded-[12px] px-[14px] py-[10px] font-heading text-[17px] font-bold"
+          >
+            {t.nav[n.id]}
+            <Icon name="chevron-right" size={16} stroke={2.2} class="opacity-50" />
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="flex flex-col gap-[2px] border-t border-border pt-[12px]">
+      <span class="px-[14px] pb-[4px] text-[13px] font-semibold text-muted">{t.common.more}</span>
+      {more.map((m) => (
+        <a
+          href={m.href}
+          data-drawer-link
+          class="rz-dnav flex min-h-[44px] items-center rounded-[12px] px-[14px] py-[8px] text-[15.5px] font-semibold"
+          {...(m.ext ? { target: '_blank', rel: 'noopener' } : {})}
+        >
+          {m.label}
+        </a>
+      ))}
+    </div>
+    <div
+      role="group"
+      aria-label={t.common.langLabel}
+      class="flex gap-[4px] rounded-[12px] border border-border bg-surface p-[4px]"
+    >
+      {LOCALES.map((l) => (
+        <a
+          href={alternate(routeKey, l)}
+          hreflang={l}
+          lang={l}
+          data-lang-link={l}
+          data-lang-from={locale}
+          aria-current={l === locale ? 'true' : undefined}
+          aria-label={t.langs[l]}
+          class:list={[
+            'rz-seg flex h-[44px] flex-1 items-center justify-center rounded-[12px] text-[14px] font-bold',
+            l === locale && 'rz-on',
+          ]}
+        >
+          {langCodes[l]}
+        </a>
+      ))}
+    </div>
+    <div class="mt-auto flex flex-col gap-[8px]">
+      <a
+        href={waHref(t.wa.general)}
+        class="flex h-[52px] items-center justify-center gap-[8px] rounded-pill bg-brand text-[16px] font-bold text-white no-underline hover:text-white"
+        {...waTrack('drawer', { locale })}
+      >
+        <Icon name="wa" />
+        {t.common.cta}
+      </a>
+      <span class="text-center text-[15px] font-bold text-navy" dir="ltr">
+        WhatsApp {settings.whatsappDisplay}
+      </span>
+    </div>
+  </nav>
+</div>
+
+<style>
+  /* Animasi hanya memakai transform + opacity (dikomposisi GPU). Easing "ease-out-expo" ringan agar terasa halus. */
+  .rz-droot {
+    pointer-events: none;
+    visibility: hidden;
+    transition: visibility 0s 0.5s;
+  }
+  :global(html[data-menu-open]) .rz-droot {
+    visibility: visible;
+    transition: none;
+  }
+  .rz-overlay {
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+    transition: opacity 0.45s ease;
+  }
+  .rz-drawer {
+    pointer-events: auto;
+    transform: translate3d(100%, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+    transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  :global([dir='rtl']) .rz-drawer {
+    transform: translate3d(-100%, 0, 0);
+  }
+  :global(html[data-menu-open]) .rz-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  :global(html[data-menu-open]) .rz-drawer {
+    transform: translate3d(0, 0, 0);
+  }
+  /* Isi drawer muncul bertahap setelah panel mulai bergeser. */
+  .rz-drawer > * {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+  }
+  :global(html[data-menu-open]) .rz-drawer > * {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.4s ease calc(0.12s + var(--i, 0) * 0.05s),
+      transform 0.5s cubic-bezier(0.32, 0.72, 0, 1) calc(0.12s + var(--i, 0) * 0.05s);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rz-drawer > * {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/drawer';
+</script>

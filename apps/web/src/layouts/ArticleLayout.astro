@@ -1,0 +1,414 @@
+---
+/**
+ * Layout artikel: breadcrumb, kategori, H1, meta (penulis, terbit, diperbarui, waktu baca), cover,
+ * "Inti artikel" (GEO), daftar isi (≥3 H2), body 68ch/18px, FAQ opsional, CTA layanan terkait,
+ * kotak penulis, artikel terkait, dan tombol bagikan (WA + salin link).
+ */
+import type { MarkdownHeading } from 'astro';
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import ArticleCard from '../components/ui/ArticleCard.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import Icon from '../components/ui/Icon.astro';
+import { formatDate, path, useT } from '../i18n';
+import { usePages } from '../i18n/pages';
+import { getService, readingTime, settings, type Article } from '../lib/data';
+import { fitDescription } from '../lib/seo';
+import {
+  blogPostingNode,
+  breadcrumbNode,
+  faqNode,
+  founderNode,
+  graph,
+  personNode,
+  SITE,
+  webPageNode,
+} from '../lib/schema';
+import { waHref, waTrack } from '../lib/wa';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  article: Article;
+  headings: MarkdownHeading[];
+  related: Article[];
+}
+const { article, headings, related } = Astro.props;
+const locale = 'id';
+const t = useT(locale);
+const p = usePages(locale).article;
+const d = article.data;
+const url = `/${article.id}/`;
+const category = await getEntry(d.category);
+const author = await getEntry(d.author);
+const catName = category?.data.name ?? '';
+const service = d.relatedService ? getService(d.relatedService, locale) : undefined;
+const h2s = headings.filter((h) => h.depth === 2);
+const minutes = readingTime(article.body);
+const baseTitle = d.seoTitle || d.title;
+const title = `${baseTitle} | Rafizaweb`.length <= 60 ? `${baseTitle} | Rafizaweb` : baseTitle.slice(0, 60);
+const description = fitDescription(d.seoDescription || d.excerpt);
+const authorUrl = '/tentang/';
+const ogImage = `/og${url.replace(/\/$/, '')}.png`;
+const crumbs = [
+  { name: t.common.home, href: '/' },
+  { name: t.nav.blog, href: '/blog/' },
+  { name: catName, href: `/blog/kategori/${d.category.id}/` },
+  { name: d.title, href: url },
+];
+const jsonLd = graph(locale, [
+  webPageNode({ url, name: title, description, locale }),
+  breadcrumbNode(crumbs.map((c) => ({ name: c.name, url: c.href }))),
+  blogPostingNode({
+    url,
+    title: d.title,
+    description,
+    image: ogImage,
+    published: d.publishedAt,
+    modified: d.updatedAt,
+    authorName: author?.data.name ?? 'Rafizaweb',
+    authorUrl,
+    section: catName,
+    keywords: d.tags,
+  }),
+  // Penulis = founder → pakai Person founder yang sama dengan halaman Tentang (satu entitas).
+  author && author.data.name === settings.founder.name
+    ? founderNode()
+    : author
+      ? personNode({
+          name: author.data.name,
+          url: authorUrl,
+          jobTitle: author.data.role,
+          description: author.data.bio,
+          image: author.data.photo || undefined,
+          sameAs: author.data.sameAs.length ? author.data.sameAs : undefined,
+        })
+      : null,
+  d.faq.length ? faqNode(d.faq.map((f) => ({ question: f.q, answer: f.a }))) : null,
+]);
+const shareText = `${d.title} ${SITE}${url}`;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  locale={locale}
+  canonicalPath={url}
+  ogImage={ogImage}
+  ogType="article"
+  noindex={d.noindex}
+  jsonLd={jsonLd}
+  publishedTime={d.publishedAt.toISOString()}
+  modifiedTime={(d.updatedAt ?? d.publishedAt).toISOString()}
+  bannerAbove="white"
+>
+  <article class="bg-white" lang="id">
+    <header class="rz-ahero">
+      <div class="rz-container flex flex-col items-start gap-[18px] pt-[clamp(104px,9vw,136px)] pb-[clamp(24px,3vw,40px)]">
+        <Breadcrumb items={crumbs} label={t.common.breadcrumb} />
+        <a
+          href={`/blog/kategori/${d.category.id}/`}
+          class="rounded-pill bg-brand-50 px-[10px] py-[3px] text-[13px] font-bold text-brand no-underline"
+        >
+          {catName}
+        </a>
+        <h1 class="rz-h1 max-w-[22ch] text-[clamp(30px,3.4vw,48px)]!">{d.title}</h1>
+        <p class="m-0 max-w-[40em] text-[clamp(16px,1.2vw,18px)] leading-[1.65] text-text-2">{d.excerpt}</p>
+        <div class="flex flex-wrap items-center gap-x-[16px] gap-y-[6px] text-[14px] text-muted">
+          <span>
+            {p.by} <strong class="text-navy">{author?.data.name}</strong>
+          </span>
+          <span>
+            {p.published}{' '}
+            <time datetime={d.publishedAt.toISOString()}>{formatDate(d.publishedAt, locale)}</time>
+          </span>
+          {d.updatedAt && (
+            <span>
+              {p.updated} <time datetime={d.updatedAt.toISOString()}>{formatDate(d.updatedAt, locale)}</time>
+            </span>
+          )}
+          <span>{p.readTpl(minutes)}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="rz-container flex flex-col gap-[32px] pb-[clamp(48px,7.5vw,104px)]">
+      {d.cover && (
+        <figure class="m-0 overflow-hidden rounded-panel bg-surface">
+          <Image
+            src={d.cover}
+            alt={d.coverAlt}
+            widths={[480, 800, 1200]}
+            sizes="(min-width: 1248px) 1200px, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="block aspect-[2/1] h-auto w-full object-cover"
+          />
+        </figure>
+      )}
+      <div class="flex flex-wrap items-start gap-x-[48px] gap-y-[32px]">
+        <div class="flex min-w-0 flex-[999_1_560px] flex-col gap-[28px]">
+          {d.keyTakeaways.length > 0 && (
+            <aside
+              class="rounded-card border border-brand/30 bg-brand-50 p-[24px]"
+              aria-labelledby="takeaways"
+            >
+              <h2 id="takeaways" class="m-0 mb-[10px] font-heading text-[18px] font-bold">
+                {p.takeaways}
+              </h2>
+              <ul class="m-0 flex list-none flex-col gap-[8px] p-0 text-[16.5px]">
+                {d.keyTakeaways.map((k) => (
+                  <li class="flex gap-[10px]">
+                    <Icon name="check" stroke={2.4} class="mt-[4px] shrink-0 text-brand" />
+                    {k}
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )}
+          {h2s.length >= 3 && (
+            <nav
+              aria-labelledby="toc"
+              class="rounded-card border border-border bg-surface p-[20px] lg:hidden"
+            >
+              <h2 id="toc" class="m-0 mb-[8px] font-heading text-[16px] font-bold">
+                {p.toc}
+              </h2>
+              <ol class="m-0 flex flex-col gap-[6px] ps-[20px] text-[15px]">
+                {h2s.map((h) => (
+                  <li>
+                    <a href={`#${h.slug}`}>{h.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
+          <div class="rz-prose">
+            <slot />
+          </div>
+          {d.faq.length > 0 && (
+            <section aria-labelledby="article-faq" class="flex flex-col gap-[12px]">
+              <h2 id="article-faq" class="rz-h3">
+                {p.faq}
+              </h2>
+              {d.faq.map((f) => (
+                <details class="rounded-[12px] border border-border bg-white p-[16px]">
+                  <summary class="cursor-pointer font-semibold">{f.q}</summary>
+                  <p class="m-0 mt-[8px] text-text-2">{f.a}</p>
+                </details>
+              ))}
+            </section>
+          )}
+          <div class="flex flex-wrap items-center gap-[10px]" data-share>
+            <span class="text-[14px] font-bold text-text-2">{p.share}</span>
+            <a
+              href={`https://wa.me/?text=${encodeURIComponent(shareText)}`}
+              target="_blank"
+              rel="noopener"
+              class="rz-btn inline-flex min-h-[44px] items-center gap-[8px] rounded-pill border-[1.5px] border-wa bg-white px-[16px] text-[14.5px] font-bold text-navy no-underline hover:text-navy"
+            >
+              <Icon name="wa" size={16} class="text-wa" />
+              {p.shareWa}
+            </a>
+            <button
+              type="button"
+              data-copy={`${SITE}${url}`}
+              data-copied={p.copied}
+              class="rz-btn inline-flex min-h-[44px] items-center gap-[8px] rounded-pill border border-border bg-white px-[16px] text-[14.5px] font-bold text-navy"
+            >
+              <Icon name="link" size={16} />
+              <span>{p.copy}</span>
+            </button>
+            <span role="status" class="sr-only" data-copy-status></span>
+          </div>
+          <aside
+            class="flex flex-col gap-[12px] rounded-panel bg-navy p-[clamp(20px,3vw,32px)] text-white"
+            aria-labelledby="article-cta"
+          >
+            <h2 id="article-cta" class="rz-h3 text-white">
+              {service ? p.ctaTitleTpl(service.name) : p.ctaGeneralTitle}
+            </h2>
+            <p class="m-0 text-border">{service ? service.desc : p.ctaText}</p>
+            <div class="flex flex-wrap items-center gap-[12px] pt-[4px]">
+              <a
+                href={waHref(service ? t.wa.service(service.name) : t.wa.general)}
+                class="rz-btn inline-flex h-[48px] items-center gap-[10px] rounded-pill bg-brand px-[20px] text-[15px] font-bold text-white no-underline hover:text-white"
+                {...waTrack('article', { service: service?.key, locale })}
+              >
+                <Icon name="wa" />
+                {t.common.cta}
+              </a>
+              {service && (
+                <a
+                  href={path(`service:${service.key}`, locale)}
+                  class="font-bold text-white hover:text-amber"
+                >
+                  {p.ctaDetail}
+                </a>
+              )}
+            </div>
+          </aside>
+          {author && (
+            <aside
+              class="flex items-start gap-[16px] rounded-card border border-border bg-surface p-[20px]"
+              aria-labelledby="author-box"
+            >
+              {author.data.photo ? (
+                <img
+                  src={author.data.photo}
+                  alt={author.data.name}
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                  decoding="async"
+                  class="size-[48px] shrink-0 rounded-full object-cover"
+                />
+              ) : (
+                <span
+                  class="flex size-[48px] shrink-0 items-center justify-center rounded-full bg-brand font-heading text-[18px] font-extrabold text-white"
+                  aria-hidden="true"
+                >
+                  {author.data.name.charAt(0)}
+                </span>
+              )}
+              <div class="flex flex-col gap-[4px]">
+                <h2 id="author-box" class="m-0 text-[13px] font-bold text-muted">
+                  {p.authorTitle}
+                </h2>
+                <a
+                  href={authorUrl}
+                  class="font-heading text-[17px] font-bold text-navy no-underline hover:text-brand"
+                >
+                  {author.data.name}
+                </a>
+                {author.data.role && <span class="text-[14px] text-muted">{author.data.role}</span>}
+                {author.data.bio && <p class="m-0 text-[15px] text-text-2">{author.data.bio}</p>}
+              </div>
+            </aside>
+          )}
+        </div>
+        {h2s.length >= 3 && (
+          <nav
+            aria-labelledby="toc-side"
+            class="sticky top-[104px] hidden min-w-0 flex-[1_1_260px] flex-col gap-[8px] lg:flex"
+          >
+            <p id="toc-side" class="m-0 font-heading text-[16px] font-bold">
+              {p.toc}
+            </p>
+            <ol class="m-0 flex flex-col gap-[8px] ps-[20px] text-[14.5px] leading-[1.45]">
+              {h2s.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`} class="text-text-2 no-underline hover:text-brand">
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+      </div>
+    </div>
+  </article>
+  {related.length > 0 && (
+    <section class="bg-surface" aria-labelledby="related">
+      <div class="rz-container rz-section-pad flex flex-col gap-[24px]">
+        <h2 id="related" class="rz-h2">
+          {p.related}
+        </h2>
+        <div class="grid gap-[24px] md:grid-cols-3">
+          {related.map((a) => (
+            <ArticleCard article={a} categoryName={a.data.category.id === d.category.id ? catName : ''} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .rz-ahero {
+    background: linear-gradient(180deg, #f5f8ff 0%, #ffffff 100%);
+  }
+  .rz-prose {
+    max-width: 68ch;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--color-navy);
+  }
+  .rz-prose :global(* + :is(p, ul, ol, blockquote, figure, .rz-table-wrap)) {
+    margin-top: 1.1em;
+  }
+  .rz-prose :global(p) {
+    margin-bottom: 0;
+  }
+  .rz-prose :global(h2) {
+    margin: 1.8em 0 0.4em;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(24px, 2.2vw, 30px);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    scroll-margin-top: 96px;
+  }
+  .rz-prose :global(h3) {
+    margin: 1.5em 0 0.3em;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(19px, 1.6vw, 22px);
+    line-height: 1.3;
+    scroll-margin-top: 96px;
+  }
+  .rz-prose :global(ul),
+  .rz-prose :global(ol) {
+    padding-inline-start: 1.3em;
+  }
+  .rz-prose :global(li + li) {
+    margin-top: 0.4em;
+  }
+  .rz-prose :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+  }
+  .rz-prose :global(blockquote) {
+    margin-inline: 0;
+    padding: 12px 20px;
+    border-inline-start: 4px solid var(--color-amber);
+    background: var(--color-surface);
+    border-radius: 12px;
+  }
+  .rz-prose :global(.rz-table-wrap) {
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+  }
+  .rz-prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+  }
+  .rz-prose :global(th),
+  .rz-prose :global(td) {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--color-border);
+    text-align: start;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) =>
+    b.addEventListener('click', async () => {
+      const status = b.parentElement?.querySelector<HTMLElement>('[data-copy-status]');
+      try {
+        await navigator.clipboard.writeText(b.dataset.copy!);
+        const label = b.querySelector('span');
+        const prev = label?.textContent;
+        if (label) label.textContent = b.dataset.copied ?? '';
+        if (status) status.textContent = b.dataset.copied ?? '';
+        setTimeout(() => label && prev && (label.textContent = prev), 2000);
+      } catch {
+        window.prompt('URL', b.dataset.copy);
+      }
+    }),
+  );
+</script>

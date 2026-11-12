@@ -1,0 +1,217 @@
+---
+import PageHero from '../components/layout/PageHero.astro';
+import Icon from '../components/ui/Icon.astro';
+import MapFacade from '../components/ui/MapFacade.astro';
+import { path, useT, type Locale } from '../i18n';
+import { usePages } from '../i18n/pages';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ALLOW_DUMMY, getPortfolioProjects, isPlaceholder, settings } from '../lib/data';
+import { breadcrumbNode, founderNode, graph, webPageNode } from '../lib/schema';
+import { waHref, waTrack } from '../lib/wa';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const p = usePages(locale).about;
+const c = usePages(locale).contact;
+const url = path('about', locale);
+const f = settings.founder;
+const founderReady = !isPlaceholder(f.name);
+const crumbs = [
+  { name: t.common.home, href: path('home', locale) },
+  { name: t.nav.tentang, href: url },
+];
+const a = settings.address;
+const projects = await getPortfolioProjects();
+const profileLabel = (href: string) => {
+  const host = new URL(href).hostname.replace(/^www\./, '');
+  if (host.includes('linkedin')) return 'LinkedIn';
+  if (host.includes('github')) return 'GitHub';
+  if (host.includes('instagram')) return 'Instagram';
+  return locale === 'id' ? 'Portofolio pribadi' : locale === 'ar' ? 'الموقع الشخصي' : 'Personal portfolio';
+};
+const jsonLd = graph(locale, [
+  webPageNode({ url, name: p.title, description: p.description, locale, type: 'AboutPage' }),
+  breadcrumbNode(crumbs.map((x) => ({ name: x.name, url: x.href }))),
+  founderReady ? founderNode() : null,
+]);
+---
+
+<BaseLayout
+  title={p.title}
+  description={p.description}
+  locale={locale}
+  routeKey="about"
+  jsonLd={jsonLd}
+  bannerAbove="white"
+>
+  <PageHero locale={locale} crumbs={crumbs} badge={p.badge} title={p.h1} lead={p.lead} />
+  <section class="bg-white" aria-labelledby="story">
+    <div class="rz-container flex flex-wrap gap-x-[48px] gap-y-[32px] pb-[clamp(48px,7.5vw,104px)]">
+      <div class="flex min-w-0 flex-[2_1_480px] flex-col gap-[16px]">
+        <h2 id="story" class="rz-h2">
+          {p.storyTitle}
+        </h2>
+        {p.story.map((s) => (
+          <p class="m-0 max-w-[62ch] text-[17px] text-text-2">{s}</p>
+        ))}
+      </div>
+      {(founderReady || ALLOW_DUMMY) && (
+        <div
+          class="flex min-w-0 flex-[1_1_300px] flex-col gap-[12px] rounded-panel border border-border bg-surface p-[24px]"
+          data-placeholder={!founderReady ? '' : undefined}
+        >
+          <h2 class="rz-h3">{p.founderTitle}</h2>
+          <div class="flex items-center gap-[12px]">
+            {f.photo ? (
+              <img
+                src={f.photo}
+                alt={f.name}
+                width="64"
+                height="64"
+                class="size-[64px] rounded-full object-cover"
+              />
+            ) : (
+              <span
+                class="size-[64px] shrink-0 rounded-full border-[1.5px] border-dashed border-muted"
+                aria-hidden="true"
+              />
+            )}
+            <span class="flex flex-col gap-[2px]">
+              <strong class="font-heading text-[18px]">{f.fullName || f.name}</strong>
+              <span class="text-[14px] font-semibold text-muted">{p.founderJob}</span>
+            </span>
+          </div>
+          <p class="m-0 text-text-2">{p.founderBio}</p>
+          {f.sameAs.length > 0 && (
+            <nav
+              aria-label={p.founderLinks}
+              class="flex flex-wrap gap-x-[16px] gap-y-[6px] pt-[4px] text-[14.5px]"
+            >
+              {f.sameAs.map((href) => (
+                <a href={href} rel="noopener me" target="_blank" class="font-bold">
+                  {profileLabel(href)}
+                  <span class="sr-only"> {t.common.newTab}</span>
+                </a>
+              ))}
+            </nav>
+          )}
+        </div>
+      )}
+    </div>
+  </section>
+  {projects.length > 0 && (
+    <section class="bg-surface" aria-labelledby="about-projects">
+      <div class="rz-container rz-section-pad flex flex-col gap-[24px]">
+        <div class="flex max-w-[680px] flex-col gap-[12px]">
+          <h2 id="about-projects" class="rz-h2">
+            {p.projectsTitle}
+          </h2>
+          <p class="rz-lead">{p.projectsLead}</p>
+        </div>
+        <ul class="m-0 grid list-none gap-[16px] p-0 sm:grid-cols-2 lg:grid-cols-4">
+          {projects.map((x) => (
+            <li>
+              <a
+                href={path(`project:${x.id}`, locale)}
+                class="flex h-full flex-col gap-[4px] rounded-card border border-border bg-white p-[20px] text-navy no-underline shadow-card hover:text-brand"
+              >
+                <strong class="font-heading text-[17px]">{x.data.name}</strong>
+                <span class="text-[14px] text-muted">{t.portfolio.industries[x.data.industry] ?? ''}</span>
+                <span class="text-[14px] font-semibold text-brand" dir="ltr">
+                  {x.data.domain}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+  {founderReady && (
+    <section class="bg-white" aria-labelledby="founder-exp">
+      <div class="rz-container flex flex-wrap gap-x-[48px] gap-y-[32px] pb-[clamp(48px,7.5vw,104px)]">
+        <div class="flex min-w-0 flex-[2_1_480px] flex-col gap-[16px]">
+          <h2 id="founder-exp" class="rz-h2">
+            {p.timelineTitle}
+          </h2>
+          <ol class="m-0 flex list-none flex-col p-0">
+            {p.timeline.map((x) => (
+              <li class="flex flex-col gap-[2px] border-s-2 border-brand-50 ps-[20px] pb-[18px] last:pb-0">
+                <span class="text-[13.5px] font-bold text-brand">{x.when}</span>
+                <span class="text-[16px] text-text-2">{x.what}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div class="flex min-w-0 flex-[1_1_300px] flex-col gap-[16px]">
+          <h2 class="rz-h3">{p.skillsTitle}</h2>
+          <ul class="m-0 flex list-none flex-wrap gap-[8px] p-0">
+            {f.knowsAbout.slice(2).map((x) => (
+              <li class="rounded-pill border border-border bg-surface px-[12px] py-[5px] text-[14px] font-semibold text-navy">
+                {x}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )}
+  <section class="bg-surface" aria-labelledby="values">
+    <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,40px)]">
+      <h2 id="values" class="rz-h2">
+        {p.valuesTitle}
+      </h2>
+      <ul class="m-0 grid list-none gap-[20px] p-0 md:grid-cols-2 lg:grid-cols-4">
+        {p.values.map((v, i) => (
+          <li class="flex flex-col gap-[12px] rounded-card border border-border bg-white p-[24px] shadow-card">
+            <span
+              aria-hidden="true"
+              class="flex size-[52px] items-center justify-center rounded-[16px] border border-brand/10 bg-brand-50/70 text-brand"
+            >
+              <Icon name={(['chat', 'eye', 'search', 'sliders'] as const)[i % 4]!} size={24} stroke={1.8} />
+            </span>
+            <h3 class="rz-h3 text-[19px]!">{v.t}</h3>
+            <p class="m-0 text-[15.5px] text-text-2">{v.d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <section class="bg-white" aria-labelledby="area">
+    <div class="rz-container rz-section-pad flex flex-wrap gap-x-[48px] gap-y-[32px]">
+      <div class="flex min-w-0 flex-[1_1_360px] flex-col gap-[16px]">
+        <h2 id="area" class="rz-h2">
+          {p.areaTitle}
+        </h2>
+        <ul class="m-0 flex list-none flex-wrap gap-[8px] p-0">
+          {p.areas.map((x) => (
+            <li class="rounded-pill bg-brand-50 px-[14px] py-[6px] text-[15px] font-bold text-brand">{x}</li>
+          ))}
+        </ul>
+        <h2 class="rz-h3 mt-[16px]">{p.napTitle}</h2>
+        <address class="text-[16px] leading-[1.75] text-text-2 not-italic">
+          <strong class="text-navy">{settings.businessName}</strong>
+          <br />
+          {`${a.street}, ${a.city}, ${a.region} ${a.postal}`}
+          <br />
+          <a href={waHref(t.wa.general)} {...waTrack('contact', { locale })} dir="ltr">
+            WhatsApp {settings.whatsappDisplay}
+          </a>
+          <br />
+          <a href={`mailto:${settings.email}`}>{settings.email}</a>
+        </address>
+      </div>
+      <div class="min-w-0 flex-[1_1_420px]">
+        <MapFacade
+          query={`${settings.businessName}, ${a.street}, ${a.city}`}
+          label={c.mapLoad}
+          note={c.mapNote}
+          title={c.mapTitle}
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

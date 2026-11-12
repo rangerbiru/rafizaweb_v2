@@ -1,0 +1,17 @@
+// Konfigurasi Cloudflare Workers (lihat docs/decisions/ADR-001-hosting.md).
+// Adapter @astrojs/cloudflare menggabungkan file ini saat build (dist/server/wrangler.json).
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "rafizaweb-web",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "assets": {
+    "binding": "ASSETS",
+    // /harga → /harga/ (slash akhir) dan 404.html terdekat untuk URL yang tidak ada.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    // Form tanpa JS adalah request navigasi POST; tanpa ini layer aset menjawab 405 sebelum Worker jalan.
+    "run_worker_first": ["/api/*", "/keystatic/*"],
+  },
+}

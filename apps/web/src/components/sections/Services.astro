@@ -1,0 +1,253 @@
+---
+/**
+ * Layanan (PRD §6.5): ARIA Tabs ≥768px, accordion <768px, dari satu markup.
+ * State awal (Landing Page UMKM terbuka) ditulis di HTML lewat data-open; tanpa JS semua panel terlihat.
+ */
+import Icon from '../ui/Icon.astro';
+import ServiceIllustration from './ServiceIllustration.astro';
+import { path, useT, type Locale } from '../../i18n';
+import { getServices } from '../../lib/data';
+import { waHref, waTrack } from '../../lib/wa';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const services = getServices(locale);
+const initial = 'lp';
+---
+
+<section id="layanan" aria-labelledby="rz-layanan" class="bg-surface">
+  <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,48px)]">
+    <div class="flex max-w-[640px] flex-col gap-[12px]" data-reveal>
+      <h2 id="rz-layanan" class="rz-h2">
+        {t.services.title}
+      </h2>
+      <p class="rz-lead">{t.services.lead}</p>
+    </div>
+
+    <div
+      class="flex flex-col gap-[24px] md:grid md:grid-cols-[minmax(280px,340px)_minmax(0,1fr)] md:items-start"
+      data-svc-root
+    >
+      <div class="rz-side relative min-w-0">
+        <div
+          role="tablist"
+          aria-label={t.services.tablist}
+          aria-orientation="vertical"
+          class="rz-tablist flex min-w-0 flex-col gap-[14px]"
+        >
+          {services.map((s) => {
+            const on = s.key === initial;
+            return (
+              <button
+                type="button"
+                role="tab"
+                id={`svc-tab-${s.key}`}
+                aria-selected={on ? 'true' : 'false'}
+                aria-controls={`svc-panel-${s.key}`}
+                tabindex={on ? 0 : -1}
+                data-svc-tab={s.key}
+                data-soon={s.soon ? '' : undefined}
+                class="rz-pick rz-tab flex items-center justify-between gap-[12px] rounded-[12px] border px-[18px] py-[24px] text-start"
+              >
+                <span class="flex min-w-0 flex-col gap-[2px]">
+                  <span class="text-[16px] font-bold">{s.name}</span>
+                  <span class="rz-sub text-[13.5px]">{s.tagline}</span>
+                </span>
+                <span class="rz-chip shrink-0 rounded-pill px-[10px] py-[4px] text-[12.5px] font-bold">
+                  {s.priceShort}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div class="flex min-w-0 flex-col gap-[10px] md:sticky md:top-[104px] md:gap-0">
+        {services.map((s) => {
+          const on = s.key === initial;
+          const detailHref = s.slug ? path(`service:${s.key}`, locale) : '#ekosistem';
+          return (
+            <div
+              id={`svc-${s.key}`}
+              class="rz-svc scroll-mt-[104px]"
+              data-svc-item={s.key}
+              data-open={on ? '' : undefined}
+            >
+              <div class="m-0 md:hidden">
+                <button
+                  type="button"
+                  aria-expanded={on ? 'true' : 'false'}
+                  aria-controls={`svc-panel-${s.key}`}
+                  data-svc-toggle={s.key}
+                  class="rz-acc flex min-h-[64px] w-full items-center justify-between gap-[12px] border px-[16px] py-[12px] text-start"
+                >
+                  <span class="flex min-w-0 flex-col gap-[2px]">
+                    <span class="text-[16px] font-bold">{s.name}</span>
+                    <span class="rz-sub text-[13.5px] font-medium">{s.priceShort}</span>
+                  </span>
+                  <Icon name="chevron" size={20} stroke={2.2} class="rz-chev shrink-0" />
+                </button>
+              </div>
+              <div class="rz-body" data-svc-body>
+                <div class="min-h-0 overflow-hidden">
+                  <div
+                    id={`svc-panel-${s.key}`}
+                    data-svc-panel
+                    aria-labelledby={`svc-tab-${s.key}`}
+                    class="rz-panel flex flex-wrap gap-x-[32px] gap-y-[24px] border border-border bg-white p-[clamp(16px,2.6vw,32px)] shadow-card"
+                  >
+                    <ServiceIllustration kind={s.key} locale={locale} />
+                    <div class="flex min-w-0 flex-[1_1_260px] flex-col gap-[16px]">
+                      <h3 class="rz-h3 hidden md:block">{s.name}</h3>
+                      <p class="m-0 text-[16px] text-text-2">{s.desc}</p>
+                      <ul class="m-0 flex list-none flex-col gap-[8px] p-0 text-[15.5px] text-navy">
+                        {s.points.map((p) => (
+                          <li class="flex gap-[10px]">
+                            <Icon name="check" stroke={2.4} class="mt-[3px] shrink-0 text-brand" />
+                            {p}
+                          </li>
+                        ))}
+                      </ul>
+                      <span class="font-heading text-[18px] font-bold text-brand">{s.price}</span>
+                      <div class="flex flex-wrap items-center gap-x-[24px] gap-y-[12px]">
+                        <a
+                          href={waHref(t.wa.service(s.name))}
+                          class="rz-btn inline-flex h-[48px] items-center rounded-pill bg-brand px-[20px] text-[15px] font-bold text-white no-underline hover:text-white"
+                          {...waTrack('service_tab', { service: s.key, locale })}
+                        >
+                          {t.common.cta}
+                        </a>
+                        <a href={detailHref} class="rz-link text-[15px]">
+                          {s.slug ? t.services.detail : t.services.toAcademy}
+                          <span class="sr-only">: {s.name}</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ---------- Tab (≥768px) ---------- */
+  /* Sidebar ikut bergulir bersama halaman; kartu kanan sticky (lihat kelas md:sticky pada kolom kanan). */
+  .rz-side {
+    display: none;
+  }
+  .rz-tab {
+    background: var(--color-white);
+    color: var(--color-navy);
+    border-color: var(--color-border);
+  }
+  .rz-tab .rz-sub {
+    color: var(--color-muted);
+  }
+  .rz-tab .rz-chip {
+    background: var(--color-brand-50);
+    color: var(--color-brand);
+  }
+  .rz-tab[aria-selected='true'] {
+    background: var(--color-navy);
+    color: var(--color-white);
+    border-color: var(--color-navy);
+  }
+  .rz-tab[aria-selected='true'] .rz-sub {
+    color: var(--color-border);
+  }
+  .rz-tab[aria-selected='true'] .rz-chip {
+    background: var(--color-brand);
+    color: var(--color-white);
+  }
+  .rz-tab[data-soon] .rz-chip {
+    background: var(--color-amber);
+    color: var(--color-navy);
+  }
+
+  /* ---------- Accordion (<768px) ---------- */
+  .rz-acc {
+    border-radius: 20px;
+    background: var(--color-white);
+    color: var(--color-navy);
+    border-color: var(--color-border);
+    transition:
+      border-radius 0.3s ease,
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+  .rz-acc .rz-sub {
+    color: var(--color-muted);
+  }
+  .rz-acc :global(.rz-chev) {
+    transition: transform 0.25s ease;
+  }
+  .rz-acc[aria-expanded='true'] {
+    border-radius: 20px 20px 0 0;
+    background: var(--color-navy);
+    color: var(--color-white);
+    border-color: var(--color-navy);
+  }
+  .rz-acc[aria-expanded='true'] .rz-sub {
+    color: var(--color-border);
+  }
+  .rz-acc[aria-expanded='true'] :global(.rz-chev) {
+    transform: rotate(180deg);
+  }
+  .rz-body {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.5s var(--ease-standard);
+  }
+  .rz-panel {
+    border-radius: 0 0 20px 20px;
+    border-top-width: 0;
+    transition:
+      opacity 0.4s ease,
+      transform 0.5s var(--ease-standard);
+  }
+  /* Dengan JS: item tertutup diciutkan. Tanpa JS (.no-js): semua terbuka. */
+  :global(.js) .rz-svc:not([data-open]) .rz-body {
+    grid-template-rows: 0fr;
+  }
+  :global(.js) .rz-svc:not([data-open]) .rz-panel {
+    opacity: 0;
+    transform: translateY(-12px);
+    visibility: hidden;
+    transition:
+      opacity 0.4s ease,
+      transform 0.5s var(--ease-standard),
+      visibility 0s 0.5s;
+  }
+
+  @media (min-width: 768px) {
+    :global(.js) .rz-side {
+      display: block;
+    }
+    .rz-panel {
+      border-radius: 28px;
+      border-top-width: 1px;
+    }
+    :global(.js) .rz-svc:not([data-open]) {
+      display: none;
+    }
+    :global(.js) .rz-svc[data-open] .rz-panel {
+      animation: var(--animate-swap);
+    }
+    :global(.no-js) .rz-svc + .rz-svc {
+      margin-top: 24px;
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/tabs-accordion';
+</script>

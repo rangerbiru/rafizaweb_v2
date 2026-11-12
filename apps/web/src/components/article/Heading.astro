@@ -1,0 +1,21 @@
+---
+/** Heading artikel dengan id (anchor untuk daftar isi). */
+interface Props {
+  level: number;
+  id?: string;
+}
+const { level } = Astro.props;
+const slot = await Astro.slots.render('default');
+const text = slot.replace(/<[^>]+>/g, '').trim();
+const id =
+  Astro.props.id ||
+  text
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+const Tag = `h${Math.min(Math.max(level, 2), 6)}` as 'h2';
+---
+
+<Tag id={id} set:html={slot} />

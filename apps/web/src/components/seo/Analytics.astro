@@ -1,0 +1,29 @@
+---
+/**
+ * GA4 dimuat setelah halaman idle dan hanya jika PUBLIC_GA4_ID diisi (keputusan pemilik, PRD §18).
+ * IP dianonimkan. Tanpa ID, event tetap masuk window.dataLayer (tidak dikirim ke mana pun).
+ */
+const id = import.meta.env.PUBLIC_GA4_ID;
+---
+
+{id && <script is:inline define:vars={{ id }}>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () {
+    // gtag membutuhkan objek arguments asli
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer.push(arguments);
+  };
+  window.gtag('js', new Date());
+  window.gtag('config', id, { anonymize_ip: true });
+  const load = function () {
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+    document.head.appendChild(s);
+  };
+  if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 4000 });
+  else
+    window.addEventListener('load', function () {
+      setTimeout(load, 1500);
+    });
+</script>}

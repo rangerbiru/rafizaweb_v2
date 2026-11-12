@@ -1,0 +1,65 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Icon from './Icon.astro';
+
+type Variant = 'primary' | 'outline' | 'ghost' | 'wa' | 'dark' | 'brand-outline';
+interface Props extends Omit<HTMLAttributes<'a'>, 'type'> {
+  href?: string;
+  variant?: Variant;
+  size?: 'sm' | 'md' | 'lg';
+  fullOnMobile?: boolean;
+  full?: boolean;
+  icon?: 'wa' | 'arrow' | null;
+  type?: 'button' | 'submit';
+  external?: boolean;
+}
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  fullOnMobile = false,
+  full = false,
+  icon = null,
+  type = 'button',
+  external = false,
+  class: cls,
+  ...rest
+} = Astro.props;
+
+const variants: Record<Variant, string> = {
+  primary: 'bg-brand text-white shadow-raised hover:text-white',
+  outline: 'bg-white text-navy border border-border hover:text-navy',
+  'brand-outline': 'bg-white text-brand border-[1.5px] border-brand hover:text-brand',
+  ghost: 'bg-transparent text-navy hover:text-brand',
+  wa: 'bg-wa text-white hover:text-white',
+  dark: 'bg-navy text-white hover:text-white',
+};
+const sizes = {
+  sm: 'h-[44px] px-[18px] text-[14.5px]',
+  md: 'h-[46px] px-[20px] text-[15px]',
+  lg: 'h-[52px] px-[24px] text-[16px]',
+};
+const classes = [
+  'rz-btn inline-flex items-center justify-center gap-[10px] rounded-pill font-bold no-underline whitespace-nowrap',
+  variants[variant],
+  sizes[size],
+  fullOnMobile && 'max-md:w-full',
+  full && 'w-full',
+  cls,
+];
+const extAttrs = external ? { target: '_blank', rel: 'noopener' } : {};
+---
+
+{href ? (
+  <a href={href} class:list={classes} {...extAttrs} {...rest}>
+    {icon === 'wa' && <Icon name="wa" />}
+    <slot />
+    {icon === 'arrow' && <Icon name="arrow" size={16} />}
+  </a>
+) : (
+  <button type={type} class:list={classes} {...(rest as HTMLAttributes<'button'>)}>
+    {icon === 'wa' && <Icon name="wa" />}
+    <slot />
+    {icon === 'arrow' && <Icon name="arrow" size={16} />}
+  </button>
+)}

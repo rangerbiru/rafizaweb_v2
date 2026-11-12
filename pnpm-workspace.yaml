@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+  - packages/*
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+  '@parcel/watcher': true
+  '@tailwindcss/oxide': true
+  '@resvg/resvg-js': true
+overrides:
+  '@emnapi/runtime': ^1.11.0

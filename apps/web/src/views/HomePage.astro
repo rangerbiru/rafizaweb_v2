@@ -1,0 +1,52 @@
+---
+import ClientStrip from '../components/sections/ClientStrip.astro';
+import Ecosystem from '../components/sections/Ecosystem.astro';
+import Faq from '../components/sections/Faq.astro';
+import Hero from '../components/sections/Hero.astro';
+import LatestArticles from '../components/sections/LatestArticles.astro';
+import Portfolio from '../components/sections/Portfolio.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import Process from '../components/sections/Process.astro';
+import Services from '../components/sections/Services.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import { path, useT, type Locale } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getFaq } from '../lib/data';
+import { faqNode, graph, webPageNode } from '../lib/schema';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const faqs = await getFaq('home', locale);
+const jsonLd = graph(locale, [
+  webPageNode({
+    url: path('home', locale),
+    name: t.meta.homeTitle,
+    description: t.meta.homeDescription,
+    locale,
+  }),
+  faqNode(faqs),
+]);
+---
+
+<BaseLayout
+  title={t.meta.homeTitle}
+  description={t.meta.homeDescription}
+  locale={locale}
+  routeKey="home"
+  isHome
+  jsonLd={jsonLd}
+>
+  <Hero locale={locale} />
+  <ClientStrip locale={locale} />
+  <Services locale={locale} />
+  <Portfolio locale={locale} />
+  <Process locale={locale} />
+  <Pricing locale={locale} />
+  <Testimonials locale={locale} />
+  <Ecosystem locale={locale} />
+  <LatestArticles locale={locale} />
+  <Faq locale={locale} faqs={faqs} />
+</BaseLayout>

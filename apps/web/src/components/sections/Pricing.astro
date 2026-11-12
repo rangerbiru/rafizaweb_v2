@@ -1,0 +1,152 @@
+---
+/**
+ * Paket harga (PRD §6.8): pemilih tahap (radiogroup), kartu rekomendasi terangkat.
+ * Mobile: rekomendasi penuh + "Paket lainnya" scroll horizontal. Dipakai Home dan /harga/.
+ */
+import PricingCard from '../ui/PricingCard.astro';
+import { formatPrice, path, useT, type Locale } from '../../i18n';
+import { defaultStage, getPlans, getStages, recommendedPlan } from '../../lib/data';
+import { waHref, waTrack } from '../../lib/wa';
+
+interface Props {
+  locale: Locale;
+  isHome?: boolean;
+  /** Pada /harga/ judul section memakai H2 di bawah H1 halaman. */
+  title?: string;
+  lead?: string;
+  showHeading?: boolean;
+  compareHref?: string;
+}
+const { locale, title, lead, showHeading = true, compareHref } = Astro.props;
+const t = useT(locale);
+const plans = getPlans(locale);
+const stages = getStages(locale);
+const compare = compareHref ?? `${path('pricing', locale)}#perbandingan`;
+---
+
+<section id="harga" aria-labelledby="rz-harga" class="bg-surface">
+  <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,32px)]">
+    {showHeading && (
+      <div class="flex max-w-[640px] flex-col gap-[12px]" data-reveal>
+        <h2 id="rz-harga" class="rz-h2">
+          {title ?? t.pricing.title}
+        </h2>
+        <p class="rz-lead">{lead ?? t.pricing.lead}</p>
+      </div>
+    )}
+    <div data-pricing data-rec={recommendedPlan} class="flex flex-col gap-[clamp(24px,3vw,32px)]">
+      <div class="flex flex-wrap items-center gap-x-[16px] gap-y-[12px]">
+        <span id="rz-tahap" class="text-[15.5px] font-bold">
+          {t.pricing.stageQ}
+        </span>
+        <div
+          role="radiogroup"
+          aria-labelledby="rz-tahap"
+          class="flex flex-wrap gap-[4px] rounded-[28px] border border-border bg-white p-[5px] max-md:w-full md:rounded-pill"
+        >
+          {stages.map((s) => {
+            const on = s.key === defaultStage;
+            return (
+              <button
+                type="button"
+                role="radio"
+                aria-checked={on ? 'true' : 'false'}
+                tabindex={on ? 0 : -1}
+                data-stage={s.key}
+                data-plan={s.plan}
+                class="rz-stg min-h-[48px] rounded-pill border-0 px-[18px] py-[8px] text-start text-[14.5px] font-bold max-md:w-full"
+              >
+                {s.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div class="rz-plans flex flex-wrap items-stretch gap-[24px] pt-[12px]">
+        {plans.map((p) => (
+          <PricingCard plan={p} locale={locale} rec={p.key === recommendedPlan} />
+        ))}
+      </div>
+
+      <div class="rz-others -mt-[8px] flex flex-col gap-[16px] md:hidden">
+        <span class="text-[14px] font-bold text-text-2">{t.pricing.others}</span>
+        <div class="rz-hscroll -mx-[16px] flex gap-[12px] overflow-x-auto px-[16px] pb-[4px]">
+          {plans.map((p) => {
+            const stage = stages.find((s) => s.plan === p.key);
+            return (
+              <div
+                data-plan-mini={p.key}
+                hidden={p.key === recommendedPlan}
+                class="flex flex-[0_0_78%] flex-col gap-[8px] rounded-card border border-border bg-white p-[20px]"
+              >
+                <span class="font-heading text-[17px] font-bold">{p.name}</span>
+                <span
+                  class="font-heading text-[24px] font-extrabold tracking-[-0.03em]"
+                  dir={locale === 'ar' ? undefined : 'ltr'}
+                >
+                  {formatPrice(p.price, locale)}
+                </span>
+                <span class="text-[14px] text-muted">{t.pricing.time(p.time)}</span>
+                <button
+                  type="button"
+                  data-show-stage={stage?.key}
+                  class="mt-[8px] h-[44px] rounded-pill border-[1.5px] border-brand bg-white text-[14.5px] font-bold text-brand"
+                >
+                  {t.pricing.showPlan}
+                  <span class="sr-only">: {p.name}</span>
+                </button>
+                <a
+                  href={waHref(t.wa.plan(p.name))}
+                  class="rz-nojs-only text-[14.5px] font-bold"
+                  {...waTrack('pricing', { plan: p.key, locale })}
+                >
+                  {t.common.cta}
+                </a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-x-[24px] gap-y-[12px] rounded-card border border-border bg-white px-[20px] py-[16px] text-[15px] text-text-2">
+      <span>
+        {t.pricing.needMore}{' '}
+        <a
+          href={waHref(t.wa.general)}
+          class="font-bold underline-offset-4"
+          {...waTrack('pricing', { locale })}
+        >
+          {t.common.cta}
+        </a>
+        .
+      </span>
+      <a href={compare} class="rz-link">
+        {t.pricing.compare}
+      </a>
+    </div>
+    <slot />
+  </div>
+</section>
+
+<style>
+  @media (max-width: 767px) {
+    .rz-plans :global([data-plan-card]:not([data-rec])) {
+      display: none;
+    }
+  }
+  .rz-nojs-only {
+    display: none;
+  }
+  :global(.no-js) .rz-nojs-only {
+    display: inline;
+  }
+  :global(.no-js) [data-show-stage] {
+    display: none;
+  }
+</style>
+
+<script>
+  import '../../scripts/pricing';
+</script>

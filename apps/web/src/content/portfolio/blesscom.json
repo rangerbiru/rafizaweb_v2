@@ -1,0 +1,43 @@
+{
+  "name": "PT Blesscom",
+  "industry": "perusahaan",
+  "domain": "blesscom.com",
+  "url": "https://blesscom.com/",
+  "year": "",
+  "package": "",
+  "showInMarquee": true,
+  "order": 2,
+  "tint": "surface",
+  "screenshotDesktop": "/images/portfolio/blesscom/desktop.webp",
+  "screenshotMobile": "/images/portfolio/blesscom/mobile.webp",
+  "challenge": "",
+  "solution": "",
+  "result": "",
+  "testimonial": "",
+  "isDummy": false,
+  "summary": {
+    "id": "Website perusahaan penyedia jasa field marketing dan pengelolaan tim lapangan. Website ini memperkenalkan layanan, menampilkan klien, dan mengarahkan calon mitra untuk menghubungi tim.",
+    "en": "A company website for a field marketing and field team management service provider. It introduces the services, shows the clients, and guides prospective partners to contact the team.",
+    "ar": "موقع شركة تقدّم خدمات التسويق الميداني وإدارة الفرق الميدانية. يعرّف الموقع بالخدمات ويعرض العملاء ويوجّه الشركاء المحتملين للتواصل مع الفريق."
+  },
+  "highlights": {
+    "id": [
+      "Halaman layanan: field marketing dan aktivasi, rekrutmen, pelatihan, auditing, dan IT services",
+      "Bagian pencapaian dan daftar klien perusahaan",
+      "Halaman berita terbaru dan karier",
+      "Ajakan menghubungi tim di akhir halaman"
+    ],
+    "en": [
+      "Service pages: field marketing and activation, recruitment, training, auditing, and IT services",
+      "Achievements section and a list of company clients",
+      "Latest news and careers pages",
+      "A call to contact the team at the end of the page"
+    ],
+    "ar": [
+      "صفحات الخدمات: التسويق الميداني والتنشيط والتوظيف والتدريب والتدقيق وخدمات تقنية المعلومات",
+      "قسم الإنجازات وقائمة عملاء الشركة",
+      "صفحتا آخر الأخبار والوظائف",
+      "دعوة للتواصل مع الفريق في نهاية الصفحة"
+    ]
+  }
+}

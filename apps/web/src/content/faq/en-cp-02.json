@@ -1,0 +1,7 @@
+{
+  "question": "Does the company profile include business email?",
+  "answer": "Yes. Business Growth includes 1 business email on your own domain, and Business Prime includes 2.",
+  "scope": ["layanan:cp"],
+  "order": 2,
+  "locale": "en"
+}

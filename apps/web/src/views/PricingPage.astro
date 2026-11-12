@@ -1,0 +1,170 @@
+---
+import PageHero from '../components/layout/PageHero.astro';
+import Faq from '../components/sections/Faq.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import Icon from '../components/ui/Icon.astro';
+import { formatPrice, path, useT, type Locale } from '../i18n';
+import { usePages } from '../i18n/pages';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ALLOW_DUMMY, getFaq, getPlans, isPlaceholder } from '../lib/data';
+import { breadcrumbNode, faqNode, graph, offerCatalogNode, webPageNode } from '../lib/schema';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const p = usePages(locale).pricing;
+const plans = getPlans(locale);
+const faqs = await getFaq('harga', locale);
+const url = path('pricing', locale);
+const crumbs = [
+  { name: t.common.home, href: path('home', locale) },
+  { name: t.nav.harga, href: url },
+];
+const jsonLd = graph(locale, [
+  webPageNode({ url, name: p.title, description: p.description, locale }),
+  breadcrumbNode(crumbs.map((c) => ({ name: c.name, url: c.href }))),
+  offerCatalogNode(plans, url),
+  faqNode(faqs),
+]);
+const dash = '—';
+const rows: { label: string; cells: string[]; check?: boolean }[] = [
+  { label: p.rows.price, cells: plans.map((x) => formatPrice(x.price, locale)) },
+  { label: p.rows.renewal, cells: plans.map((x) => formatPrice(x.renewal, locale)) },
+  { label: p.rows.time, cells: plans.map((x) => x.time) },
+  { label: p.rows.pages, cells: plans.map((x) => x.pages) },
+  { label: p.rows.articles, cells: plans.map((x) => (x.articles ? String(x.articles) : dash)) },
+  { label: p.rows.emails, cells: plans.map((x) => (x.emails ? String(x.emails) : dash)) },
+  { label: p.rows.support, cells: plans.map((x) => p.months(x.supportMonths)) },
+  { label: p.rows.hosting, cells: plans.map(() => '✓'), check: true },
+];
+const showPh = (v: string) => !isPlaceholder(v) || ALLOW_DUMMY;
+---
+
+<BaseLayout
+  title={p.title}
+  description={p.description}
+  locale={locale}
+  routeKey="pricing"
+  jsonLd={jsonLd}
+  bannerAbove="white"
+>
+  <PageHero locale={locale} crumbs={crumbs} badge={p.badge} title={p.h1} lead={p.lead} />
+  <Pricing
+    locale={locale}
+    isHome={false}
+    title={t.pricing.title}
+    lead={t.pricing.lead}
+    compareHref="#perbandingan"
+  />
+
+  <section id="perbandingan" aria-labelledby="cmp-title" class="bg-white">
+    <div class="rz-container rz-section-pad flex flex-col gap-[24px]">
+      <div class="flex flex-col gap-[12px]">
+        <h2 id="cmp-title" class="rz-h2">
+          {p.compareTitle}
+        </h2>
+        <p class="rz-lead">{p.compareLead}</p>
+      </div>
+      <div
+        class="rz-cmp overflow-x-auto rounded-card border border-border"
+        role="region"
+        aria-labelledby="cmp-title"
+        tabindex="0"
+      >
+        <table class="w-full min-w-[640px] border-collapse text-start text-[15px]">
+          <caption class="sr-only">{p.compareTitle}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="sticky top-0 bg-surface p-[16px] text-start font-bold text-muted">
+                {p.feature}
+              </th>
+              {plans.map((x) => (
+                <th
+                  scope="col"
+                  class="sticky top-0 bg-surface p-[16px] text-start font-heading text-[17px] font-bold"
+                >
+                  {x.name}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr class="border-t border-border">
+                <th scope="row" class="p-[16px] text-start font-semibold text-text-2">
+                  {r.label}
+                </th>
+                {r.cells.map((c) => (
+                  <td class="p-[16px] font-semibold" dir={/^Rp/.test(c) ? 'ltr' : undefined}>
+                    {r.check ? <Icon name="check" stroke={2.6} class="text-brand" /> : c}
+                    {r.check && <span class="sr-only">✓</span>}
+                  </td>
+                ))}
+              </tr>
+            ))}
+            <tr class="border-t border-border align-top">
+              <th scope="row" class="p-[16px] text-start font-semibold text-text-2">
+                {p.rows.includes}
+              </th>
+              {plans.map((x) => (
+                <td class="p-[16px]">
+                  <ul class="m-0 flex list-none flex-col gap-[6px] p-0 text-[14.5px]">
+                    {x.features.map((f) => (
+                      <li class="flex gap-[8px]">
+                        <Icon name="check" size={16} stroke={2.4} class="mt-[4px] shrink-0 text-brand" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid gap-[24px] md:grid-cols-3">
+        <div class="flex flex-col gap-[8px] rounded-card border border-border bg-surface p-[24px]">
+          <span
+            class="flex size-[48px] items-center justify-center rounded-[14px] border border-brand/10 bg-brand-50/70 text-brand"
+            aria-hidden="true"
+          >
+            <Icon name="refresh" size={24} stroke={1.8} />
+          </span>
+          <h2 class="rz-h3">{p.renewalTitle}</h2>
+          <p class="m-0 text-text-2">{p.renewalText}</p>
+        </div>
+        {showPh(p.addons) && (
+          <div class="flex flex-col gap-[8px] rounded-card border border-border bg-surface p-[24px]">
+            <span
+              class="flex size-[48px] items-center justify-center rounded-[14px] border border-brand/10 bg-brand-50/70 text-brand"
+              aria-hidden="true"
+            >
+              <Icon name="puzzle" size={24} stroke={1.8} />
+            </span>
+            <h2 class="rz-h3">{p.addonsTitle}</h2>
+            <p class="m-0 text-text-2" data-placeholder={isPlaceholder(p.addons) ? '' : undefined}>
+              {p.addons}
+            </p>
+          </div>
+        )}
+        {showPh(p.payment) && (
+          <div class="flex flex-col gap-[8px] rounded-card border border-border bg-surface p-[24px]">
+            <span
+              class="flex size-[48px] items-center justify-center rounded-[14px] border border-brand/10 bg-brand-50/70 text-brand"
+              aria-hidden="true"
+            >
+              <Icon name="card" size={24} stroke={1.8} />
+            </span>
+            <h2 class="rz-h3">{p.paymentTitle}</h2>
+            <p class="m-0 text-text-2" data-placeholder={isPlaceholder(p.payment) ? '' : undefined}>
+              {p.payment}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+  <Faq locale={locale} faqs={faqs} id="faq-harga" title={p.faqTitle} bg="surface" />
+</BaseLayout>

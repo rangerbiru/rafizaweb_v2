@@ -1,0 +1,9 @@
+{
+  "question": "Is the website SEO-friendly?",
+  "answer": "Yes. Every website has a clean URL structure, meta titles and descriptions, schema markup, a sitemap, and fast loading, so it is easy to read for Google and AI assistants such as ChatGPT and Gemini. Business Growth and Business Prime also include blog articles for SEO, and Business Prime uses full SEO optimization.",
+  "scope": [
+    "home"
+  ],
+  "order": 4,
+  "locale": "en"
+}

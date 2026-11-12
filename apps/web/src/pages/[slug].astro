@@ -1,0 +1,23 @@
+---
+/** Artikel blog di slug root (sama dengan URL WordPress lama). */
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import { getArticles } from '../lib/data';
+
+export const getStaticPaths = (async () => {
+  const all = await getArticles();
+  return all.map((article) => {
+    const same = all.filter((a) => a.id !== article.id && a.data.category.id === article.data.category.id);
+    const rest = all.filter((a) => a.id !== article.id && !same.includes(a));
+    return { params: { slug: article.id }, props: { article, related: [...same, ...rest].slice(0, 3) } };
+  });
+}) satisfies GetStaticPaths;
+
+const { article, related } = Astro.props;
+const { Content, headings } = await render(article);
+---
+
+<ArticleLayout article={article} headings={headings} related={related}>
+  <Content />
+</ArticleLayout>

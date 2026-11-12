@@ -1,0 +1,277 @@
+---
+/**
+ * Ekosistem (PRD §6.10): Rafizaweb Academy (waitlist: idle → form → done | error) dan Rafizastore.
+ * Tanpa JS, form langsung tampil dan ter-submit sebagai POST biasa ke /api/waitlist.
+ */
+import Badge from '../ui/Badge.astro';
+import Icon from '../ui/Icon.astro';
+import Turnstile from '../ui/Turnstile.astro';
+import { path, useT, type Locale } from '../../i18n';
+import { ALLOW_DUMMY, getStoreProducts, isPlaceholder, settings } from '../../lib/data';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const products = (await getStoreProducts()).filter(
+  (p) => ALLOW_DUMMY || (!isPlaceholder(p.data.name) && !isPlaceholder(p.data.price)),
+);
+---
+
+<section id="ekosistem" aria-labelledby="rz-eko" class="bg-surface">
+  <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,32px)]">
+    <div class="flex max-w-[640px] flex-col gap-[12px]" data-reveal>
+      <h2 id="rz-eko" class="rz-h2">
+        {t.eco.title}
+      </h2>
+      <p class="rz-lead">{t.eco.lead}</p>
+    </div>
+    <div class="flex flex-wrap gap-[24px]">
+      <div
+        class="flex min-w-0 flex-[1_1_380px] flex-col items-start gap-[12px] rounded-panel border border-border bg-white p-[clamp(20px,2.6vw,32px)] shadow-card"
+        data-waitlist
+        data-state="idle"
+        data-err-email={t.eco.errorEmail}
+        data-wa-base={`https://wa.me/${settings.whatsapp}?text=`}
+        data-wa-tpl={t.eco.waMessage}
+        data-err-name={t.eco.errorName}
+        data-err-phone={t.eco.errorPhone}
+        data-err-consent={t.eco.errorConsent}
+      >
+        <Badge tone="amber">{t.common.soon}</Badge>
+        <h3 class="rz-h3 leading-[1.65] tracking-normal">{t.nav.academy}</h3>
+        <p class="m-0 text-[15.5px] text-text-2">{t.eco.academyDesc}</p>
+
+        <button
+          type="button"
+          class="rz-btn rz-w-idle mt-[4px] h-[46px] rounded-pill border border-border bg-white px-[20px] text-[15px] font-bold text-navy"
+          data-waitlist-open
+          aria-controls="waitlist-form"
+          aria-expanded="false"
+        >
+          {t.eco.join}
+        </button>
+
+        <form
+          id="waitlist-form"
+          method="post"
+          action="/api/waitlist"
+          class="rz-w-form mt-[4px] flex w-full flex-col gap-[8px]"
+          novalidate
+          data-waitlist-form
+        >
+          <label for="rz-wait-name" class="text-[14px] font-bold">
+            {t.eco.nameLabel}
+          </label>
+          <input
+            id="rz-wait-name"
+            name="name"
+            required
+            minlength="2"
+            maxlength="100"
+            autocomplete="name"
+            placeholder={t.eco.namePh}
+            class="h-[46px] w-full rounded-[12px] border border-border bg-surface px-[14px] text-[15px] text-navy"
+          />
+          <label for="rz-wait" class="text-[14px] font-bold">
+            {t.eco.emailLabel}
+          </label>
+          <input
+            id="rz-wait"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+            inputmode="email"
+            placeholder={t.eco.emailPh}
+            aria-describedby="rz-wait-err"
+            class="h-[46px] w-full rounded-[12px] border border-border bg-surface px-[14px] text-[15px] text-navy"
+          />
+          <label for="rz-wait-phone" class="text-[14px] font-bold">
+            {t.eco.phoneLabel}
+          </label>
+          <input
+            id="rz-wait-phone"
+            name="whatsapp"
+            type="tel"
+            required
+            inputmode="tel"
+            autocomplete="tel"
+            pattern="\+?[0-9 \-]{8,20}"
+            dir="ltr"
+            placeholder={t.eco.phonePh}
+            class="h-[46px] w-full rounded-[12px] border border-border bg-surface px-[14px] text-[15px] text-navy"
+          />
+          <label class="flex items-start gap-[10px] text-[14px] text-text-2">
+            <input
+              type="checkbox"
+              name="consent"
+              value="true"
+              required
+              class="mt-[3px] size-[18px] shrink-0 accent-brand"
+            />
+            <span>
+              {t.eco.consent} <a href={path('privacy', locale)}>{t.eco.privacy}</a>.
+            </span>
+          </label>
+          <button
+            type="submit"
+            class="rz-btn h-[46px] rounded-pill border-0 bg-navy px-[20px] text-[15px] font-bold text-white max-md:w-full md:self-start"
+            data-label={t.eco.submit}
+            data-sending={t.eco.sending}
+          >
+            {t.eco.submit}
+          </button>
+          <p
+            id="rz-wait-err"
+            class="m-0 text-[14px] font-semibold text-[#B42318]"
+            aria-live="polite"
+            data-waitlist-err
+          ></p>
+          <input type="hidden" name="locale" value={locale} />
+          <input type="hidden" name="source_page" value={Astro.url.pathname} />
+          <input type="hidden" name="product" value="academy" />
+          <div class="hidden" aria-hidden="true">
+            <label>
+              Website
+              <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
+            </label>
+          </div>
+          <Turnstile action="waitlist" />
+        </form>
+
+        <p
+          id="waitlist-terkirim"
+          class="rz-w-done m-0 mt-[4px] flex items-center gap-[8px] text-[15px] font-semibold text-navy"
+          role="status"
+          tabindex="-1"
+          data-waitlist-done
+        >
+          <Icon name="check" stroke={2.6} class="text-wa" />
+          <span>{t.eco.done}</span>
+        </p>
+
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener"
+          class="rz-w-done rz-btn mt-[4px] h-[46px] items-center gap-[8px] rounded-pill bg-brand px-[20px] text-[15px] font-bold text-white no-underline hover:text-white"
+          data-waitlist-wa
+          hidden
+        >
+          <Icon name="wa" size={18} />
+          {t.eco.sendWa}
+        </a>
+
+        <div
+          class="rz-w-error mt-[4px] flex w-full flex-col items-start gap-[10px]"
+          role="alert"
+          data-waitlist-error
+        >
+          <p class="m-0 text-[15px] font-semibold text-navy">{t.eco.error}</p>
+          <button
+            type="button"
+            class="rz-btn h-[44px] rounded-pill border border-border bg-white px-[18px] text-[14.5px] font-bold text-navy"
+            data-waitlist-retry
+          >
+            {t.eco.retry}
+          </button>
+        </div>
+      </div>
+
+      <div class="flex min-w-0 flex-[1_1_380px] flex-col items-start gap-[12px] rounded-panel border border-border bg-white p-[clamp(20px,2.6vw,32px)] shadow-card">
+        <h3 class="rz-h3 leading-[1.65] tracking-normal">{t.nav.store}</h3>
+        <p class="m-0 text-[15.5px] text-text-2">{t.eco.storeDesc}</p>
+        {products.length > 0 && (
+          <ul class="m-0 flex w-full list-none flex-col gap-[8px] p-0">
+            {products.map((p) => (
+              <li>
+                <a
+                  href={p.data.url}
+                  target="_blank"
+                  rel="noopener"
+                  class="flex items-center gap-[12px] rounded-[12px] bg-surface p-[8px] text-navy no-underline hover:text-brand"
+                  data-placeholder={isPlaceholder(p.data.name) ? '' : undefined}
+                >
+                  {p.data.image ? (
+                    <img
+                      src={p.data.image}
+                      alt=""
+                      width="44"
+                      height="44"
+                      loading="lazy"
+                      class="size-[44px] rounded-[12px] object-cover"
+                    />
+                  ) : (
+                    <span
+                      class="flex size-[44px] shrink-0 items-center justify-center rounded-[12px] bg-brand-50 text-brand"
+                      aria-hidden="true"
+                    >
+                      <Icon name="bag" size={20} />
+                    </span>
+                  )}
+                  <span class="min-w-0 flex-1 text-[14.5px] font-bold">{p.data.name}</span>
+                  <span class="text-[14px] font-bold text-brand">{p.data.price}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+        <a
+          href={settings.socials.lynk}
+          target="_blank"
+          rel="noopener"
+          class="rz-btn mt-[4px] inline-flex h-[46px] items-center rounded-pill border border-border bg-white px-[20px] text-[15px] font-bold text-navy no-underline hover:text-navy"
+        >
+          {t.eco.storeCta}
+          <span class="sr-only"> {t.common.newTab}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  [data-waitlist-wa][hidden] {
+    display: none !important;
+  }
+  .rz-w-idle,
+  .rz-w-form,
+  .rz-w-done,
+  .rz-w-error {
+    display: none;
+  }
+  /* Tanpa JS: form langsung tersedia; setelah POST, server redirect ke ?terkirim=1#waitlist-terkirim. */
+  :global(.no-js) [data-waitlist] .rz-w-form {
+    display: flex;
+  }
+  .rz-w-done:target {
+    display: flex;
+  }
+  :global(.js) [data-state='idle'] .rz-w-idle {
+    display: inline-flex;
+    align-items: center;
+  }
+  :global(.js) [data-state='form'] .rz-w-form,
+  :global(.js) [data-state='sending'] .rz-w-form {
+    display: flex;
+    animation: var(--animate-swap);
+  }
+  [data-state='done'] .rz-w-done,
+  [data-state='error'] .rz-w-error {
+    display: flex;
+    animation: var(--animate-swap);
+  }
+  [data-state='sending'] button[type='submit'] {
+    opacity: 0.7;
+    cursor: progress;
+  }
+  input[aria-invalid='true'] {
+    border-color: #b42318;
+  }
+</style>
+
+<script>
+  import '../../scripts/forms';
+</script>

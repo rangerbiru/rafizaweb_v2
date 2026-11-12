@@ -1,0 +1,118 @@
+---
+import PageHero from '../components/layout/PageHero.astro';
+import Faq from '../components/sections/Faq.astro';
+import Process from '../components/sections/Process.astro';
+import Icon from '../components/ui/Icon.astro';
+import ServiceCard from '../components/ui/ServiceCard.astro';
+import { path, useT, type Locale } from '../i18n';
+import { usePages } from '../i18n/pages';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getFaq, getServices } from '../lib/data';
+import { breadcrumbNode, faqNode, graph, itemListNode, serviceNode, webPageNode } from '../lib/schema';
+import { waHref, waTrack } from '../lib/wa';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const p = usePages(locale).services;
+const services = getServices(locale);
+const url = path('services', locale);
+const hrefOf = (s: (typeof services)[number]) =>
+  s.slug ? path(`service:${s.key}`, locale) : `${path('home', locale)}#ekosistem`;
+// Satu pertanyaan teratas dari tiap layanan (konten FAQ yang sudah ada), jawaban langsung untuk pembaca & AI.
+const faqs = (
+  await Promise.all(services.filter((s) => s.slug).map((s) => getFaq(`layanan:${s.key}`, locale)))
+).flatMap((list) => list.slice(0, 1));
+const crumbs = [
+  { name: t.common.home, href: path('home', locale) },
+  { name: t.nav.layanan, href: url },
+];
+const jsonLd = graph(locale, [
+  webPageNode({ url, name: p.title, description: p.description, locale, type: 'CollectionPage' }),
+  breadcrumbNode(crumbs.map((c) => ({ name: c.name, url: c.href }))),
+  itemListNode(services.map((s) => ({ name: s.name, url: hrefOf(s) }))),
+  ...services.filter((s) => s.slug).map((s) => serviceNode(s, hrefOf(s), locale)),
+  faqs.length ? faqNode(faqs) : null,
+]);
+---
+
+<BaseLayout
+  title={p.title}
+  description={p.description}
+  locale={locale}
+  routeKey="services"
+  jsonLd={jsonLd}
+  bannerAbove="navy"
+>
+  <PageHero locale={locale} crumbs={crumbs} badge={p.badge} title={p.h1} lead={p.lead}>
+    <a
+      href={waHref(t.wa.general)}
+      class="rz-btn inline-flex h-[52px] items-center justify-center gap-[10px] rounded-pill bg-brand px-[24px] text-[16px] font-bold text-white no-underline shadow-raised hover:text-white max-md:w-full"
+      {...waTrack('service_page', { locale })}
+    >
+      <Icon name="wa" />
+      {t.common.cta}
+    </a>
+  </PageHero>
+  <section class="bg-white" aria-label={p.h1}>
+    <div class="rz-container grid gap-[24px] pb-[clamp(48px,7.5vw,104px)] md:grid-cols-2 lg:grid-cols-3">
+      {services.map((s) => (
+        <ServiceCard service={s} href={hrefOf(s)} cta={s.slug ? p.see : t.services.toAcademy} />
+      ))}
+    </div>
+  </section>
+  <section class="bg-surface" aria-labelledby="choose-title">
+    <div class="rz-container rz-section-pad flex flex-col gap-[24px]">
+      <div class="flex max-w-[680px] flex-col gap-[12px]">
+        <h2 id="choose-title" class="rz-h2">
+          {p.chooseTitle}
+        </h2>
+        <p class="rz-lead">{p.chooseLead}</p>
+      </div>
+      <div
+        class="overflow-x-auto rounded-card border border-border bg-white"
+        role="region"
+        aria-labelledby="choose-title"
+        tabindex="0"
+      >
+        <table class="w-full min-w-[560px] border-collapse text-start text-[15.5px]">
+          <caption class="sr-only">{p.chooseTitle}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="bg-surface p-[16px] text-start font-bold text-muted">
+                {p.needHead}
+              </th>
+              <th scope="col" class="bg-surface p-[16px] text-start font-bold text-muted">
+                {p.serviceHead}
+              </th>
+              <th scope="col" class="bg-surface p-[16px] text-start font-bold text-muted">
+                {p.priceHead}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {services
+              .filter((s) => p.needs[s.key])
+              .map((s) => (
+                <tr class="border-t border-border align-top">
+                  <th scope="row" class="p-[16px] text-start font-medium text-text-2">
+                    {p.needs[s.key]}
+                  </th>
+                  <td class="p-[16px] font-bold">
+                    <a href={hrefOf(s)} class="text-brand">
+                      {s.name}
+                    </a>
+                  </td>
+                  <td class="p-[16px] font-semibold">{s.priceShort}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  {faqs.length > 0 && <Faq locale={locale} faqs={faqs} id="faq-layanan" title={p.faqTitle} bg="surface" />}
+  <Process locale={locale} />
+</BaseLayout>

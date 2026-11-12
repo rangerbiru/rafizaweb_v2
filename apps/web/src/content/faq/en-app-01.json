@@ -1,0 +1,9 @@
+{
+  "question": "How much does a web or mobile app cost?",
+  "answer": "Pricing is set through a free consultation because every system is designed around your business workflow, for example a point of sale, attendance, booking, or reporting dashboard. Apps are built with account-based access for your team and can be developed in stages as your needs grow.",
+  "scope": [
+    "layanan:app"
+  ],
+  "order": 1,
+  "locale": "en"
+}

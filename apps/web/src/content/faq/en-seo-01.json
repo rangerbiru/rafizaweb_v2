@@ -1,0 +1,9 @@
+{
+  "question": "What are SEO and GEO?",
+  "answer": "SEO is optimization so your business shows up on Google. GEO is optimization so AI assistants such as ChatGPT and Gemini recommend your business. At Rafizaweb this covers local keyword research for Bekasi, schema markup and Google Business Profile, and articles that answer your customers' questions.",
+  "scope": [
+    "layanan:seo"
+  ],
+  "order": 1,
+  "locale": "en"
+}

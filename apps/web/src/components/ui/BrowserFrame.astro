@@ -1,0 +1,65 @@
+---
+/**
+ * Bingkai browser untuk screenshot klien. Selama screenshot belum ada, tampil bingkai abu-abu
+ * bertanda data-placeholder (ditangkap check:placeholders, tidak boleh tayang di production).
+ */
+import { Picture } from 'astro:assets';
+import { isPlaceholder } from '../../lib/data';
+import { portfolioImage } from '../../lib/images';
+
+interface Props {
+  domain: string;
+  image?: string;
+  alt: string;
+  label: string;
+  ratio?: string;
+  /** Perkiraan lebar tampil (atribut sizes) agar browser memilih ukuran gambar yang tepat. */
+  sizes?: string;
+}
+const {
+  domain,
+  image,
+  alt,
+  label,
+  ratio = '16 / 8',
+  sizes = '(min-width: 1024px) 760px, 92vw',
+} = Astro.props;
+const meta = image ? portfolioImage(image) : undefined;
+---
+
+<div class="overflow-hidden rounded-[12px_12px_0_0] bg-white">
+  <div class="flex items-center gap-[6px] border-b border-border px-[14px] py-[10px]" aria-hidden="true">
+    <span class="size-[8px] rounded-full bg-border"></span>
+    <span class="size-[8px] rounded-full bg-border"></span>
+    <span class="size-[8px] rounded-full bg-border"></span>
+    <span
+      class="ms-[8px] truncate text-[13px] font-semibold text-text-2"
+      dir="ltr"
+      data-placeholder={isPlaceholder(domain) ? '' : undefined}
+    >
+      {domain}
+    </span>
+  </div>
+  {meta ? (
+    <Picture
+      src={meta}
+      alt={alt}
+      formats={['avif', 'webp']}
+      widths={[480, 800, 1200]}
+      sizes={sizes}
+      loading="lazy"
+      decoding="async"
+      class="block h-auto w-full"
+      style={`aspect-ratio:${ratio};object-fit:cover;object-position:top`}
+    />
+  ) : (
+    <div
+      class="flex max-w-full items-center justify-center bg-surface p-[16px] text-center text-[14.5px] font-semibold text-muted"
+      style={`aspect-ratio:${ratio}`}
+      data-placeholder
+      aria-hidden="true"
+    >
+      {label}
+    </div>
+  )}
+</div>

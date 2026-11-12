@@ -1,0 +1,116 @@
+---
+import Icon from '../ui/Icon.astro';
+import { path, useT, type Locale } from '../../i18n';
+import { settings } from '../../lib/data';
+import { waHref, waTrack } from '../../lib/wa';
+
+interface Props {
+  locale: Locale;
+  isHome?: boolean;
+  /** Latar section di atas banner (setengah atas). */
+  above?: 'surface' | 'white' | 'navy';
+}
+const { locale, isHome = false, above = 'surface' } = Astro.props;
+const t = useT(locale);
+const promise = t.common.replyPromise;
+const top = above === 'surface' ? '#F5F8FF' : above === 'navy' ? '#0B1A2E' : '#FFFFFF';
+---
+
+<section
+  id="kontak"
+  aria-labelledby="rz-cta"
+  data-cta-banner
+  style={`background: linear-gradient(180deg, ${top} 0%, ${top} 52%, #0B1A2E 52%, #0B1A2E 100%);`}
+>
+  <div class="rz-container">
+    <div class="rz-banner relative flex flex-wrap items-center gap-x-[48px] gap-y-[32px] overflow-hidden rounded-panel border border-border p-[clamp(28px,5vw,64px)] shadow-raised">
+      <div class="flex max-w-[580px] min-w-0 flex-[1_1_420px] flex-col items-start gap-[16px]">
+        <h2 id="rz-cta" class="rz-h2 text-balance">
+          {t.banner.title}
+        </h2>
+        <p class="rz-lead max-w-[32em]">{t.banner.desc(promise)}</p>
+        <div class="flex w-auto flex-wrap gap-[12px] pt-[8px] max-md:w-full">
+          <a
+            href={waHref(t.wa.general)}
+            class="rz-btn inline-flex h-[52px] items-center justify-center gap-[10px] rounded-pill bg-brand px-[24px] text-[16px] font-bold text-white no-underline shadow-raised hover:text-white max-md:w-full"
+            {...waTrack('banner', { locale })}
+          >
+            <Icon name="wa" />
+            {t.common.cta}
+          </a>
+          <a
+            href={isHome ? '#harga' : path('pricing', locale)}
+            class="rz-btn inline-flex h-[52px] items-center justify-center rounded-pill border border-border bg-white px-[24px] text-[16px] font-bold text-navy no-underline hover:text-navy max-md:w-full"
+          >
+            {t.common.ctaPrice}
+          </a>
+        </div>
+      </div>
+      <div
+        aria-hidden="true"
+        dir="ltr"
+        class="relative hidden min-h-[300px] min-w-0 flex-[1_1_340px] md:block"
+      >
+        <div class="absolute top-0 right-0 w-[82%] overflow-hidden rounded-card border border-border bg-white shadow-card">
+          <div class="flex items-center gap-[6px] border-b border-border px-[14px] py-[10px]">
+            <span class="size-[8px] rounded-full bg-border"></span>
+            <span class="size-[8px] rounded-full bg-border"></span>
+            <span class="size-[8px] rounded-full bg-border"></span>
+            <span class="ml-[8px] flex h-[20px] flex-1 items-center rounded-pill bg-surface px-[10px] text-[11px] font-semibold text-muted">
+              bisnisanda.com
+            </span>
+          </div>
+          <div class="flex flex-col gap-[10px] p-[14px]">
+            <div class="flex h-[92px] flex-col justify-end gap-[6px] rounded-[12px] bg-brand p-[14px]">
+              <span class="block h-[9px] w-[64%] rounded-[5px] bg-white"></span>
+              <span class="block h-[9px] w-[40%] rounded-[5px] bg-brand-50"></span>
+            </div>
+            <div class="flex gap-[8px]">
+              <span class="h-[44px] flex-1 rounded-[12px] bg-surface"></span>
+              <span class="h-[44px] flex-1 rounded-[12px] bg-surface"></span>
+              <span class="h-[44px] flex-1 rounded-[12px] bg-surface"></span>
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 flex w-[min(270px,78%)] flex-col gap-[8px] rounded-card border border-border bg-white p-[12px] shadow-raised">
+          <div class="flex items-center gap-[8px] border-b border-border pb-[8px]">
+            <span class="relative flex size-[30px] items-center justify-center rounded-full bg-brand font-heading text-[13px] font-extrabold text-white">
+              R
+              <span class="absolute -right-px -bottom-px size-[9px] rounded-full border-2 border-white bg-wa"></span>
+            </span>
+            <span class="flex flex-col leading-[1.25]">
+              <strong class="text-[13px]">{settings.businessName}</strong>
+              <span class="text-[11px] text-muted">WhatsApp</span>
+            </span>
+          </div>
+          <span
+            class="max-w-[86%] self-end rounded-[12px_12px_4px_12px] bg-brand-50 px-[11px] py-[8px] text-[12.5px] leading-[1.45]"
+            dir="auto"
+          >
+            {t.banner.chatUser}
+          </span>
+          <span
+            class="max-w-[86%] self-start rounded-[12px_12px_12px_4px] bg-surface px-[11px] py-[8px] text-[12.5px] leading-[1.45]"
+            dir="auto"
+          >
+            {t.banner.chatReply}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rz-banner {
+    background-color: #e6edfd;
+    background-image:
+      radial-gradient(rgba(29, 78, 216, 0.14) 1.2px, transparent 1.2px),
+      radial-gradient(620px 420px at 0% 100%, rgba(29, 78, 216, 0.16), transparent 70%),
+      linear-gradient(135deg, #f5f8ff 0%, #e6edfd 100%);
+    background-size:
+      22px 22px,
+      auto,
+      auto;
+  }
+</style>

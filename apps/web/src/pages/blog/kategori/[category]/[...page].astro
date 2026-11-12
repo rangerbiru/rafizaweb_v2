@@ -1,0 +1,30 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { blogData, pageSlice, PER_PAGE } from '../../../../lib/blog';
+import BlogList from '../../../../views/BlogList.astro';
+
+/** /blog/kategori/{k}/ dan /blog/kategori/{k}/2/ … */
+export const getStaticPaths = (async () => {
+  const { articles, cats } = await blogData();
+  return cats.flatMap((c) => {
+    const items = articles.filter((a) => a.data.category.id === c.id);
+    const last = Math.max(1, Math.ceil(items.length / PER_PAGE));
+    return Array.from({ length: last }, (_, i) => ({
+      params: { category: c.id, page: i === 0 ? undefined : String(i + 1) },
+      props: { category: c, items, page: i + 1, last },
+    }));
+  });
+}) satisfies GetStaticPaths;
+
+const { category, items, page, last } = Astro.props;
+const { cats } = await blogData();
+---
+
+<BlogList
+  articles={pageSlice(items, page)}
+  categories={cats}
+  currentPage={page}
+  lastPage={last}
+  baseUrl={`/blog/kategori/${category.id}/`}
+  activeCategory={category}
+/>

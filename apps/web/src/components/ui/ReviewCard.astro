@@ -1,0 +1,43 @@
+---
+import Stars from './Stars.astro';
+import { useT, type Locale } from '../../i18n';
+import { TINT } from '../../lib/data';
+
+interface Props {
+  name: string;
+  industry: string;
+  quote: string;
+  rating: number;
+  initial: string;
+  tint: string;
+  locale: Locale;
+  isDummy?: boolean;
+  source?: string;
+}
+const { name, industry, quote, rating, initial, tint, locale, isDummy, source } = Astro.props;
+const t = useT(locale);
+---
+
+<figure
+  class="rz-review m-0 flex w-full min-w-0 flex-col gap-[16px] rounded-card border border-border bg-white p-[24px] shadow-card"
+  data-dummy={isDummy ? '' : undefined}
+>
+  <div class="flex items-center justify-between gap-[12px]">
+    <Stars rating={rating} size={16} gap={2} label={t.common.starsLabel(rating)} />
+    {source === 'google' && <span class="text-[13px] font-semibold text-muted">{t.reviews.source}</span>}
+  </div>
+  <blockquote class="m-0 flex-1 text-[16px] leading-[1.65] text-navy">“{quote}”</blockquote>
+  <figcaption class="flex items-center gap-[12px] border-t border-border pt-[16px]">
+    <span
+      aria-hidden="true"
+      class="flex size-[40px] shrink-0 items-center justify-center rounded-full font-heading text-[16px] font-extrabold text-brand"
+      style={`background:${TINT[tint] ?? TINT.brand}`}
+    >
+      {initial}
+    </span>
+    <span class="flex min-w-0 flex-col leading-[1.35]">
+      <strong class="text-[15px]">{name}</strong>
+      <span class="text-[13.5px] text-muted">{industry}</span>
+    </span>
+  </figcaption>
+</figure>

@@ -1,0 +1,59 @@
+---
+import BrowserFrame from './BrowserFrame.astro';
+import { path, useT, type Locale } from '../../i18n';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'portfolio'>;
+  locale?: Locale;
+  headingLevel?: 'h2' | 'h3';
+}
+const { project, locale = 'id', headingLevel: H = 'h3' } = Astro.props;
+const t = useT(locale);
+const d = project.data;
+---
+
+<article
+  class="rz-card relative flex min-w-0 flex-col overflow-hidden rounded-card border border-border bg-white shadow-card"
+  data-industry={d.industry}
+>
+  <div class="bg-brand-50 px-[14px] pt-[14px]">
+    <BrowserFrame
+      domain={d.domain}
+      image={d.screenshotDesktop}
+      alt={d.name}
+      label={t.portfolio.shot(d.domain)}
+      ratio="16 / 10"
+    />
+  </div>
+  <div class="flex flex-col items-start gap-[8px] p-[20px]">
+    <span class="rounded-pill bg-brand-50 px-[10px] py-[3px] text-[13px] font-bold text-brand">
+      {t.portfolio.industries[d.industry]}
+    </span>
+    <H class="m-0 font-heading text-[19px] leading-[1.3] font-bold tracking-[-0.02em]">
+      <a
+        href={path(`project:${project.id}`, locale)}
+        class="rz-stretch text-navy no-underline hover:text-brand"
+      >
+        {d.name}
+      </a>
+    </H>
+    {d.summary[locale] && <p class="m-0 text-[14.5px] leading-[1.55] text-text-2">{d.summary[locale]}</p>}
+  </div>
+</article>
+
+<style>
+  .rz-stretch::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+  }
+  .rz-stretch:focus-visible {
+    outline: none;
+  }
+  .rz-stretch:focus-visible::after {
+    outline: 3px solid var(--color-amber);
+    outline-offset: 3px;
+  }
+</style>

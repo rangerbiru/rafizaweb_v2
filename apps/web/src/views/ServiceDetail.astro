@@ -1,0 +1,234 @@
+---
+import PageHero from '../components/layout/PageHero.astro';
+import Faq from '../components/sections/Faq.astro';
+import Process from '../components/sections/Process.astro';
+import ServiceIllustration from '../components/sections/ServiceIllustration.astro';
+import Icon from '../components/ui/Icon.astro';
+import PricingCard from '../components/ui/PricingCard.astro';
+import ProjectCard from '../components/ui/ProjectCard.astro';
+import { formatPrice, path, useT, type Locale } from '../i18n';
+import { usePages } from '../i18n/pages';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getFaq, getPlans, getPortfolioProjects, getServices, type Service } from '../lib/data';
+import { breadcrumbNode, faqNode, graph, serviceNode, webPageNode } from '../lib/schema';
+import { waHref, waTrack } from '../lib/wa';
+
+interface Props {
+  locale: Locale;
+  service: Service;
+}
+const { locale, service: s } = Astro.props;
+const t = useT(locale);
+const p = usePages(locale).service;
+const url = path(`service:${s.key}`, locale);
+const plan = getPlans(locale).find((x) => x.key === s.plan);
+const priceText = s.price;
+const portfolio = await getPortfolioProjects();
+const examples = (
+  s.key === 'cp' ? portfolio.filter((x) => x.data.industry === 'perusahaan') : portfolio
+).slice(0, 3);
+const faqs = await getFaq(`layanan:${s.key}`, locale);
+const others = getServices(locale).filter((x) => x.slug && x.key !== s.key);
+const crumbs = [
+  { name: t.common.home, href: path('home', locale) },
+  { name: t.nav.layanan, href: path('services', locale) },
+  { name: s.name, href: url },
+];
+const title = p.titleTpl(s.name).length > 60 ? `${s.name} di Bekasi | Rafizaweb` : p.titleTpl(s.name);
+// Pilih bentuk deskripsi terpanjang yang muat ≤160 karakter tanpa memotong kalimat dengan "…".
+const dPrefix = p.descTpl(s.name, '@@DESC@@', '').split('@@DESC@@')[0] ?? '';
+const descVariants = [
+  p.descTpl(s.name, s.desc, priceText),
+  `${dPrefix}${s.desc}`.trim(),
+  `${dPrefix}${s.desc} ${s.priceShort}.`.trim(),
+  `${s.name}: ${s.desc} ${priceText}.`.trim(),
+  `${s.name}: ${s.desc}`.trim(),
+  `${s.desc} ${priceText}.`.trim(),
+  `${s.desc}`.trim(),
+];
+let description =
+  descVariants.find((d) => d.length >= 140 && d.length <= 160) ??
+  descVariants.find((d) => d.length >= 100 && d.length <= 160) ??
+  descVariants.find((d) => d.length <= 160) ??
+  '';
+if (!description) description = `${descVariants[0]!.slice(0, 157).replace(/\s+\S*$/, '')}…`;
+const jsonLd = graph(locale, [
+  webPageNode({ url, name: title, description, locale }),
+  breadcrumbNode(crumbs.map((c) => ({ name: c.name, url: c.href }))),
+  serviceNode(s, url, locale),
+  faqNode(faqs),
+]);
+const h2 = 'rz-h2';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  locale={locale}
+  routeKey={`service:${s.key}`}
+  jsonLd={jsonLd}
+>
+  <PageHero
+    locale={locale}
+    crumbs={crumbs}
+    badge={s.tagline}
+    title={p.h1Tpl(s.name)}
+    lead={`${p.answerTpl(s.name, s.price)} ${s.desc}`}
+  >
+    <div class="flex flex-wrap items-center gap-[12px] max-md:w-full">
+      <a
+        href={waHref(t.wa.service(s.name))}
+        class="rz-btn inline-flex h-[52px] items-center justify-center gap-[10px] rounded-pill bg-brand px-[24px] text-[16px] font-bold text-white no-underline shadow-raised hover:text-white max-md:w-full"
+        {...waTrack('service_page', { service: s.key, locale })}
+      >
+        <Icon name="wa" />
+        {t.common.cta}
+      </a>
+      <a
+        href={path('pricing', locale)}
+        class="rz-btn inline-flex h-[52px] items-center justify-center rounded-pill border border-border bg-white px-[24px] text-[16px] font-bold text-navy no-underline hover:text-navy max-md:w-full"
+      >
+        {t.common.ctaPrice}
+      </a>
+    </div>
+  </PageHero>
+
+  <section class="bg-white" aria-labelledby="svc-who">
+    <div class="rz-container flex flex-wrap gap-[24px] pb-[clamp(48px,7.5vw,104px)]">
+      <div class="flex min-w-0 flex-[1_1_380px] flex-col gap-[14px] rounded-panel border border-border bg-surface p-[clamp(20px,2.6vw,32px)]">
+        <h2 id="svc-who" class="rz-h3">
+          {p.forWho}
+        </h2>
+        <p class="m-0 text-[16px] font-semibold text-navy">{s.tagline}.</p>
+        <p class="m-0 text-[16px] text-text-2">{s.desc}</p>
+      </div>
+      {s.problems.length > 0 && (
+        <div class="flex min-w-0 flex-[1_1_380px] flex-col gap-[14px] rounded-panel border border-border bg-white p-[clamp(20px,2.6vw,32px)] shadow-card">
+          <h2 class="rz-h3">{p.problems}</h2>
+          <ul class="m-0 flex list-none flex-col gap-[10px] p-0 text-[15.5px]">
+            {s.problems.map((x) => (
+              <li class="flex gap-[10px]">
+                <span class="mt-[9px] size-[7px] shrink-0 rounded-full bg-amber" aria-hidden="true" />
+                {x}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="bg-surface" aria-labelledby="svc-features">
+    <div class="rz-container rz-section-pad flex flex-wrap items-start gap-x-[48px] gap-y-[32px]">
+      <div class="flex min-w-0 flex-[1_1_420px] flex-col gap-[20px]">
+        <h2 id="svc-features" class={h2}>
+          {p.features}
+        </h2>
+        <ul class="m-0 flex list-none flex-col gap-[10px] p-0 text-[16px]">
+          {s.points.map((x) => (
+            <li class="flex gap-[10px]">
+              <Icon name="check" stroke={2.4} class="mt-[4px] shrink-0 text-brand" />
+              {x}
+            </li>
+          ))}
+        </ul>
+        {plan && (
+          <div class="flex flex-col gap-[10px] rounded-card border border-border bg-white p-[20px]">
+            <h3 class="m-0 text-[15px] font-bold text-muted">{p.planIncludes(plan.name)}</h3>
+            <ul class="m-0 flex list-none flex-col gap-[8px] p-0 text-[15px]">
+              {plan.features.map((f) => (
+                <li class="flex gap-[10px]">
+                  <Icon name="check" stroke={2.4} class="mt-[3px] shrink-0 text-brand" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+      <div class="flex min-w-0 flex-[1_1_380px]" data-open>
+        <ServiceIllustration kind={s.key} locale={locale} />
+      </div>
+    </div>
+  </section>
+
+  {examples.length > 0 && (
+    <section class="bg-white" aria-labelledby="svc-examples">
+      <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,40px)]">
+        <div class="flex flex-wrap items-end justify-between gap-[12px]">
+          <h2 id="svc-examples" class={h2}>
+            {p.examples}
+          </h2>
+          <a href={path('portfolio', locale)} class="rz-link text-[15px]">
+            {t.portfolio.all}
+          </a>
+        </div>
+        <div class="grid gap-[24px] md:grid-cols-3">
+          {examples.map((x) => (
+            <ProjectCard project={x} locale={locale} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <Process locale={locale} />
+
+  <section class="bg-surface" aria-labelledby="svc-price">
+    <div class="rz-container rz-section-pad flex flex-wrap items-start gap-x-[48px] gap-y-[32px]">
+      <div class="flex min-w-0 flex-[1_1_360px] flex-col items-start gap-[16px]">
+        <h2 id="svc-price" class={h2}>
+          {p.price}
+        </h2>
+        {s.priceFrom ? (
+          <p class="m-0 flex flex-col gap-[4px]">
+            <span class="text-[15px] font-semibold text-muted">{p.priceFrom}</span>
+            <span
+              class="font-heading text-[40px] leading-[1.15] font-extrabold tracking-[-0.04em] text-brand"
+              dir={locale === 'ar' ? undefined : 'ltr'}
+            >
+              {formatPrice(s.priceFrom, locale)}
+            </span>
+          </p>
+        ) : (
+          <p class="rz-lead">{p.priceConsult}</p>
+        )}
+        <p class="rz-lead">{t.pricing.includes}</p>
+        <a href={path('pricing', locale)} class="rz-link text-[15px]">
+          {p.seePricing}
+        </a>
+      </div>
+      {plan && s.priceFrom && <PricingCard plan={plan} locale={locale} rec headingLevel="h3" />}
+    </div>
+  </section>
+
+  <Faq
+    locale={locale}
+    faqs={faqs}
+    id="faq-layanan"
+    title={p.faq(s.name)}
+    lead={p.faqLead}
+    bg="white"
+    showFounder={false}
+  />
+
+  <section class="bg-white" aria-labelledby="svc-others">
+    <div class="rz-container flex flex-col gap-[16px] pb-[clamp(48px,7.5vw,104px)]">
+      <h2 id="svc-others" class="rz-h3">
+        {p.otherServices}
+      </h2>
+      <ul class="m-0 flex list-none flex-wrap gap-[10px] p-0">
+        {others.map((o) => (
+          <li>
+            <a
+              href={path(`service:${o.key}`, locale)}
+              class="rz-btn inline-flex min-h-[44px] items-center rounded-pill border border-border bg-white px-[18px] text-[15px] font-bold text-navy no-underline hover:text-brand"
+            >
+              {o.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

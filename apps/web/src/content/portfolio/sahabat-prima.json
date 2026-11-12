@@ -1,0 +1,40 @@
+{
+  "name": "CV Sahabat Prima Karawang",
+  "industry": "perusahaan",
+  "domain": "sahabatprima.com",
+  "url": "https://sahabatprima.com/",
+  "year": "",
+  "package": "",
+  "showInMarquee": true,
+  "order": 4,
+  "tint": "brand",
+  "screenshotDesktop": "/images/portfolio/sahabat-prima/desktop.webp",
+  "screenshotMobile": "/images/portfolio/sahabat-prima/mobile.webp",
+  "challenge": "",
+  "solution": "",
+  "result": "",
+  "testimonial": "sahabat-prima",
+  "isDummy": false,
+  "summary": {
+    "id": "Website company profile untuk kontraktor bidang mechanical, electrical, fire system protection, dan water treatment. Website ini memperkenalkan perusahaan, layanan, dan keunggulannya kepada calon klien industri dan komersial.",
+    "en": "A company profile website for a contractor in mechanical, electrical, fire system protection, and water treatment. It introduces the company, its services, and its strengths to prospective industrial and commercial clients.",
+    "ar": "موقع تعريفي لشركة مقاولات في مجالات الميكانيكا والكهرباء وأنظمة الحماية من الحرائق ومعالجة المياه. يعرّف الموقع بالشركة وخدماتها ومزاياها للعملاء المحتملين في القطاعين الصناعي والتجاري."
+  },
+  "highlights": {
+    "id": [
+      "Halaman about us, produk, keunggulan, workshop, dan layanan",
+      "Halaman karier untuk rekrutmen",
+      "Halaman kontak untuk calon klien proyek"
+    ],
+    "en": [
+      "About us, products, advantages, workshop, and service pages",
+      "A careers page for recruitment",
+      "A contact page for prospective project clients"
+    ],
+    "ar": [
+      "صفحات من نحن والمنتجات والمزايا والورشة والخدمات",
+      "صفحة وظائف للتوظيف",
+      "صفحة تواصل للعملاء المحتملين للمشاريع"
+    ]
+  }
+}

@@ -1,0 +1,183 @@
+---
+/** Ilustrasi khas per layanan (HTML/CSS, dekoratif). Port dari design/home.dc.html. */
+import Icon from '../ui/Icon.astro';
+import { useT, type Locale } from '../../i18n';
+
+interface Props {
+  kind: string;
+  locale: Locale;
+}
+const { kind, locale } = Astro.props;
+const t = useT(locale);
+const d = (s: number) => `animation-delay:${s}s`;
+const tiles = [
+  '#E6EDFD',
+  'rgba(245, 184, 61, 0.25)',
+  '#F5F8FF',
+  '#DCE2E9',
+  '#E6EDFD',
+  'rgba(245, 184, 61, 0.25)',
+];
+---
+
+<div
+  aria-hidden="true"
+  class="rz-stage relative flex h-[300px] min-w-0 flex-[1_1_260px] items-center justify-center overflow-hidden rounded-card bg-brand-50 p-[24px]"
+>
+  {kind === 'lp' && (
+    <>
+      <div class="flex h-full max-h-[240px] w-[150px] flex-col gap-[8px] rounded-panel border-[6px] border-navy bg-white px-[10px] py-[12px] shadow-raised">
+        <span class="block h-[5px] w-[36px] self-center rounded-[3px] bg-border" />
+        <span class="rz-a-pop block h-[72px] rounded-[12px] bg-brand-50" style={d(0.05)} />
+        <span class="rz-a-grow block h-[8px] w-[86%] rounded-[4px] bg-navy" style={d(0.15)} />
+        <span class="rz-a-grow block h-[6px] w-[64%] rounded-[3px] bg-border" style={d(0.2)} />
+        {/* Teks dekoratif (gambar, WCAG 1.4.3 incidental) dirender lewat ::after agar tidak dinilai sebagai teks konten. */}
+        <span
+          class="rz-a-pop rz-wa-label mt-auto flex h-[32px] items-center justify-center rounded-pill bg-wa text-[11px] font-bold text-white"
+          style={d(0.3)}
+          data-label={t.services.illoWa}
+        />
+      </div>
+      <span
+        class="rz-a-pop absolute top-[16%] right-[6%] max-w-[44%] rounded-[12px_12px_4px_12px] bg-white px-[12px] py-[9px] text-[12.5px] leading-[1.4] font-semibold shadow-card"
+        style={d(0.5)}
+      >
+        {t.services.illoChat}
+      </span>
+    </>
+  )}
+  {kind === 'cp' && (
+    <div class="flex w-full max-w-[310px] flex-col gap-[10px] rounded-card bg-white p-[14px] shadow-raised">
+      <div class="flex items-center justify-between">
+        <span class="block h-[9px] w-[60px] rounded-[5px] bg-navy" />
+        <span class="flex gap-[6px]">
+          <span class="block h-[6px] w-[22px] rounded-[3px] bg-border" />
+          <span class="block h-[6px] w-[22px] rounded-[3px] bg-border" />
+          <span class="block h-[6px] w-[22px] rounded-[3px] bg-border" />
+        </span>
+      </div>
+      <div class="flex h-[92px] flex-col justify-end gap-[7px] rounded-[12px] bg-brand p-[14px]">
+        <span class="rz-a-grow block h-[9px] w-[72%] rounded-[5px] bg-white" style={d(0.1)} />
+        <span class="rz-a-grow block h-[9px] w-[46%] rounded-[5px] bg-brand-50" style={d(0.18)} />
+      </div>
+      <div class="flex gap-[8px]">
+        {[0.22, 0.28, 0.34].map((s) => (
+          <span
+            class="rz-a-pop block h-[54px] flex-1 rounded-[12px] border border-border bg-surface"
+            style={d(s)}
+          />
+        ))}
+      </div>
+    </div>
+  )}
+  {kind === 'toko' && (
+    <div class="relative grid w-full max-w-[300px] grid-cols-3 gap-[10px] rounded-card bg-white p-[14px] shadow-raised">
+      {tiles.map((bg, i) => (
+        <span class="rz-a-pop flex flex-col gap-[6px]" style={d(0.05 + i * 0.06)}>
+          <span class="block aspect-square rounded-[12px]" style={`background:${bg}`} />
+          <span class="block h-[6px] w-[80%] rounded-[3px] bg-border" />
+          <span class="block h-[6px] w-[50%] rounded-[3px] bg-brand" />
+        </span>
+      ))}
+      <span
+        class="rz-a-pop absolute -top-[14px] -right-[14px] flex size-[44px] items-center justify-center rounded-full bg-amber text-[15px] font-extrabold text-navy shadow-card"
+        style={d(0.5)}
+      >
+        3
+      </span>
+    </div>
+  )}
+  {kind === 'app' && (
+    <div
+      class="flex h-[210px] w-full max-w-[320px] overflow-hidden rounded-card bg-white shadow-raised"
+      dir="ltr"
+    >
+      <div class="flex w-[52px] shrink-0 flex-col gap-[12px] bg-navy px-[12px] py-[16px]">
+        <span class="block h-[8px] rounded-[4px] bg-amber" />
+        <span class="block h-[8px] rounded-[4px] bg-text-2" />
+        <span class="block h-[8px] rounded-[4px] bg-text-2" />
+      </div>
+      <div class="flex min-w-0 flex-1 flex-col gap-[12px] p-[14px]">
+        <div class="flex gap-[8px]">
+          <span class="h-[38px] flex-1 rounded-[12px] border border-border bg-surface" />
+          <span class="h-[38px] flex-1 rounded-[12px] border border-border bg-surface" />
+          <span class="h-[38px] flex-1 rounded-[12px] border border-border bg-surface" />
+        </div>
+        <div class="flex flex-1 items-end gap-[8px] border-b border-border pb-[2px]">
+          {[
+            [42, 0.05, false],
+            [68, 0.1, false],
+            [54, 0.15, false],
+            [84, 0.2, false],
+            [96, 0.25, true],
+          ].map(([h, s, on]) => (
+            <span
+              class:list={['rz-a-bar block flex-1 rounded-[6px_6px_0_0]', on ? 'bg-brand' : 'bg-brand-50']}
+              style={`height:${h}%;${d(s as number)}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
+  {kind === 'seo' && (
+    <div class="flex w-full max-w-[320px] flex-col gap-[12px] rounded-card bg-white p-[16px] shadow-raised">
+      <div class="flex h-[38px] items-center gap-[8px] rounded-pill border border-border px-[14px] text-[12.5px] text-text-2">
+        <Icon name="search" size={14} stroke={2.4} />
+        {t.services.illoSearch}
+      </div>
+      <div
+        class="rz-a-pop relative flex flex-col gap-[7px] rounded-[12px] border-2 border-brand p-[12px]"
+        style={d(0.15)}
+      >
+        <span class="absolute -top-[11px] end-[12px] rounded-pill bg-amber px-[9px] py-[2px] text-[11px] font-extrabold text-navy">
+          {t.services.illoYou}
+        </span>
+        <span class="block h-[6px] w-[46%] rounded-[3px] bg-muted" />
+        <span class="block h-[9px] w-[84%] rounded-[5px] bg-brand" />
+        <span class="block h-[6px] w-[94%] rounded-[3px] bg-border" />
+      </div>
+      <div class="flex flex-col gap-[7px] px-[12px] py-[2px]">
+        <span class="block h-[6px] w-[40%] rounded-[3px] bg-border" />
+        <span class="block h-[9px] w-[70%] rounded-[5px] bg-brand-50" />
+      </div>
+    </div>
+  )}
+  {kind === 'kelas' && (
+    <div class="flex w-full max-w-[310px] flex-col gap-[10px]">
+      <div class="relative flex aspect-video max-w-full items-center justify-center overflow-hidden rounded-card bg-navy">
+        <span class="flex size-[52px] items-center justify-center rounded-full bg-white">
+          <span class="ml-[4px] block size-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-brand" />
+        </span>
+        <span class="absolute inset-x-[14px] bottom-[14px] h-[5px] rounded-[3px] bg-text-2">
+          <span class="rz-a-grow block h-full w-[38%] rounded-[3px] bg-amber" style={d(0.2)} />
+        </span>
+      </div>
+      <div class="flex items-center gap-[10px] rounded-[12px] bg-white px-[12px] py-[10px]">
+        <span class="size-[20px] shrink-0 rounded-full bg-brand" />
+        <span class="block h-[7px] flex-1 rounded-[4px] bg-border" />
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .rz-wa-label::after {
+    content: attr(data-label);
+  }
+  /* Animasi bertahap hanya diputar saat panel terbuka/terpilih (diputar ulang setiap kali dibuka). */
+  :global([data-open]) .rz-a-pop {
+    animation: var(--animate-pop);
+  }
+  :global([data-open]) .rz-a-grow {
+    transform-origin: left center;
+    animation: var(--animate-grow);
+  }
+  :global([dir='rtl'] [data-open]) .rz-a-grow {
+    transform-origin: right center;
+  }
+  :global([data-open]) .rz-a-bar {
+    transform-origin: bottom center;
+    animation: var(--animate-bar);
+  }
+</style>

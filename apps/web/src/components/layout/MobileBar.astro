@@ -1,0 +1,59 @@
+---
+import Icon from '../ui/Icon.astro';
+import { path, useT, type Locale } from '../../i18n';
+import { waHref, waTrack } from '../../lib/wa';
+
+interface Props {
+  locale: Locale;
+  isHome?: boolean;
+}
+const { locale, isHome = false } = Astro.props;
+const t = useT(locale);
+---
+
+<div
+  data-mobile-bar
+  class="rz-mbar fixed inset-x-0 bottom-0 z-35 flex h-[calc(64px+env(safe-area-inset-bottom,0px))] gap-[8px] border-t border-border px-[16px] pt-[8px] pb-[calc(8px+env(safe-area-inset-bottom,0px))] md:hidden"
+>
+  <a
+    href={waHref(t.wa.general)}
+    class="flex flex-1 items-center justify-center gap-[8px] rounded-pill bg-brand text-[15px] font-bold text-white no-underline hover:text-white"
+    {...waTrack('mobile_bar', { locale })}
+  >
+    <Icon name="wa" />
+    {t.mobileBar.cta}
+  </a>
+  <a
+    href={isHome ? '#harga' : path('pricing', locale)}
+    class="flex items-center justify-center rounded-pill border border-border bg-white px-[20px] text-[15px] font-bold text-navy no-underline hover:text-navy"
+  >
+    {t.mobileBar.price}
+  </a>
+</div>
+
+<style>
+  .rz-mbar {
+    /* Tanpa backdrop-filter: pada elemen fixed di bawah layar, browser HP sering baru menggambarnya setelah scroll. */
+    background: #ffffff;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+  .rz-mbar[data-hidden],
+  :global(html[data-menu-open]) .rz-mbar {
+    transform: translate3d(0, 110%, 0);
+    opacity: 0;
+    pointer-events: none;
+  }
+  @media (max-width: 767px) {
+    :global(body) {
+      padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/mobile-bar';
+</script>

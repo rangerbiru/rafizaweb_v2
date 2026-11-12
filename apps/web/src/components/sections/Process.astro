@@ -1,0 +1,88 @@
+---
+/** Proses kerja (PRD §6.7): section navy, 4 langkah, garis penghubung tumbuh (rzGrow) saat terlihat. */
+import { useT, type Locale } from '../../i18n';
+import { getProcess, isPlaceholder } from '../../lib/data';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const steps = getProcess(locale);
+---
+
+<section data-dark id="proses" aria-labelledby="rz-proses" class="bg-navy text-white">
+  <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,48px)]">
+    <div class="flex max-w-[640px] flex-col gap-[12px]">
+      <h2 id="rz-proses" class="rz-h2">
+        {t.process.title}
+      </h2>
+      <p class="rz-lead text-border!">{t.process.lead}</p>
+    </div>
+    <ol class="rz-steps m-0 flex list-none flex-col p-0 md:flex-row" data-reveal>
+      {steps.map((s, i) => {
+        const last = i === steps.length - 1;
+        const showDay = !isPlaceholder(s.day);
+        return (
+          <li class="flex min-w-0 flex-[1_1_0] flex-row gap-[16px] md:flex-col">
+            <div class="flex shrink-0 flex-col items-center md:flex-row">
+              <span
+                class:list={[
+                  'flex size-[48px] shrink-0 items-center justify-center rounded-full border-2 font-heading text-[17px] font-extrabold',
+                  last ? 'border-amber bg-amber text-navy' : 'border-brand-50 bg-transparent text-white',
+                ]}
+              >
+                {s.n}
+              </span>
+              {!last && (
+                <span
+                  aria-hidden="true"
+                  class="rz-line my-[8px] block min-h-[24px] w-[2px] flex-1 bg-text-2 md:mx-[12px] md:my-0 md:h-[2px] md:min-h-0 md:w-auto md:min-w-[24px]"
+                  style={`animation-delay:${0.15 + i * 0.15}s`}
+                />
+              )}
+            </div>
+            <div class="flex flex-col gap-[8px] pt-[6px] pb-[28px] md:pt-0 md:pe-[24px] md:pb-0">
+              {showDay && (
+                <span
+                  class="text-[14px] font-bold text-amber"
+                  data-placeholder={isPlaceholder(s.day) ? '' : undefined}
+                >
+                  {s.day}
+                </span>
+              )}
+              <h3 class="rz-h3 leading-[1.25] tracking-normal">{s.title}</h3>
+              <p class="m-0 text-[15.5px] leading-[1.65] text-border">{s.desc}</p>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</section>
+
+<style>
+  :global(.rz-reveal-in) .rz-line {
+    transform-origin: top center;
+    animation: rzGrowY 0.5s var(--ease-standard) both;
+  }
+  @keyframes rzGrowY {
+    from {
+      opacity: 0;
+      transform: scaleY(0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (min-width: 768px) {
+    :global(.rz-reveal-in) .rz-line {
+      transform-origin: left center;
+      animation: var(--animate-grow);
+    }
+    :global([dir='rtl'] .rz-reveal-in) .rz-line {
+      transform-origin: right center;
+    }
+  }
+</style>

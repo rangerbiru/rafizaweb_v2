@@ -1,0 +1,7 @@
+{
+  "question": "Aplikasi apa saja yang bisa dibuat?",
+  "answer": "Sistem custom untuk kebutuhan spesifik, misalnya kasir, absensi, booking, dan dashboard laporan.",
+  "scope": ["layanan:app"],
+  "order": 2,
+  "locale": "id"
+}

@@ -1,0 +1,9 @@
+{
+  "question": "Berapa harga pembuatan aplikasi web atau mobile?",
+  "answer": "Harga ditentukan lewat konsultasi gratis karena setiap sistem dirancang mengikuti alur kerja bisnis Anda, misalnya kasir, absensi, booking, atau dashboard laporan. Aplikasi dibuat dengan akses berbasis akun untuk tim dan bisa dikembangkan bertahap sesuai kebutuhan.",
+  "scope": [
+    "layanan:app"
+  ],
+  "order": 1,
+  "locale": "id"
+}

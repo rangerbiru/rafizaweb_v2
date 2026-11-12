@@ -1,0 +1,7 @@
+{
+  "question": "How do customer orders come in?",
+  "answer": "Orders go straight to your WhatsApp, with no marketplace commission.",
+  "scope": ["layanan:toko"],
+  "order": 3,
+  "locale": "en"
+}

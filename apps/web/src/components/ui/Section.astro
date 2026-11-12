@@ -1,0 +1,19 @@
+---
+/** Section dengan latar putih / surface / navy dan padding standar clamp(48px, 7.5vw, 104px). */
+interface Props {
+  id?: string;
+  bg?: 'white' | 'surface' | 'navy';
+  labelledby?: string;
+  label?: string;
+  class?: string;
+  inner?: string;
+}
+const { id, bg = 'white', labelledby, label, class: cls, inner } = Astro.props;
+const bgs = { white: 'bg-white', surface: 'bg-surface', navy: 'bg-navy text-white' };
+---
+
+<section id={id} aria-labelledby={labelledby} aria-label={label} class:list={[bgs[bg], cls]}>
+  <div class:list={['rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,48px)]', inner]}>
+    <slot />
+  </div>
+</section>

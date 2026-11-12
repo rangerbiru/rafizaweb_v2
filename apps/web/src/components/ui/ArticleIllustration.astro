@@ -1,0 +1,96 @@
+---
+/** Ilustrasi default kartu artikel (dari desain). Dipakai bila artikel memilih ilustrasi atau tidak punya cover. */
+import Icon from './Icon.astro';
+
+interface Props {
+  kind: string;
+  variant?: 'feature' | 'row';
+}
+const { kind, variant = 'feature' } = Astro.props;
+---
+
+{kind === 'checklist' ? (
+  <div aria-hidden="true" class="relative aspect-video max-w-full overflow-hidden rounded-[12px] bg-navy">
+    <span class="absolute top-[14%] right-[14%] size-[56px] rounded-full shadow-[-12px_5px_0_0_#F5B83D]" />
+    <div class="absolute bottom-0 left-[10%] flex h-[62%] w-[56%] flex-col gap-[10px] rounded-[12px_12px_0_0] bg-white px-[16px] py-[14px]">
+      <span class="flex items-center gap-[8px]">
+        <span class="size-[14px] rounded-[4px] bg-brand" />
+        <span class="block h-[7px] w-[62%] rounded-[4px] bg-navy" />
+      </span>
+      <span class="flex items-center gap-[8px]">
+        <span class="size-[14px] rounded-[4px] bg-brand" />
+        <span class="block h-[7px] w-[48%] rounded-[4px] bg-border" />
+      </span>
+      <span class="flex items-center gap-[8px]">
+        <span class="size-[14px] rounded-[4px] border-2 border-border" />
+        <span class="block h-[7px] w-[40%] rounded-[4px] bg-border" />
+      </span>
+    </div>
+  </div>
+) : kind === 'shield' ? (
+  <div
+    aria-hidden="true"
+    class:list={[
+      'flex flex-col items-center justify-center gap-[10px] rounded-[12px] bg-brand-50',
+      variant === 'row' ? 'min-h-[160px] flex-[1_1_160px]' : 'aspect-video',
+    ]}
+  >
+    <span class="flex size-[60px] items-center justify-center rounded-card bg-brand text-white">
+      <Icon name="shield" size={30} />
+    </span>
+  </div>
+) : kind === 'versus' ? (
+  <div
+    aria-hidden="true"
+    class:list={[
+      'flex items-center justify-center gap-[10px] rounded-[12px] border border-border bg-surface',
+      variant === 'row' ? 'min-h-[160px] flex-[1_1_160px]' : 'aspect-video',
+    ]}
+  >
+    <span class="flex h-[50px] w-[64px] flex-col gap-[5px] rounded-[12px] bg-white p-[7px] shadow-card">
+      <span class="block h-[14px] rounded-[4px] bg-brand" />
+      <span class="block h-[4px] w-[70%] rounded-[2px] bg-border" />
+    </span>
+    <span class="flex size-[28px] items-center justify-center rounded-full bg-navy font-heading text-[10px] font-extrabold text-white">
+      VS
+    </span>
+    <span class="flex h-[66px] w-[40px] items-center justify-center rounded-[12px] border-[3px] border-navy bg-white text-amber">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />
+      </svg>
+    </span>
+  </div>
+) : kind === 'chart' ? (
+  <div
+    aria-hidden="true"
+    class:list={[
+      'flex items-end justify-center gap-[8px] rounded-[12px] bg-brand-50 px-[24%] pb-[18%]',
+      variant === 'row' ? 'min-h-[160px] flex-[1_1_160px]' : 'aspect-video',
+    ]}
+  >
+    {[38, 56, 44, 72, 90].map((h, i) => (
+      <span
+        class:list={['block w-full rounded-[6px_6px_0_0]', i === 4 ? 'bg-brand' : 'bg-white']}
+        style={`height:${h}px`}
+      />
+    ))}
+  </div>
+) : (
+  <div
+    aria-hidden="true"
+    class:list={[
+      'flex items-center justify-center rounded-[12px] bg-surface p-[16px]',
+      variant === 'row' ? 'min-h-[160px] flex-[1_1_160px]' : 'aspect-video',
+    ]}
+  >
+    <span class="flex w-[70%] max-w-[200px] flex-col gap-[6px] rounded-[12px] bg-white p-[10px] shadow-card">
+      <span class="flex gap-[4px]">
+        <span class="size-[6px] rounded-full bg-border" />
+        <span class="size-[6px] rounded-full bg-border" />
+        <span class="size-[6px] rounded-full bg-border" />
+      </span>
+      <span class="block h-[38px] rounded-[8px] bg-brand" />
+      <span class="block h-[5px] w-[70%] rounded-[3px] bg-border" />
+    </span>
+  </div>
+)}

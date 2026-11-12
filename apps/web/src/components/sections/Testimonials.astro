@@ -1,0 +1,75 @@
+---
+/**
+ * Kata klien (PRD §6.9). Data saat ini DUMMY (isDummy: true) dan hanya tayang bila ALLOW_DUMMY.
+ * Tidak ada AggregateRating/Review schema untuk bisnis sendiri.
+ */
+import ReviewCard from '../ui/ReviewCard.astro';
+import Stars from '../ui/Stars.astro';
+import { useT, type Locale } from '../../i18n';
+import { ALLOW_DUMMY, getTestimonials, settings } from '../../lib/data';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const reviews = await getTestimonials();
+const showSummary = !settings.ratingIsDummy || ALLOW_DUMMY;
+const quoteOf = (r: (typeof reviews)[number]['data']) =>
+  locale === 'en' && r.quoteEn ? r.quoteEn : locale === 'ar' && r.quoteAr ? r.quoteAr : r.quote;
+const rating = locale === 'id' ? settings.rating : settings.rating.replace(',', '.');
+---
+
+{reviews.length > 0 && (
+  <section id="testimoni" aria-labelledby="rz-testi" class="bg-white">
+    <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,40px)]">
+      <div class="flex flex-wrap items-end justify-between gap-x-[32px] gap-y-[20px]" data-reveal>
+        <div class="flex max-w-[560px] flex-col gap-[12px]">
+          <h2 id="rz-testi" class="rz-h2">
+            {t.reviews.title}
+          </h2>
+          <p class="rz-lead">{t.reviews.lead}</p>
+        </div>
+        {showSummary && (
+          <div
+            class="flex flex-wrap items-center gap-x-[20px] gap-y-[12px] rounded-card border border-border bg-surface px-[20px] py-[14px]"
+            data-dummy={settings.ratingIsDummy ? '' : undefined}
+          >
+            <span class="font-heading text-[36px] leading-none font-extrabold tracking-[-0.04em]">
+              {rating}
+            </span>
+            <span class="flex flex-col gap-[4px]">
+              <Stars rating={5} label={t.common.starsLabel(5)} />
+              <span class="text-[14px] text-text-2">{t.reviews.fromN(settings.reviewCount)}</span>
+            </span>
+            <a href={settings.gbpUrl} target="_blank" rel="noopener" class="rz-link text-[14.5px]">
+              {t.reviews.seeGoogle}
+            </a>
+          </div>
+        )}
+      </div>
+      <div
+        class="rz-hscroll -mx-[16px] flex gap-[20px] overflow-x-auto px-[16px] pt-[4px] pb-[24px] md:mx-0 md:flex-wrap md:overflow-visible md:p-0"
+        role="region"
+        aria-label={t.reviews.title}
+        tabindex="0"
+      >
+        {reviews.map((r) => (
+          <div class="flex flex-[0_0_86%] md:flex-[1_1_300px]">
+            <ReviewCard
+              name={r.data.name}
+              industry={t.portfolio.industries[r.data.industry] ?? r.data.industry}
+              quote={quoteOf(r.data)}
+              rating={r.data.rating}
+              initial={r.data.initial}
+              tint={r.data.tint}
+              locale={locale}
+              isDummy={r.data.isDummy}
+              source={r.data.source}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

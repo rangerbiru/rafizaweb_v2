@@ -1,0 +1,7 @@
+{
+  "question": "Apakah saya bisa mengelola produk sendiri?",
+  "answer": "Bisa. Produk, harga, dan stok dikelola dari dashboard, dan Anda mendapat panduan video kelola toko.",
+  "scope": ["layanan:toko"],
+  "order": 2,
+  "locale": "id"
+}

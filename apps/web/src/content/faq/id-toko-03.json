@@ -1,0 +1,7 @@
+{
+  "question": "Bagaimana pesanan pelanggan masuk?",
+  "answer": "Pesanan langsung masuk ke WhatsApp Anda, tanpa potongan komisi marketplace.",
+  "scope": ["layanan:toko"],
+  "order": 3,
+  "locale": "id"
+}

@@ -1,0 +1,63 @@
+---
+/** Artikel terbaru (PRD §6.11): 3 artikel terbaru; kartu besar + 2 kartu baris di desktop. */
+import ArticleCard from '../ui/ArticleCard.astro';
+import { path, useT, type Locale } from '../../i18n';
+import { getArticles, getCategories } from '../../lib/data';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const [first, ...rest] = (await getArticles()).slice(0, 3);
+const cats = new Map((await getCategories()).map((c) => [c.id, c.data.name]));
+const note = locale === 'id' ? undefined : t.common.idOnly;
+const more = path('blog', locale);
+---
+
+{first && (
+  <section id="blog" aria-labelledby="rz-blog" class="bg-white">
+    <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,48px)]">
+      <div class="flex flex-wrap items-end justify-between gap-x-[32px] gap-y-[12px]" data-reveal>
+        <div class="flex max-w-[640px] flex-col gap-[12px]">
+          <h2 id="rz-blog" class="rz-h2">
+            {t.blog.title}
+          </h2>
+          <p class="rz-lead">{t.blog.lead}</p>
+        </div>
+        <a
+          href={more}
+          class="rz-btn hidden h-[46px] items-center rounded-pill border border-border bg-white px-[20px] text-[15px] font-bold text-navy no-underline hover:text-navy md:inline-flex"
+        >
+          {t.blog.more}
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-[24px]">
+        <ArticleCard
+          article={first}
+          categoryName={cats.get(first.data.category.id) ?? ''}
+          variant="feature"
+          locale={locale}
+          langNote={note}
+        />
+        <div class="flex min-w-0 flex-[1_1_400px] flex-col gap-[24px]">
+          {rest.map((a) => (
+            <ArticleCard
+              article={a}
+              categoryName={cats.get(a.data.category.id) ?? ''}
+              variant="row"
+              locale={locale}
+              langNote={note}
+            />
+          ))}
+        </div>
+      </div>
+      <a
+        href={more}
+        class="flex h-[52px] w-full items-center justify-center rounded-pill border border-border bg-white text-[16px] font-bold text-navy no-underline hover:text-navy md:hidden"
+      >
+        {t.blog.more}
+      </a>
+    </div>
+  </section>
+)}

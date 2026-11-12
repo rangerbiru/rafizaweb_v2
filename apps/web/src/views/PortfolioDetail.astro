@@ -1,0 +1,189 @@
+---
+import { getEntry } from 'astro:content';
+import PageHero from '../components/layout/PageHero.astro';
+import BrowserFrame from '../components/ui/BrowserFrame.astro';
+import Icon from '../components/ui/Icon.astro';
+import ProjectCard from '../components/ui/ProjectCard.astro';
+import ReviewCard from '../components/ui/ReviewCard.astro';
+import { path, useT, type Locale } from '../i18n';
+import { usePages } from '../i18n/pages';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ALLOW_DUMMY, isPlaceholder, settings } from '../lib/data';
+import { breadcrumbNode, creativeWorkNode, graph, webPageNode } from '../lib/schema';
+import { waHref, waTrack } from '../lib/wa';
+
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  locale: Locale;
+  project: CollectionEntry<'portfolio'>;
+  all: CollectionEntry<'portfolio'>[];
+}
+const { locale, project, all } = Astro.props;
+const t = useT(locale);
+const p = usePages(locale).portfolio;
+const d = project.data;
+const url = path(`project:${project.id}`, locale);
+const industry = t.portfolio.industries[d.industry] ?? '';
+const show = (v: string) => !!v && (!isPlaceholder(v) || ALLOW_DUMMY);
+const testi = d.testimonial ? await getEntry('testimonials', d.testimonial) : undefined;
+const showTesti = settings.reviewsEnabled && testi && (ALLOW_DUMMY || !testi.data.isDummy);
+const facts = [
+  { k: p.client, v: d.name },
+  { k: p.industry, v: industry },
+  { k: p.year, v: d.year },
+  { k: p.package, v: d.package },
+].filter((f) => f.v);
+const more = all.filter((x) => x.id !== project.id).slice(0, 3);
+const crumbs = [
+  { name: t.common.home, href: path('home', locale) },
+  { name: t.nav.portofolio, href: path('portfolio', locale) },
+  { name: d.name, href: url },
+];
+const title =
+  p.caseTitleTpl(d.name).length > 60 ? `${d.name} | Portofolio Rafizaweb` : p.caseTitleTpl(d.name);
+const description = p.caseDescTpl(d.name, industry);
+const jsonLd = graph(locale, [
+  webPageNode({ url, name: title, description, locale }),
+  breadcrumbNode(crumbs.map((c) => ({ name: c.name, url: c.href }))),
+  creativeWorkNode({
+    url,
+    name: `Website ${d.name}`,
+    description,
+    liveUrl: d.url || undefined,
+    siteName: d.name,
+    image: d.screenshotDesktop || undefined,
+    inLanguage: locale === 'id' ? 'id-ID' : locale,
+    year: d.year || undefined,
+  }),
+]);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  locale={locale}
+  routeKey={`project:${project.id}`}
+  jsonLd={jsonLd}
+  bannerAbove="white"
+>
+  <PageHero locale={locale} crumbs={crumbs} badge={industry} title={d.name}>
+    <dl class="m-0 flex flex-wrap gap-x-[32px] gap-y-[8px]">
+      {facts.map((f) => (
+        <div>
+          <dt class="text-[14px] text-muted">{f.k}</dt>
+          <dd class="m-0 font-semibold">{f.v}</dd>
+        </div>
+      ))}
+    </dl>
+    {d.url && (
+      <a
+        href={d.url}
+        target="_blank"
+        rel="noopener"
+        class="rz-btn inline-flex h-[48px] items-center rounded-pill bg-navy px-[20px] text-[15px] font-bold text-white no-underline hover:text-white"
+      >
+        {p.live}
+        <span class="sr-only"> {t.common.newTab}</span>
+      </a>
+    )}
+  </PageHero>
+  <section class="bg-white" aria-labelledby="case-gallery">
+    <div class="rz-container flex flex-col gap-[24px] pb-[clamp(48px,7.5vw,104px)]">
+      <h2 id="case-gallery" class="sr-only">
+        {p.gallery}
+      </h2>
+      <div class="flex flex-wrap items-end gap-[24px]">
+        <figure class="m-0 min-w-0 flex-[3_1_520px] rounded-panel bg-brand-50 px-[clamp(14px,2.4vw,28px)] pt-[clamp(14px,2.4vw,28px)]">
+          <BrowserFrame
+            domain={d.domain}
+            image={d.screenshotDesktop}
+            alt={`${d.name} — ${p.desktop}`}
+            label={t.portfolio.shot(d.domain)}
+          />
+          <figcaption class="sr-only">{p.desktop}</figcaption>
+        </figure>
+        <figure class="m-0 min-w-0 flex-[1_1_200px] rounded-panel bg-surface p-[14px]">
+          <BrowserFrame
+            domain={d.domain}
+            image={d.screenshotMobile}
+            alt={`${d.name} — ${p.mobile}`}
+            label={p.mobile}
+            ratio="9 / 16"
+          />
+          <figcaption class="sr-only">{p.mobile}</figcaption>
+        </figure>
+      </div>
+      {d.summary[locale] && (
+        <div class="flex max-w-[760px] flex-col gap-[16px]">
+          <h2 class="rz-h3">{p.whatTitle}</h2>
+          <p class="m-0 text-[17px] text-text-2">{d.summary[locale]}</p>
+          {d.highlights[locale].length > 0 && (
+            <ul class="m-0 flex list-none flex-col gap-[8px] p-0 text-[15.5px] text-navy">
+              {d.highlights[locale].map((h) => (
+                <li class="flex gap-[10px]">
+                  <Icon name="check" stroke={2.4} class="mt-[3px] shrink-0 text-brand" />
+                  {h}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+      <div class="grid gap-[24px] md:grid-cols-3">
+        {[
+          [p.challenge, d.challenge],
+          [p.solution, d.solution],
+          [p.result, d.result],
+        ]
+          .filter(([, v]) => show(v!))
+          .map(([k, v]) => (
+            <div class="flex flex-col gap-[8px] rounded-card border border-border bg-surface p-[24px]">
+              <h2 class="rz-h3">{k}</h2>
+              <p class="m-0 text-text-2" data-placeholder={isPlaceholder(v) ? '' : undefined}>
+                {v}
+              </p>
+            </div>
+          ))}
+      </div>
+      {showTesti && testi && (
+        <div class="flex flex-col gap-[16px]">
+          <h2 class="rz-h3">{p.testimonial}</h2>
+          <div class="max-w-[640px]">
+            <ReviewCard
+              name={testi.data.name}
+              industry={t.portfolio.industries[testi.data.industry] ?? ''}
+              quote={testi.data.quote}
+              rating={testi.data.rating}
+              initial={testi.data.initial}
+              tint={testi.data.tint}
+              locale={locale}
+              isDummy={testi.data.isDummy}
+              source={testi.data.source}
+            />
+          </div>
+        </div>
+      )}
+      <div>
+        <a
+          href={waHref(t.wa.general)}
+          class="rz-btn inline-flex h-[52px] items-center justify-center gap-[10px] rounded-pill bg-brand px-[24px] text-[16px] font-bold text-white no-underline shadow-raised hover:text-white max-md:w-full"
+          {...waTrack('service_page', { locale })}
+        >
+          {t.common.cta}
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="bg-surface" aria-labelledby="case-more">
+    <div class="rz-container rz-section-pad flex flex-col gap-[24px]">
+      <h2 id="case-more" class="rz-h2">
+        {p.more}
+      </h2>
+      <div class="grid gap-[24px] md:grid-cols-3">
+        {more.map((x) => (
+          <ProjectCard project={x} locale={locale} />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

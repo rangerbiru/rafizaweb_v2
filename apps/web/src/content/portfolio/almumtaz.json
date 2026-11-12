@@ -1,0 +1,46 @@
+{
+  "name": "AlMumtaz Academy Center",
+  "industry": "pendidikan",
+  "domain": "almumtazacademy.com",
+  "url": "https://almumtazacademy.com/",
+  "year": "",
+  "package": "",
+  "showInMarquee": true,
+  "order": 1,
+  "tint": "brand",
+  "screenshotDesktop": "/images/portfolio/almumtaz/desktop.webp",
+  "screenshotMobile": "/images/portfolio/almumtaz/mobile.webp",
+  "challenge": "",
+  "solution": "",
+  "result": "",
+  "testimonial": "almumtaz",
+  "isDummy": false,
+  "summary": {
+    "id": "Website profil dan pendaftaran untuk lembaga pendidikan diniyyah bersanad dan umum. Calon peserta bisa mengenal lembaga, melihat program belajar, lalu mendaftar langsung dari website.",
+    "en": "A profile and registration website for an institute offering sanad-based religious and general education. Prospective students can learn about the institute, browse its programs, and register straight from the site.",
+    "ar": "موقع تعريفي وللتسجيل لمعهد تعليمي يقدّم العلوم الشرعية بالسند والعلوم العامة. يمكن للراغبين التعرّف على المعهد واستعراض البرامج ثم التسجيل مباشرة من الموقع."
+  },
+  "highlights": {
+    "id": [
+      "Halaman profil lembaga, latar belakang, visi dan misi, serta tujuan lembaga",
+      "Daftar program pembelajaran, mulai dari tahfidz, tajwid bersanad, dan bahasa Arab sampai persiapan UTBK",
+      "Bagian sertifikasi dan sanad keilmuan, dokumentasi kegiatan, dan cerita peserta",
+      "Tombol login dan daftar sekarang yang selalu terlihat",
+      "Mode gelap untuk kenyamanan membaca"
+    ],
+    "en": [
+      "Institute profile, background, vision and mission, and goals",
+      "A list of learning programs, from tahfidz, sanad-based tajwid, and Arabic to UTBK preparation",
+      "Certification and scholarly sanad section, activity documentation, and student stories",
+      "Login and register buttons that are always visible",
+      "Dark mode for comfortable reading"
+    ],
+    "ar": [
+      "صفحات تعريف المعهد وخلفيته ورؤيته ورسالته وأهدافه",
+      "قائمة البرامج الدراسية، من التحفيظ والتجويد بالسند واللغة العربية إلى التحضير لاختبار UTBK",
+      "قسم الشهادات والسند العلمي وتوثيق الأنشطة وقصص الطلاب",
+      "أزرار تسجيل الدخول والتسجيل الظاهرة دائمًا",
+      "وضع داكن لقراءة مريحة"
+    ]
+  }
+}
