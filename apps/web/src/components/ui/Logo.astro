@@ -1,38 +1,63 @@
 ---
-/** Logo sementara dari desain (mark + wordmark). Ganti dengan SVG resmi saat P11 tersedia. */
+/**
+ * Logo resmi Rafizaweb (src/assets/brand). Dua varian: teks hitam untuk latar terang, teks putih untuk latar gelap.
+ * tone="auto" memasang keduanya dan menukar otomatis saat header berada di atas section gelap ([data-on-dark]).
+ */
+import { Image } from 'astro:assets';
+import lockup from '../../assets/brand/logo-lockup.png';
+import lockupDark from '../../assets/brand/logo-lockup-dark.png';
+
 interface Props {
   href?: string;
   label?: string;
   size?: 'md' | 'lg';
-  tone?: 'dark' | 'light';
-  mark?: boolean;
+  tone?: 'dark' | 'light' | 'auto';
 }
-const { href, label = 'Rafizaweb', size = 'md', tone = 'dark', mark = true } = Astro.props;
+const { href, label = 'Rafizaweb', size = 'md', tone = 'auto' } = Astro.props;
 const Tag = href ? 'a' : 'span';
+const h = size === 'lg' ? 52 : 38;
+// md: 34px di mobile, 30px di lebar 1024–1279 (menu horizontal padat), 38px di layar lebar.
+const cls = size === 'lg' ? 'h-[52px]' : 'h-[30px] lg:h-[28px] xl:h-[34px]';
+const dark = tone === 'light'; // "light" = teks putih untuk latar gelap
 ---
 
 <Tag
   href={href}
   aria-label={href ? label : undefined}
-  class:list={[
-    'flex shrink-0 items-center gap-[9px] no-underline',
-    tone === 'dark' ? 'text-navy' : 'text-white',
-  ]}
+  class="rz-logo flex shrink-0 items-center no-underline"
 >
-  {mark && (
-    <span aria-hidden="true" class="relative block size-[34px] rounded-[12px] bg-brand">
-      <span class="absolute start-[8px] top-[8px] h-[18px] w-[11px] rounded-[3px] bg-white" />
-      <span class="absolute start-[21px] top-[8px] size-[6px] rounded-[2px] bg-amber" />
-    </span>
+  {tone !== 'light' && (
+    <Image
+      src={lockup}
+      alt={href ? '' : label}
+      height={h * 2}
+      format="webp"
+      quality={90}
+      loading={href ? 'eager' : 'lazy'}
+      class:list={['rz-logo-on-light block w-auto', cls]}
+      draggable="false"
+    />
   )}
-  <span
-    class:list={[
-      'font-heading font-extrabold tracking-[-0.03em]',
-      size === 'lg' ? 'text-[24px]' : 'text-[19px]',
-      tone === 'light' && 'text-white',
-    ]}
-    dir="ltr"
-  >
-    rafizaweb
-  </span>
+  {(dark || tone === 'auto') && (
+    <Image
+      src={lockupDark}
+      alt={href ? '' : label}
+      height={h * 2}
+      format="webp"
+      quality={90}
+      loading={href ? 'eager' : 'lazy'}
+      class:list={['rz-logo-on-dark w-auto', cls, tone === 'auto' ? 'hidden' : 'block']}
+      draggable="false"
+    />
+  )}
 </Tag>
+
+<style is:global>
+  /* Header di atas section gelap: tukar ke logo bertulisan putih. */
+  [data-header][data-on-dark] .rz-logo-on-light {
+    display: none;
+  }
+  [data-header][data-on-dark] .rz-logo-on-dark {
+    display: block;
+  }
+</style>

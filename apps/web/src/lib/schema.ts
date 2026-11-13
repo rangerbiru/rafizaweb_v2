@@ -25,7 +25,7 @@ export function businessNode(): Node {
     name: settings.businessName,
     alternateName: 'Rafizaweb – Solusi Digital Terpercaya',
     url: `${SITE}/`,
-    logo: { '@type': 'ImageObject', url: `${SITE}/logo.png`, width: 512, height: 512 },
+    logo: { '@type': 'ImageObject', url: `${SITE}/logo.png`, width: 256, height: 256 },
     image: `${SITE}/og/default.png`,
     description: 'Rafizaweb adalah jasa pembuatan website di Kota Bekasi sejak Januari 2025.',
     telephone: `+${settings.whatsapp}`,

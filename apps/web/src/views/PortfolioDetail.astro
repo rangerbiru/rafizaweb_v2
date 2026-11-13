@@ -9,6 +9,7 @@ import { path, useT, type Locale } from '../i18n';
 import { usePages } from '../i18n/pages';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ALLOW_DUMMY, isPlaceholder, settings } from '../lib/data';
+import { portfolioImage } from '../lib/images';
 import { breadcrumbNode, creativeWorkNode, graph, webPageNode } from '../lib/schema';
 import { waHref, waTrack } from '../lib/wa';
 
@@ -51,7 +52,8 @@ const jsonLd = graph(locale, [
     description,
     liveUrl: d.url || undefined,
     siteName: d.name,
-    image: d.screenshotDesktop || undefined,
+    // Pakai URL aset hasil build (ber-hash); path CMS /images/portfolio/... bukan berkas publik lagi.
+    image: portfolioImage(d.screenshotDesktop)?.src,
     inLanguage: locale === 'id' ? 'id-ID' : locale,
     year: d.year || undefined,
   }),

@@ -1,7 +1,7 @@
 /**
  * Integration: generate OG image 1200×630 (judul + brand, font Sora) untuk setiap halaman hasil build (PRD §9.1).
  * Sumber kebenaran = HTML hasil build: membaca <meta property="og:image"> dan og:title tiap halaman,
- * lalu merender PNG ke path tersebut. Juga membuat logo.png, og/default.png, dan apple-touch-icon.png.
+ * lalu merender PNG ke path tersebut. Juga membuat og/default.png. Logo, favicon, dan apple-touch-icon adalah berkas statis di public/.
  */
 import { Resvg } from '@resvg/resvg-js';
 import type { AstroIntegration } from 'astro';
@@ -15,6 +15,11 @@ const require = createRequire(import.meta.url);
 const font = (p: string) => readFile(require.resolve(p));
 
 type El = { type: string; props: Record<string, unknown> };
+
+// Logo resmi (teks gelap) sebagai data URI untuk kartu OG. Berkas: src/assets/brand/logo-lockup.png.
+const lockupSrc = `data:image/png;base64,${(
+  await readFile(new URL('../assets/brand/logo-lockup.png', import.meta.url))
+).toString('base64')}`;
 const h = (type: string, style: Record<string, unknown>, children?: unknown): El => ({
   type,
   props: { style, children },
@@ -37,39 +42,8 @@ function card(title: string, eyebrow: string): El {
       color: '#0B1A2E',
     },
     [
-      h('div', { display: 'flex', alignItems: 'center', gap: 18 }, [
-        h(
-          'div',
-          {
-            position: 'relative',
-            display: 'flex',
-            width: 64,
-            height: 64,
-            borderRadius: 20,
-            backgroundColor: '#1D4ED8',
-          },
-          [
-            h('div', {
-              position: 'absolute',
-              left: 15,
-              top: 15,
-              width: 21,
-              height: 34,
-              borderRadius: 6,
-              backgroundColor: '#FFFFFF',
-            }),
-            h('div', {
-              position: 'absolute',
-              left: 40,
-              top: 15,
-              width: 11,
-              height: 11,
-              borderRadius: 4,
-              backgroundColor: '#F5B83D',
-            }),
-          ],
-        ),
-        h('div', { fontFamily: 'Sora', fontWeight: 800, fontSize: 40, letterSpacing: -1.2 }, 'rafizaweb'),
+      h('div', { display: 'flex', alignItems: 'center' }, [
+        { type: 'img', props: { src: lockupSrc, width: 330, height: 70, style: { width: 330, height: 70 } } },
       ]),
       h('div', { display: 'flex', flexDirection: 'column', gap: 20 }, [
         h(
@@ -205,40 +179,6 @@ export default function ogImages(): AstroIntegration {
           'og/default.png',
           await render(card('Jasa Pembuatan Website Bekasi Mulai Rp699rb', 'Solusi Digital Terpercaya')),
         );
-        const mark = (s: number) =>
-          h(
-            'div',
-            {
-              width: s,
-              height: s,
-              display: 'flex',
-              position: 'relative',
-              backgroundColor: '#1D4ED8',
-              borderRadius: s * 0.29,
-            },
-            [
-              h('div', {
-                position: 'absolute',
-                left: s * 0.235,
-                top: s * 0.235,
-                width: s * 0.32,
-                height: s * 0.53,
-                borderRadius: s * 0.09,
-                backgroundColor: '#FFFFFF',
-              }),
-              h('div', {
-                position: 'absolute',
-                left: s * 0.62,
-                top: s * 0.235,
-                width: s * 0.18,
-                height: s * 0.18,
-                borderRadius: s * 0.06,
-                backgroundColor: '#F5B83D',
-              }),
-            ],
-          );
-        await write('logo.png', await render(mark(512), 512, 512));
-        await write('apple-touch-icon.png', await render(mark(180), 180, 180));
         logger.info(`${count} OG image dibuat`);
       },
     },

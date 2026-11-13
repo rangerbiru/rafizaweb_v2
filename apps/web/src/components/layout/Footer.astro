@@ -1,5 +1,6 @@
 ---
 import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
 import { path, useT, type Locale } from '../../i18n';
 import { getServices, isPlaceholder, settings } from '../../lib/data';
 
@@ -44,9 +45,7 @@ const socials = [
   <div class="rz-container flex flex-col gap-[clamp(32px,4vw,48px)] pt-[clamp(48px,6vw,72px)] pb-[32px]">
     <div class="flex flex-wrap gap-x-[48px] gap-y-[24px]">
       <div class="flex min-w-0 flex-[1_1_300px] flex-col gap-[12px]">
-        <span class="font-heading text-[24px] font-extrabold tracking-[-0.03em] text-white" dir="ltr">
-          rafizaweb
-        </span>
+        <Logo tone="light" size="lg" label="Rafizaweb" />
         <span class="text-[15px] font-semibold text-white">{settings.tagline}</span>
         <p class="m-0 max-w-[30em] text-[15px] leading-[1.65]">{t.footer.desc}</p>
         <address class="text-[14.5px] leading-[1.75] not-italic">
