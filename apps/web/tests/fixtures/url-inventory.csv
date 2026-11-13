@@ -1,0 +1,30 @@
+old_url,type,title,new_url,status
+https://rafizaweb.com/,page,Home,https://rafizaweb.com/,200
+https://rafizaweb.com/about/,page,About,https://rafizaweb.com/tentang/,301
+https://rafizaweb.com/contact/,page,Contact,https://rafizaweb.com/kontak/,301
+https://rafizaweb.com/blog/,page,Info Terkini Dari Kami,https://rafizaweb.com/blog/,200
+https://rafizaweb.com/10-fitur-website-travel-umroh-yang-wajib-ada/,post,10 Fitur Website Travel Umroh yang Wajib Ada,https://rafizaweb.com/10-fitur-website-travel-umroh-yang-wajib-ada/,200
+https://rafizaweb.com/cara-membangun-kepercayaan-jamaah-dengan-website-travel-umroh/,post,Cara Membangun Kepercayaan Jamaah dengan Website Travel Umroh,https://rafizaweb.com/cara-membangun-kepercayaan-jamaah-dengan-website-travel-umroh/,200
+https://rafizaweb.com/website-wordpress-vs-media-sosial-mana-yang-lebih-menguntungkan-untuk-umkm/,post,Website WordPress vs Media Sosial: Mana yang Lebih Menguntungkan untuk UMKM?,https://rafizaweb.com/website-wordpress-vs-media-sosial-mana-yang-lebih-menguntungkan-untuk-umkm/,200
+https://rafizaweb.com/5-tanda-bisnis-anda-butuh-website-sebelum-competitor-menang/,post,5 Tanda Bisnis Anda Butuh Website (Sebelum Competitor Menang),https://rafizaweb.com/5-tanda-bisnis-anda-butuh-website-sebelum-competitor-menang/,200
+https://rafizaweb.com/website-di-tahun-2026-apa-yang-perlu-bisnismu-ketahui/,post,Website di Tahun 2026: Apa yang Perlu Bisnismu Ketahui,https://rafizaweb.com/website-di-tahun-2026-apa-yang-perlu-bisnismu-ketahui/,200
+https://rafizaweb.com/category/bisnis/,category,bisnis,https://rafizaweb.com/blog/kategori/bisnis/,301
+https://rafizaweb.com/category/tips/,category,tips,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/category/website/,category,website,https://rafizaweb.com/blog/kategori/website/,301
+https://rafizaweb.com/tag/bisnis/,tag,bisnis,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/tag/bisnis-digital/,tag,bisnis-digital,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/tag/go-digital/,tag,go-digital,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/tag/jasa-website/,tag,jasa-website,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/tag/travel/,tag,travel,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/tag/travel-umroh/,tag,travel-umroh,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/tag/umkm/,tag,umkm,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/tag/umroh/,tag,umroh,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/tag/website/,tag,website,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/tag/website-travel/,tag,website-travel,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/tag/website-umroh/,tag,website-umroh,https://rafizaweb.com/blog/,301
+https://rafizaweb.com/author/rangerbiru-devgmail-com/,author,rangerbiru-devgmail-com,https://rafizaweb.com/tentang/,301
+https://rafizaweb.com/feed/,feed,RSS,https://rafizaweb.com/rss.xml,301
+https://rafizaweb.com/wp-admin/,system,wp-admin,https://rafizaweb.com/,301
+https://rafizaweb.com/wp-login.php,system,wp-login,https://rafizaweb.com/,301
+https://rafizaweb.com/wp-sitemap.xml,system,sitemap,https://rafizaweb.com/sitemap-index.xml,301
+https://rafizaweb.com/sitemap_index.xml,system,sitemap,https://rafizaweb.com/sitemap-index.xml,301

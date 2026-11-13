@@ -3,9 +3,9 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-/** Setiap baris docs/url-inventory.csv harus 200, atau 301 ke URL yang 200 (PRD §9.6). */
+/** Setiap baris tests/fixtures/url-inventory.csv harus 200, atau 301 ke URL yang 200 (PRD §9.6). */
 const csv = readFileSync(
-  path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../../docs/url-inventory.csv'),
+  path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../fixtures/url-inventory.csv'),
   'utf8',
 )
   .trim()
