@@ -1,7 +1,7 @@
 ---
 /**
- * Logo resmi Rafizaweb (src/assets/brand). Dua varian: teks hitam untuk latar terang, teks putih untuk latar gelap.
- * tone="auto" memasang keduanya dan menukar otomatis saat header berada di atas section gelap ([data-on-dark]).
+ * Logo resmi Rafizaweb (src/assets/brand). tone="dark": teks hitam (header, drawer, latar terang).
+ * tone="light": teks putih, khusus footer yang berlatar navy.
  */
 import { Image } from 'astro:assets';
 import lockup from '../../assets/brand/logo-lockup.png';
@@ -11,53 +11,24 @@ interface Props {
   href?: string;
   label?: string;
   size?: 'md' | 'lg';
-  tone?: 'dark' | 'light' | 'auto';
+  tone?: 'dark' | 'light';
 }
-const { href, label = 'Rafizaweb', size = 'md', tone = 'auto' } = Astro.props;
+const { href, label = 'Rafizaweb', size = 'md', tone = 'dark' } = Astro.props;
 const Tag = href ? 'a' : 'span';
 const h = size === 'lg' ? 52 : 38;
 // md: 34px di mobile, 30px di lebar 1024–1279 (menu horizontal padat), 38px di layar lebar.
-const cls = size === 'lg' ? 'h-[52px]' : 'h-[30px] lg:h-[28px] xl:h-[34px]';
-const dark = tone === 'light'; // "light" = teks putih untuk latar gelap
+const cls = size === 'lg' ? 'h-[52px]' : 'h-[34px] lg:h-[30px] xl:h-[38px]';
 ---
 
-<Tag
-  href={href}
-  aria-label={href ? label : undefined}
-  class="rz-logo flex shrink-0 items-center no-underline"
->
-  {tone !== 'light' && (
-    <Image
-      src={lockup}
-      alt={href ? '' : label}
-      height={h * 2}
-      format="webp"
-      quality={90}
-      loading={href ? 'eager' : 'lazy'}
-      class:list={['rz-logo-on-light block w-auto', cls]}
-      draggable="false"
-    />
-  )}
-  {(dark || tone === 'auto') && (
-    <Image
-      src={lockupDark}
-      alt={href ? '' : label}
-      height={h * 2}
-      format="webp"
-      quality={90}
-      loading={href ? 'eager' : 'lazy'}
-      class:list={['rz-logo-on-dark w-auto', cls, tone === 'auto' ? 'hidden' : 'block']}
-      draggable="false"
-    />
-  )}
+<Tag href={href} aria-label={href ? label : undefined} class="flex shrink-0 items-center no-underline">
+  <Image
+    src={tone === 'light' ? lockupDark : lockup}
+    alt={href ? '' : label}
+    height={h * 2}
+    format="webp"
+    quality={90}
+    loading={href ? 'eager' : 'lazy'}
+    class:list={['block w-auto', cls]}
+    draggable="false"
+  />
 </Tag>
-
-<style is:global>
-  /* Header di atas section gelap: tukar ke logo bertulisan putih. */
-  [data-header][data-on-dark] .rz-logo-on-light {
-    display: none;
-  }
-  [data-header][data-on-dark] .rz-logo-on-dark {
-    display: block;
-  }
-</style>

@@ -10,12 +10,6 @@ function onScroll() {
   if (!header) return;
   const s = window.scrollY > 8;
   if (s !== header.hasAttribute('data-scrolled')) header.toggleAttribute('data-scrolled', s);
-  // Header berada di atas section gelap? (titik tengah pil ≈ 42px dari atas)
-  const dark = [...document.querySelectorAll('[data-dark]')].some((el) => {
-    const r = el.getBoundingClientRect();
-    return r.top <= 42 && r.bottom >= 42;
-  });
-  if (dark !== header.hasAttribute('data-on-dark')) header.toggleAttribute('data-on-dark', dark);
 }
 
 type DD = { root: HTMLElement; btn: HTMLButtonElement; panel: HTMLElement };

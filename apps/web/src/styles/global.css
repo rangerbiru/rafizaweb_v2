@@ -253,19 +253,20 @@
     border-color: var(--color-brand) !important;
   }
   a.rz-nav {
-    color: var(--color-text-2);
+    color: var(--color-navy);
     text-decoration: none;
     transition:
       background-color 0.2s ease,
       color 0.2s ease;
   }
   a.rz-nav:hover {
-    background-color: var(--color-surface);
-    color: var(--color-brand);
+    background-color: rgba(255, 255, 255, 0.6);
+    color: var(--color-navy);
   }
   a.rz-nav.rz-on {
-    background-color: var(--color-brand-50);
-    color: var(--color-brand);
+    background-color: rgba(255, 255, 255, 0.85);
+    color: var(--color-navy);
+    box-shadow: 0 0 0 1px rgba(11, 26, 46, 0.08);
   }
   a.rz-dnav {
     color: var(--color-navy);
@@ -288,8 +289,8 @@
       color 0.2s ease;
   }
   .rz-navbtn:hover {
-    background-color: var(--color-surface) !important;
-    color: var(--color-brand) !important;
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    color: var(--color-navy) !important;
   }
   .rz-menuopt {
     transition: background-color 0.2s ease;

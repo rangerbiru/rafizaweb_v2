@@ -1,0 +1,51 @@
+name: Deploy ke Hostinger
+
+# Setiap push ke main: build production, lalu upload hanya file yang berubah ke Hostinger lewat FTP.
+# Butuh Secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, FTP_DIR. Variables (opsional): PUBLIC_GA4_ID, PUBLIC_TURNSTILE_SITE_KEY.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-hostinger
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build dan upload
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # Build production: gagal bila ada placeholder atau data dummy yang tampil.
+      - name: Build production
+        run: pnpm build
+        env:
+          PUBLIC_SITE_URL: https://rafizaweb.com
+          PUBLIC_GA4_ID: ${{ vars.PUBLIC_GA4_ID }}
+          PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
+
+      # Hanya isi apps/web/dist/client yang diupload. Aksi ini menyimpan daftar file di server
+      # (.ftp-deploy-sync-state.json) sehingga run berikutnya hanya mengirim file baru atau berubah.
+      - name: Upload ke Hostinger (FTP)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: apps/web/dist/client/
+          server-dir: ${{ secrets.FTP_DIR }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.fuse_hidden*

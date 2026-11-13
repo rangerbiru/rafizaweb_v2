@@ -1,0 +1,70 @@
+# Konfigurasi untuk hosting Apache/LiteSpeed (mis. Hostinger shared hosting tanpa Node.js).
+# Disalin otomatis ke dist/client saat `pnpm build`. Di Cloudflare berkas ini diabaikan (dipakai _headers dan _redirects).
+# Ganti rafizaweb.com bila domain berbeda.
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# 1) Paksa HTTPS dan domain tanpa www (301).
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://rafizaweb.com%{REQUEST_URI} [L,R=301]
+
+# 2) URL WordPress lama (PRD 9.6, sama dengan public/_redirects).
+RewriteRule ^about/?$ /tentang/ [L,R=301]
+RewriteRule ^contact/?$ /kontak/ [L,R=301]
+RewriteRule ^category/tips/?$ /blog/ [L,R=301]
+RewriteRule ^category/([^/]+)/?$ /blog/kategori/$1/ [L,R=301]
+RewriteRule ^tag/ /blog/ [L,R=301]
+RewriteRule ^author/ /tentang/ [L,R=301]
+RewriteRule ^(feed|comments/feed)/?$ /rss.xml [L,R=301]
+RewriteRule ^wp-admin(/.*)?$ / [L,R=301]
+RewriteRule ^wp-login\.php$ / [L,R=301]
+RewriteRule ^(wp-sitemap|sitemap_index|post-sitemap|page-sitemap)\.xml$ /sitemap-index.xml [L,R=301]
+# Parameter WordPress lama (/?p=12, ?page_id=, ?s=, dst.) dialihkan ke URL tanpa parameter agar tidak menjadi duplikat beranda.
+RewriteCond %{QUERY_STRING} ^(p|page_id|cat|tag|s|attachment_id|author|m|preview|replytocom)=
+RewriteRule ^ %{REQUEST_URI}? [L,R=301]
+# /sitemap.xml dipakai banyak alat; arahkan ke indeks sitemap yang sebenarnya.
+RewriteRule ^sitemap\.xml$ /sitemap-index.xml [L,R=301]
+# Gambar WordPress lama tidak dipindahkan: jawab 410 Gone.
+RewriteRule ^wp-content/ - [G]
+
+# Tanda untuk aset ber-hash (cache panjang, lihat bawah).
+RewriteRule ^_astro/ - [E=IMMUTABLE:1]
+</IfModule>
+
+# /layanan -> /layanan/ ditangani Apache (mod_dir, 301) karena tiap halaman berupa folder berisi index.html.
+
+<IfModule mod_mime.c>
+AddType image/avif .avif
+AddType image/webp .webp
+AddType font/woff2 .woff2
+AddType text/plain .txt
+AddType text/javascript .js .mjs
+</IfModule>
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/rss+xml application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests"
+
+# HTML selalu divalidasi ulang; gambar dan font 30 hari; aset ber-hash di /_astro/ setahun (immutable).
+<FilesMatch "\.(html|xml|txt)$">
+Header set Cache-Control "public, max-age=0, must-revalidate"
+</FilesMatch>
+<FilesMatch "\.(webp|avif|png|svg|ico|woff2)$">
+Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+Header set Cache-Control "public, max-age=31536000, immutable" env=IMMUTABLE
+</IfModule>
