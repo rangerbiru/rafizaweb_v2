@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logoLockup from '../../assets/brand/logo-lockup.png';
 import Badge from '../ui/Badge.astro';
 import Icon from '../ui/Icon.astro';
 import { useT, type Locale } from '../../i18n';
@@ -79,9 +81,15 @@ const showLive = settings.liveSitesVerified;
           class="flex size-full flex-col overflow-hidden rounded-card border border-border bg-white"
         >
           <div class="flex items-center justify-between gap-[10px] px-[16px] py-[12px]">
-            <span class="flex items-center gap-[6px] font-heading text-[11.5px] font-extrabold">
-              <span class="size-[15px] rounded-[4px] bg-brand"></span>rafizaweb
-            </span>
+            <Image
+              src={logoLockup}
+              alt=""
+              height={44}
+              format="webp"
+              quality={90}
+              class="block h-[16px] w-auto"
+              draggable="false"
+            />
             <span class="flex items-center gap-[12px] text-[10px] font-semibold text-muted">
               {t.hero.mockNav.map((n, i) => (
                 <span class:list={[i === 0 && 'text-brand']}>{n}</span>

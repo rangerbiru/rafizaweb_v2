@@ -260,13 +260,12 @@
       color 0.2s ease;
   }
   a.rz-nav:hover {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: var(--color-surface);
     color: var(--color-navy);
   }
   a.rz-nav.rz-on {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: var(--color-brand-50);
     color: var(--color-navy);
-    box-shadow: 0 0 0 1px rgba(11, 26, 46, 0.08);
   }
   a.rz-dnav {
     color: var(--color-navy);
@@ -289,7 +288,7 @@
       color 0.2s ease;
   }
   .rz-navbtn:hover {
-    background-color: rgba(255, 255, 255, 0.6) !important;
+    background-color: var(--color-surface) !important;
     color: var(--color-navy) !important;
   }
   .rz-menuopt {
