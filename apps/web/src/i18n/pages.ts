@@ -81,11 +81,11 @@ const id = {
     more: 'Proyek lainnya',
   },
   pricing: {
-    title: 'Harga Jasa Website Bekasi Mulai Rp699rb | Rafizaweb',
+    title: 'Harga Paket Website: Starter, Growth, Prime | Rafizaweb',
     description:
       'Paket harga pembuatan website Rafizaweb: Starter UMKM Rp699.000, Bisnis Growth Rp1.499.000, Bisnis Prime Rp4.999.000. Termasuk hosting dan domain tahun pertama.',
     badge: 'Harga transparan',
-    h1: 'Harga jasa pembuatan website di Bekasi',
+    h1: 'Harga pembuatan website',
     lead: 'Pilih paket sesuai tahap bisnis Anda. Semua paket sudah termasuk hosting dan domain .com tahun pertama.',
     compareTitle: 'Perbandingan semua fitur',
     compareLead: 'Ringkasan isi setiap paket.',
