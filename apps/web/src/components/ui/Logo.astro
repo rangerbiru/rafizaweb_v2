@@ -17,7 +17,7 @@ const { href, label = 'Rafizaweb', size = 'md', tone = 'dark' } = Astro.props;
 const Tag = href ? 'a' : 'span';
 const h = size === 'lg' ? 52 : 38;
 // md: 34px di mobile, 30px di lebar 1024–1279 (menu horizontal padat), 38px di layar lebar.
-const cls = size === 'lg' ? 'h-[52px]' : 'h-[30px] lg:h-[26px] xl:h-[32px]';
+const cls = size === 'lg' ? 'h-[52px]' : 'h-[30px] lg:h-[22px] xl:h-[28px]';
 ---
 
 <Tag href={href} aria-label={href ? label : undefined} class="flex shrink-0 items-center no-underline">
