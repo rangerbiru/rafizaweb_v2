@@ -16,7 +16,7 @@ const id: Legal = {
       {
         h: 'Siapa kami',
         p: [
-          'Rafizaweb adalah jasa pembuatan website di Kampung Cibitung Seberang RT.04/RW.008, Cimuning, Kec. Mustika Jaya, Kota Bekasi, Jawa Barat 17155. Kebijakan ini menjelaskan bagaimana kami memproses data pribadi sesuai Undang-Undang No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).',
+          'Rafizaweb adalah jasa pembuatan website di BTR 2, Jl. Kakatua 2 No.49 Blok K1, Burangkeng, Kec. Setu, Kota Bekasi, Jawa Barat 17530. Kebijakan ini menjelaskan bagaimana kami memproses data pribadi sesuai Undang-Undang No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).',
         ],
       },
       {
@@ -127,7 +127,7 @@ const en: Legal = {
       {
         h: 'Who we are',
         p: [
-          'Rafizaweb is a website design service located at Kampung Cibitung Seberang RT.04/RW.008, Cimuning, Mustika Jaya, Bekasi City, West Java 17155, Indonesia. This policy explains how we process personal data under Indonesian Law No. 27 of 2022 on Personal Data Protection (PDP Law).',
+          'Rafizaweb is a website design service located at BTR 2, Jl. Kakatua 2 No.49 Blok K1, Burangkeng, Setu, Bekasi City, West Java 17530, Indonesia. This policy explains how we process personal data under Indonesian Law No. 27 of 2022 on Personal Data Protection (PDP Law).',
         ],
       },
       {

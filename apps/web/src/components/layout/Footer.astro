@@ -1,7 +1,9 @@
 ---
 import Icon from '../ui/Icon.astro';
 import Logo from '../ui/Logo.astro';
+import MapFacade from '../ui/MapFacade.astro';
 import { path, useT, type Locale } from '../../i18n';
+import { usePages } from '../../i18n/pages';
 import { getServices, isPlaceholder, settings } from '../../lib/data';
 
 interface Props {
@@ -11,7 +13,13 @@ const { locale } = Astro.props;
 const t = useT(locale);
 const home = path('home', locale);
 const services = getServices(locale).filter((s) => s.slug);
+const c = usePages(locale).contact;
 const a = settings.address;
+const addressLine = `${a.street}, ${a.city}, ${a.region} ${a.postal}`;
+const mapQuery = `${settings.businessName}, ${a.street}, ${a.city}`;
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+const rowCls = 'flex items-start gap-[12px]';
+const iconCls = 'mt-[4px] flex shrink-0 text-amber';
 const year = new Date().getFullYear();
 const linkCls = 'text-border no-underline hover:text-white';
 const cols = [
@@ -44,24 +52,9 @@ const socials = [
 <footer data-dark class="bg-navy text-border">
   <div class="rz-container flex flex-col gap-[clamp(32px,4vw,48px)] pt-[clamp(48px,6vw,72px)] pb-[32px]">
     <div class="flex flex-wrap gap-x-[48px] gap-y-[24px]">
-      <div class="flex min-w-0 flex-[1_1_300px] flex-col gap-[12px]">
+      <div class="flex min-w-0 flex-[1_1_300px] flex-col gap-[16px]">
         <Logo tone="light" size="lg" label="Rafizaweb" />
-        <span class="text-[15px] font-semibold text-white">{settings.tagline}</span>
         <p class="m-0 max-w-[30em] text-[15px] leading-[1.65]">{t.footer.desc}</p>
-        <address class="text-[14.5px] leading-[1.75] not-italic">
-          {`${a.street}, ${a.city}, ${a.region} ${a.postal}`}
-          <br />
-          <a href={`https://wa.me/${settings.whatsapp}`} class={linkCls} dir="ltr">
-            WhatsApp {settings.whatsappDisplay}
-          </a>
-          <br />
-          <a href={`mailto:${settings.email}`} class={linkCls}>
-            {settings.email}
-          </a>
-          <br />
-          {t.footer.hours}:{' '}
-          <span data-placeholder={isPlaceholder(settings.hours) ? '' : undefined}>{t.footer.hoursValue}</span>
-        </address>
       </div>
       <nav aria-label={t.footer.services} class="flex flex-[1_1_150px] flex-col gap-[8px] text-[15px]">
         <span class="mb-[4px] font-bold text-white">{t.footer.services}</span>
@@ -99,6 +92,56 @@ const socials = [
           </a>
         ))}
       </nav>
+    </div>
+    <div class="flex flex-wrap gap-x-[48px] gap-y-[24px] border-t border-text-2 pt-[clamp(24px,3vw,36px)]">
+      <address class="flex min-w-0 flex-[1_1_300px] flex-col gap-[14px] text-[15px] leading-[1.6] not-italic">
+        <span class={rowCls}>
+          <span class={iconCls} aria-hidden="true">
+            <Icon name="pin" size={18} />
+          </span>
+          <a href={mapsHref} class={linkCls} target="_blank" rel="noopener">
+            {addressLine}
+            <span class="sr-only"> {t.common.newTab}</span>
+          </a>
+        </span>
+        <span class={rowCls}>
+          <span class={iconCls} aria-hidden="true">
+            <Icon name="wa" size={18} />
+          </span>
+          <a href={`https://wa.me/${settings.whatsapp}`} class={linkCls} dir="ltr">
+            WhatsApp {settings.whatsappDisplay}
+          </a>
+        </span>
+        <span class={rowCls}>
+          <span class={iconCls} aria-hidden="true">
+            <Icon name="mail" size={18} />
+          </span>
+          <a href={`mailto:${settings.email}`} class={linkCls}>
+            {settings.email}
+          </a>
+        </span>
+        <span class={rowCls}>
+          <span class={iconCls} aria-hidden="true">
+            <Icon name="clock" size={18} />
+          </span>
+          <span>
+            {t.footer.hours}:{' '}
+            <span data-placeholder={isPlaceholder(settings.hours) ? '' : undefined}>
+              {t.footer.hoursValue}
+            </span>
+          </span>
+        </span>
+      </address>
+      <div class="min-w-0 flex-[2_1_420px]">
+        <MapFacade
+          query={mapQuery}
+          label={c.mapLoad}
+          note={c.mapNote}
+          title={c.mapTitle}
+          tone="dark"
+          compact
+        />
+      </div>
     </div>
     <div class="flex flex-wrap justify-between gap-x-[24px] gap-y-[12px] border-t border-text-2 pt-[24px] text-[14px]">
       <span>{t.footer.copyright(year)}</span>

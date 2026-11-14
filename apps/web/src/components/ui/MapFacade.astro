@@ -5,13 +5,21 @@ interface Props {
   label: string;
   note: string;
   title: string;
+  /** dark: dipakai di atas latar navy (footer). */
+  tone?: 'light' | 'dark';
+  /** compact: tinggi tetap mengikuti kolom, bukan rasio 4:3/16:9. */
+  compact?: boolean;
 }
-const { query, label, note, title } = Astro.props;
+const { query, label, note, title, tone = 'light', compact = false } = Astro.props;
 const src = `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
 ---
 
 <div
-  class="relative flex aspect-[4/3] w-full flex-col items-center justify-center gap-[10px] overflow-hidden rounded-card border border-border bg-brand-50 p-[20px] text-center md:aspect-video"
+  class:list={[
+    'relative flex w-full flex-col items-center justify-center gap-[10px] overflow-hidden rounded-card border p-[20px] text-center',
+    compact ? 'h-full min-h-[220px]' : 'aspect-[4/3] md:aspect-video',
+    tone === 'dark' ? 'border-white/15 bg-white/5' : 'border-border bg-brand-50',
+  ]}
   data-map={src}
   data-map-title={title}
 >
@@ -34,7 +42,7 @@ const src = `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=e
     </svg>
     {label}
   </button>
-  <p class="m-0 text-[13.5px] text-muted">{note}</p>
+  <p class:list={['m-0 text-[13.5px]', tone === 'dark' ? 'text-border' : 'text-muted']}>{note}</p>
 </div>
 
 <script>
