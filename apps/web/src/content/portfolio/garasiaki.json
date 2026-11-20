@@ -1,0 +1,48 @@
+{
+  "name": "Garasiaki",
+  "industry": "retail",
+  "domain": "garasiaki.com",
+  "url": "https://garasiaki.com/",
+  "year": "2026",
+  "package": "",
+  "location": "Kartasura, Solo",
+  "addedAt": "2026-11-18",
+  "showInMarquee": true,
+  "order": 1,
+  "tint": "amber",
+  "screenshotDesktop": "/images/portfolio/garasiaki/desktop.webp",
+  "screenshotMobile": "/images/portfolio/garasiaki/mobile.webp",
+  "challenge": "",
+  "solution": "",
+  "result": "",
+  "testimonial": "",
+  "isDummy": false,
+  "summary": {
+    "id": "Website toko aki 24 jam di Kartasura dan Solo. Pengunjung bisa melihat produk aki mobil dan motor, layanan antar dan pasang ke lokasi, lalu memesan lewat WhatsApp dengan pesan yang sudah terisi.",
+    "en": "A website for a 24-hour battery shop in Kartasura and Solo. Visitors can browse car and motorcycle batteries, see the delivery and installation service, and order through WhatsApp with a prefilled message.",
+    "ar": "موقع لمتجر بطاريات يعمل على مدار الساعة في كارتاسورا وسولو. يمكن للزوار تصفح بطاريات السيارات والدراجات النارية، والاطلاع على خدمة التوصيل والتركيب، ثم الطلب عبر واتساب برسالة معبأة مسبقًا."
+  },
+  "highlights": {
+    "id": [
+      "Tombol Chat WhatsApp di header, hero, dan tombol melayang yang selalu terlihat",
+      "Daftar merek aki mobil, motor, dan UPS, dengan logo merek",
+      "Halaman layanan antar dan pasang gratis ke lokasi, cek aki gratis, dan tukar tambah",
+      "Panduan jenis aki (basah, hybrid, kering), FAQ, dan artikel pemilihan aki",
+      "Informasi alamat, jam buka 24 jam, dan tautan Google Maps"
+    ],
+    "en": [
+      "Chat WhatsApp buttons in the header, the hero, and a floating button that is always visible",
+      "A list of car, motorcycle, and UPS battery brands, shown with brand logos",
+      "Pages for free delivery and installation, a free battery check, and trade-in",
+      "A battery type guide (wet, hybrid, dry), an FAQ, and battery selection articles",
+      "Address, 24-hour opening hours, and a Google Maps link"
+    ],
+    "ar": [
+      "أزرار الدردشة عبر واتساب في الترويسة والواجهة الرئيسية وزر عائم ظاهر دائمًا",
+      "قائمة بعلامات بطاريات السيارات والدراجات النارية وأجهزة UPS مع شعارات العلامات",
+      "صفحات للتوصيل والتركيب المجاني، وفحص البطارية المجاني، والاستبدال",
+      "دليل أنواع البطاريات (رطبة، هجينة، جافة)، وأسئلة شائعة، ومقالات اختيار البطارية",
+      "العنوان وساعات العمل على مدار الساعة ورابط خرائط جوجل"
+    ]
+  }
+}
