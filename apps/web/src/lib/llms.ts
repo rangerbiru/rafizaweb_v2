@@ -33,7 +33,7 @@ export async function llmsTxt(full = false): Promise<string> {
     `- WhatsApp: ${settings.whatsappDisplay} (${abs('/kontak/')})`,
     `- Email: ${settings.email}`,
     ...(isPlaceholder(settings.hours) ? [] : [`- Jam operasional: ${settings.hours}`]),
-    '- Area layanan: Kota Bekasi, Kabupaten Bekasi, Jakarta Timur, Karawang, Jabodetabek, online seluruh Indonesia',
+    '- Area layanan: Kota Bekasi, Kabupaten Bekasi, Jakarta Timur, Karawang, Jabodetabek, Solo (Surakarta dan Sukoharjo), online seluruh Indonesia',
     '',
     '## Layanan',
     ...services.map(

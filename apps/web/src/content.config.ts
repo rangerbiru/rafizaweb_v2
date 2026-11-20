@@ -65,6 +65,10 @@ const portfolio = defineCollection({
     url: z.string().default(''),
     year: z.string().default(''),
     package: z.string().default(''),
+    /** Kota/daerah klien (SEO lokal dan GEO). Contoh: "Kartasura, Solo". */
+    location: z.string().default(''),
+    /** Tanggal proyek ditambahkan (YYYY-MM-DD). Urutan sama: yang terbaru tampil lebih dulu. */
+    addedAt: z.string().default(''),
     showInMarquee: z.boolean().default(true),
     order: z.number().default(99),
     tint: tint.default('brand'),

@@ -19,7 +19,7 @@ const steps = getProcess(locale);
       </h2>
       <p class="rz-lead text-border!">{t.process.lead}</p>
     </div>
-    <ol class="rz-steps m-0 flex list-none flex-col p-0 md:flex-row" data-reveal>
+    <ol class="rz-steps m-0 flex list-none flex-col p-0 md:flex-row" data-reveal="left">
       {steps.map((s, i) => {
         const last = i === steps.length - 1;
         const showDay = !isPlaceholder(s.day);

@@ -99,6 +99,24 @@
     transform: none;
   }
 }
+@keyframes rzReveal {
+  from {
+    opacity: 0;
+    transform: translate(var(--rz-x, 0), var(--rz-y, 0)) scale(var(--rz-s, 1));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes rzShimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
 @keyframes rzPop {
   from {
     opacity: 0;
@@ -389,7 +407,49 @@
     opacity: 0;
   }
   .rz-reveal-in {
-    animation: rzPop 0.6s var(--ease-standard) both;
+    animation: rzReveal 0.6s var(--ease-standard) var(--rz-d, 0ms) both;
+  }
+  /* Variasi per section: arah/skala awal lewat variabel; keyframe tetap satu (hanya opacity + transform). */
+  .rz-reveal-pending[data-rv='rise'],
+  .rz-reveal-in[data-rv='rise'] {
+    --rz-y: 18px;
+  }
+  .rz-reveal-pending[data-rv='left'],
+  .rz-reveal-in[data-rv='left'] {
+    --rz-x: -28px;
+  }
+  .rz-reveal-pending[data-rv='right'],
+  .rz-reveal-in[data-rv='right'] {
+    --rz-x: 28px;
+  }
+  .rz-reveal-pending[data-rv='zoom'],
+  .rz-reveal-in[data-rv='zoom'] {
+    --rz-s: 0.94;
+  }
+  .rz-reveal-pending[data-rv='drop'],
+  .rz-reveal-in[data-rv='drop'] {
+    --rz-y: -16px;
+  }
+  /* 'fade' = tanpa offset (hanya opacity). RTL: left/right dibalik. */
+  :where([dir='rtl']) .rz-reveal-pending[data-rv='left'],
+  :where([dir='rtl']) .rz-reveal-in[data-rv='left'] {
+    --rz-x: 28px;
+  }
+  :where([dir='rtl']) .rz-reveal-pending[data-rv='right'],
+  :where([dir='rtl']) .rz-reveal-in[data-rv='right'] {
+    --rz-x: -28px;
+  }
+
+  /* Skeleton gambar: shimmer di belakang <img> sampai dimuat (skeleton.ts memasang/melepas [data-skel]). */
+  img[data-skel] {
+    background: linear-gradient(100deg, var(--color-surface) 30%, #fff 50%, var(--color-surface) 70%) 0 0 / 200% 100%;
+    animation: rzShimmer 1.4s linear infinite;
+  }
+  @media (scripting: none) {
+    img[data-skel] {
+      background: none;
+      animation: none;
+    }
   }
 
   .sr-only {

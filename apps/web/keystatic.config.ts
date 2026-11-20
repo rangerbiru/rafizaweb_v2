@@ -193,8 +193,20 @@ export default config({
         url: fields.text({ label: 'URL website live' }),
         year: fields.text({ label: 'Tahun' }),
         package: fields.text({ label: 'Paket' }),
+        location: fields.text({
+          label: 'Lokasi klien',
+          description: 'Kota atau daerah klien, untuk SEO lokal. Contoh: Kartasura, Solo.',
+        }),
         showInMarquee: fields.checkbox({ label: 'Tampil di strip klien', defaultValue: true }),
-        order: fields.integer({ label: 'Urutan', defaultValue: 99 }),
+        order: fields.integer({
+          label: 'Urutan',
+          defaultValue: 1,
+          description: 'Proyek baru biarkan 1 agar tampil paling depan (yang terbaru paling atas). Proyek lama diberi angka lebih besar.',
+        }),
+        addedAt: fields.date({
+          label: 'Tanggal ditambahkan',
+          defaultValue: { kind: 'today' },
+        }),
         tint,
         screenshotDesktop: fields.image({
           label: 'Screenshot desktop',

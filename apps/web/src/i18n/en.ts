@@ -77,7 +77,7 @@ const en: Dict = {
     chipDesc: 'Google and AI assistants',
   },
   clients: {
-    label: 'Trusted by businesses in and around Bekasi',
+    label: 'Trusted by businesses in Bekasi, Solo, and nearby',
     aria: 'Rafizaweb clients',
   },
   services: {
@@ -93,7 +93,7 @@ const en: Dict = {
   },
   portfolio: {
     title: 'Portfolio',
-    lead: 'Websites we have built for businesses in and around Bekasi.',
+    lead: 'Websites we have built for businesses in Bekasi, Solo, and nearby.',
     all: 'See the full portfolio',
     visit: 'Visit website',
     caseStudy: 'Read the case study',
@@ -200,7 +200,7 @@ const en: Dict = {
       seo: 'SEO and GEO',
     },
   },
-  mobileBar: { cta: 'Free consultation', price: 'Pricing' },
+  mobileBar: { label: 'Chat on WhatsApp' },
   langs: { id: 'Bahasa Indonesia', en: 'English', ar: 'العربية' },
 };
 

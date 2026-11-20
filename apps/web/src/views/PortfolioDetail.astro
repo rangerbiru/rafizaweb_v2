@@ -31,6 +31,7 @@ const showTesti = settings.reviewsEnabled && testi && (ALLOW_DUMMY || !testi.dat
 const facts = [
   { k: p.client, v: d.name },
   { k: p.industry, v: industry },
+  { k: p.location, v: d.location },
   { k: p.year, v: d.year },
   { k: p.package, v: d.package },
 ].filter((f) => f.v);
@@ -42,7 +43,7 @@ const crumbs = [
 ];
 const title =
   p.caseTitleTpl(d.name).length > 60 ? `${d.name} | Portofolio Rafizaweb` : p.caseTitleTpl(d.name);
-const description = p.caseDescTpl(d.name, industry);
+const description = p.caseDescTpl(d.name, industry, d.location);
 const jsonLd = graph(locale, [
   webPageNode({ url, name: title, description, locale }),
   breadcrumbNode(crumbs.map((c) => ({ name: c.name, url: c.href }))),
@@ -56,6 +57,7 @@ const jsonLd = graph(locale, [
     image: portfolioImage(d.screenshotDesktop)?.src,
     inLanguage: locale === 'id' ? 'id-ID' : locale,
     year: d.year || undefined,
+    location: d.location || undefined,
   }),
 ]);
 ---

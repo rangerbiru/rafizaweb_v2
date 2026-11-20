@@ -43,6 +43,8 @@ export function businessNode(): Node {
       { '@type': 'AdministrativeArea', name: 'Kabupaten Bekasi' },
       { '@type': 'City', name: 'Jakarta' },
       { '@type': 'AdministrativeArea', name: 'Karawang' },
+      { '@type': 'City', name: 'Surakarta (Solo)' },
+      { '@type': 'AdministrativeArea', name: 'Kabupaten Sukoharjo' },
       { '@type': 'Country', name: 'Indonesia' },
     ],
     priceRange: 'Rp699.000-Rp4.999.000',
@@ -272,6 +274,7 @@ export function creativeWorkNode(p: {
   image?: string;
   inLanguage?: string;
   year?: string;
+  location?: string;
 }): Node {
   return {
     '@type': 'CreativeWork',
@@ -287,6 +290,7 @@ export function creativeWorkNode(p: {
       ? { about: { '@type': 'WebSite', url: p.liveUrl, ...(p.siteName ? { name: p.siteName } : {}) } }
       : {}),
     ...(p.year ? { dateCreated: p.year } : {}),
+    ...(p.location ? { contentLocation: { '@type': 'Place', name: p.location } } : {}),
   };
 }
 

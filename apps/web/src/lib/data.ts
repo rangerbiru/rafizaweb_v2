@@ -6,7 +6,8 @@ export * from './site';
 
 export async function getPortfolio() {
   const items = await getCollection('portfolio', (p) => ALLOW_DUMMY || !p.data.isDummy);
-  return items.sort((a, b) => a.data.order - b.data.order);
+  /** Urutan: `order` naik; proyek baru default 1, jadi tampil paling depan. Urutan sama: terbaru dulu. */
+  return items.sort((a, b) => a.data.order - b.data.order || b.data.addedAt.localeCompare(a.data.addedAt));
 }
 
 /** Proyek yang punya tampilan (screenshot) untuk galeri & halaman studi kasus. Klien tanpa screenshot tetap muncul di daftar nama klien. */

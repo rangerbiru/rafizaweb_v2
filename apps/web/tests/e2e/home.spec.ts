@@ -161,7 +161,7 @@ test.describe('Home', () => {
     await expect(page.locator('#faq-a-0')).toBeHidden();
   });
 
-  test('bar mobile sembunyi saat banner #kontak terlihat', async ({ page }, info) => {
+  test('tombol WhatsApp mobile sembunyi saat banner #kontak terlihat', async ({ page }, info) => {
     test.skip(desktop(info.project.name));
     await page.goto('/');
     const bar = page.locator('[data-mobile-bar]');

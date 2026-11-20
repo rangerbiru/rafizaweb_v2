@@ -32,7 +32,10 @@ const visible = faqs.filter((f) => ALLOW_DUMMY || !/\[[A-Z][^\]]*\]/.test(f.answ
     class:list={[bg === 'surface' ? 'bg-surface' : 'bg-white']}
   >
     <div class="rz-container rz-section-pad flex flex-wrap items-start gap-x-[64px] gap-y-[24px]">
-      <div class="flex min-w-0 flex-[1_1_300px] flex-col items-start gap-[16px] md:sticky md:top-[104px]">
+      <div
+        class="flex min-w-0 flex-[1_1_300px] flex-col items-start gap-[16px] md:sticky md:top-[104px]"
+        data-reveal="left"
+      >
         <h2 id={`${id}-title`} class="rz-h2">
           {title ?? t.faq.title}
         </h2>

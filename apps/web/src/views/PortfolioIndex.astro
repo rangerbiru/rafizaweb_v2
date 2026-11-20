@@ -49,7 +49,7 @@ const jsonLd = graph(locale, [
         ))}
       </div>
       <p class="m-0 max-w-[760px] text-[17px] text-text-2">{p.intro}</p>
-      <div class="grid gap-[24px] md:grid-cols-2 lg:grid-cols-3" aria-live="polite">
+      <div class="grid gap-[24px] md:grid-cols-2 lg:grid-cols-3" aria-live="polite" data-reveal-stagger="zoom">
         {projects.map((x) => (
           <ProjectCard project={x} locale={locale} headingLevel="h2" />
         ))}

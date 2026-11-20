@@ -1,4 +1,4 @@
-/** Bar bawah mobile: sembunyi saat banner #kontak terlihat (IntersectionObserver) atau drawer terbuka (CSS). */
+/** Tombol WhatsApp melayang di mobile: sembunyi saat banner #kontak terlihat (IntersectionObserver) atau drawer terbuka (CSS). */
 const bar = document.querySelector<HTMLElement>('[data-mobile-bar]');
 const banner = document.querySelector<HTMLElement>('[data-cta-banner]');
 

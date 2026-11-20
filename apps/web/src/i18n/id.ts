@@ -76,7 +76,7 @@ const id = {
     chipDesc: 'Google dan asisten AI',
   },
   clients: {
-    label: 'Dipercaya bisnis di Bekasi dan sekitarnya',
+    label: 'Dipercaya bisnis di Bekasi, Solo, dan sekitarnya',
     aria: 'Klien Rafizaweb',
   },
   services: {
@@ -92,7 +92,7 @@ const id = {
   },
   portfolio: {
     title: 'Portofolio',
-    lead: 'Website yang sudah kami bangun untuk bisnis di Bekasi dan sekitarnya.',
+    lead: 'Website yang sudah kami bangun untuk bisnis di Bekasi, Solo, dan sekitarnya.',
     all: 'Lihat semua portofolio',
     visit: 'Kunjungi website',
     caseStudy: 'Baca studi kasus',
@@ -201,7 +201,7 @@ const id = {
       seo: 'SEO dan GEO',
     } as Record<string, string>,
   },
-  mobileBar: { cta: 'Konsultasi gratis', price: 'Harga' },
+  mobileBar: { label: 'Chat WhatsApp' },
   langs: { id: 'Bahasa Indonesia', en: 'English', ar: 'العربية' },
 };
 

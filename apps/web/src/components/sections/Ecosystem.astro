@@ -21,13 +21,13 @@ const products = (await getStoreProducts()).filter(
 
 <section id="ekosistem" aria-labelledby="rz-eko" class="bg-surface">
   <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,32px)]">
-    <div class="flex max-w-[640px] flex-col gap-[12px]" data-reveal>
+    <div class="flex max-w-[640px] flex-col gap-[12px]" data-reveal="left">
       <h2 id="rz-eko" class="rz-h2">
         {t.eco.title}
       </h2>
       <p class="rz-lead">{t.eco.lead}</p>
     </div>
-    <div class="flex flex-wrap gap-[24px]">
+    <div class="flex flex-wrap gap-[24px]" data-reveal-stagger="zoom">
       <div
         class="flex min-w-0 flex-[1_1_380px] flex-col items-start gap-[12px] rounded-panel border border-border bg-white p-[clamp(20px,2.6vw,32px)] shadow-card"
         data-waitlist

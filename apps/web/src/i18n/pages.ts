@@ -63,9 +63,12 @@ const id = {
     intro:
       'Portofolio ini memuat website yang sudah tayang untuk lembaga pendidikan, perusahaan jasa, produsen, dan kontraktor. Setiap kartu memuat gambaran isi website dan tautan ke studi kasusnya, sehingga Anda bisa melihat jenis website yang cocok untuk bisnis Anda.',
     caseTitleTpl: (name: string) => `${name}: Studi Kasus Website | Rafizaweb`,
-    caseDescTpl: (name: string, industry: string) =>
-      `Studi kasus website ${name} (${industry.toLowerCase()}) yang dibangun Rafizaweb, jasa pembuatan website di Bekasi. Lihat tampilan dan kunjungi situsnya.`,
+    caseDescTpl: (name: string, industry: string, location = '') =>
+      location
+        ? `Studi kasus website ${name} (${industry.toLowerCase()}) di ${location} yang dibangun Rafizaweb, jasa website di Bekasi. Lihat tampilan dan situsnya.`
+        : `Studi kasus website ${name} (${industry.toLowerCase()}) yang dibangun Rafizaweb, jasa pembuatan website di Bekasi. Lihat tampilan dan kunjungi situsnya.`,
     client: 'Klien',
+    location: 'Lokasi',
     industry: 'Industri',
     year: 'Tahun',
     package: 'Paket',
@@ -350,14 +353,15 @@ const en: Pages = {
     intro:
       'This portfolio features live websites for educational institutions, service companies, manufacturers, and contractors. Each card gives an overview of what the website includes and links to its case study, so you can see which kind of website suits your business.',
     caseTitleTpl: (name: string) => `${name}: Website Case Study | Rafizaweb`,
-    caseDescTpl: (name: string, industry: string) => {
-      const base = `Case study of the ${name} website (${industry.toLowerCase()}) built by Rafizaweb, a website design service in Bekasi.`;
+    caseDescTpl: (name: string, industry: string, location = '') => {
+      const base = `Case study of the ${name} website (${industry.toLowerCase()})${location ? ` in ${location}` : ''} built by Rafizaweb, a website design service in Bekasi.`;
       const tail = [' See the design and visit the live site.', ' See the design and live site.'].find(
         (x) => (base + x).length <= 160,
       );
       return base + (tail ?? '');
     },
     client: 'Client',
+    location: 'Location',
     industry: 'Industry',
     year: 'Year',
     package: 'Package',
@@ -620,9 +624,10 @@ const ar: Pages = {
     intro:
       'تضم هذه الأعمال مواقع منشورة لمؤسسات تعليمية وشركات خدمية ومنتجين ومقاولين. تعرض كل بطاقة نظرة على محتوى الموقع ورابطًا لدراسة حالته، لتعرف نوع الموقع المناسب لنشاطك.',
     caseTitleTpl: (name: string) => `${name} | دراسة حالة | رافيزا ويب`,
-    caseDescTpl: (name: string, industry: string) =>
+    caseDescTpl: (name: string, industry: string, _location = '') =>
       `دراسة حالة لموقع ${name} (${industry}) الذي بنته رافيزا ويب، خدمة تصميم مواقع في بيكاسي. اطّلع على تصميم الموقع وزر الموقع الفعلي.`,
     client: 'العميل',
+    location: 'الموقع',
     industry: 'المجال',
     year: 'السنة',
     package: 'الباقة',

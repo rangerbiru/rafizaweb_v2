@@ -223,6 +223,7 @@ const shareText = `${d.title} ${SITE}${url}`;
           <aside
             class="flex flex-col gap-[12px] rounded-panel bg-navy p-[clamp(20px,3vw,32px)] text-white"
             aria-labelledby="article-cta"
+            data-reveal="zoom"
           >
             <h2 id="article-cta" class="rz-h3 text-white">
               {service ? p.ctaTitleTpl(service.name) : p.ctaGeneralTitle}
@@ -289,7 +290,7 @@ const shareText = `${d.title} ${SITE}${url}`;
         {h2s.length >= 3 && (
           <nav
             aria-labelledby="toc-side"
-            class="sticky top-[104px] hidden min-w-0 flex-[1_1_260px] flex-col gap-[8px] lg:flex"
+            class="sticky top-[104px] hidden min-w-0 flex-[1_1_260px] flex-col gap-[8px] rounded-card border border-border bg-surface p-[20px] lg:flex"
           >
             <p id="toc-side" class="m-0 font-heading text-[16px] font-bold">
               {p.toc}
@@ -314,7 +315,7 @@ const shareText = `${d.title} ${SITE}${url}`;
         <h2 id="related" class="rz-h2">
           {p.related}
         </h2>
-        <div class="grid gap-[24px] md:grid-cols-3">
+        <div class="grid gap-[24px] md:grid-cols-3" data-reveal-stagger="rise">
           {related.map((a) => (
             <ArticleCard article={a} categoryName={a.data.category.id === d.category.id ? catName : ''} />
           ))}

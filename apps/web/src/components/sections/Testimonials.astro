@@ -23,7 +23,7 @@ const rating = locale === 'id' ? settings.rating : settings.rating.replace(',', 
 {reviews.length > 0 && (
   <section id="testimoni" aria-labelledby="rz-testi" class="bg-white">
     <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,40px)]">
-      <div class="flex flex-wrap items-end justify-between gap-x-[32px] gap-y-[20px]" data-reveal>
+      <div class="flex flex-wrap items-end justify-between gap-x-[32px] gap-y-[20px]" data-reveal="right">
         <div class="flex max-w-[560px] flex-col gap-[12px]">
           <h2 id="rz-testi" class="rz-h2">
             {t.reviews.title}
@@ -53,6 +53,7 @@ const rating = locale === 'id' ? settings.rating : settings.rating.replace(',', 
         role="region"
         aria-label={t.reviews.title}
         tabindex="0"
+        data-reveal="fade"
       >
         {reviews.map((r) => (
           <div class="flex flex-[0_0_86%] md:flex-[1_1_300px]">

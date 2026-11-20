@@ -128,10 +128,11 @@ const isDev = import.meta.env.DEV;
     </main>
     {banner && <CtaBanner locale={locale} isHome={isHome} above={bannerAbove} />}
     <Footer locale={locale} />
-    <MobileBar locale={locale} isHome={isHome} />
+    <MobileBar locale={locale} />
     <script>
       import '../scripts/analytics';
       import '../scripts/reveal';
+      import '../scripts/skeleton';
     </script>
   </body>
 </html>

@@ -18,7 +18,7 @@ const more = path('blog', locale);
 {first && (
   <section id="blog" aria-labelledby="rz-blog" class="bg-white">
     <div class="rz-container rz-section-pad flex flex-col gap-[clamp(24px,3vw,48px)]">
-      <div class="flex flex-wrap items-end justify-between gap-x-[32px] gap-y-[12px]" data-reveal>
+      <div class="flex flex-wrap items-end justify-between gap-x-[32px] gap-y-[12px]" data-reveal="fade">
         <div class="flex max-w-[640px] flex-col gap-[12px]">
           <h2 id="rz-blog" class="rz-h2">
             {t.blog.title}
@@ -32,7 +32,7 @@ const more = path('blog', locale);
           {t.blog.more}
         </a>
       </div>
-      <div class="flex flex-wrap gap-[24px]">
+      <div class="flex flex-wrap gap-[24px]" data-reveal-stagger="rise">
         <ArticleCard
           article={first}
           categoryName={cats.get(first.data.category.id) ?? ''}
