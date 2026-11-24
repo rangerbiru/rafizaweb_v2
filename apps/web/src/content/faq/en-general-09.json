@@ -1,0 +1,10 @@
+{
+  "question": "Can I upgrade to a higher package later?",
+  "answer": "Yes. You only pay the difference in package price, and we upgrade your website without starting from scratch.",
+  "scope": [
+    "home",
+    "harga"
+  ],
+  "order": 9,
+  "locale": "en"
+}

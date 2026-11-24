@@ -1,0 +1,10 @@
+{
+  "question": "Bisakah saya naik paket nanti?",
+  "answer": "Bisa. Anda cukup membayar selisih harga paket, dan website Anda kami tingkatkan tanpa mulai dari nol.",
+  "scope": [
+    "home",
+    "harga"
+  ],
+  "order": 9,
+  "locale": "id"
+}

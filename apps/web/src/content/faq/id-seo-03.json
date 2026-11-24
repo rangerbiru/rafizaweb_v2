@@ -1,7 +1,9 @@
 {
   "question": "Berapa harga layanan SEO & GEO?",
-  "answer": "Harga ditentukan lewat konsultasi gratis. Paket Bisnis Growth sudah termasuk 3 artikel blog untuk SEO, dan Bisnis Prime termasuk 10 artikel serta optimasi SEO lengkap.",
-  "scope": ["layanan:seo"],
+  "answer": "Harga ditentukan lewat konsultasi gratis. Artikel blog untuk SEO sudah termasuk di beberapa paket website: 2 artikel di Starter, 5 di Bisnis, dan 10 di Prime bersama SEO lengkap.",
+  "scope": [
+    "layanan:seo"
+  ],
   "order": 3,
   "locale": "id"
 }

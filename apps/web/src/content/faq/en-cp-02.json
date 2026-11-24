@@ -1,7 +1,9 @@
 {
   "question": "Does the company profile include business email?",
-  "answer": "Yes. Business Growth includes 1 business email on your own domain, and Business Prime includes 2.",
-  "scope": ["layanan:cp"],
+  "answer": "The Starter package does not include business email. Business email is included in the Business package (1 email) and Prime (2 emails).",
+  "scope": [
+    "layanan:cp"
+  ],
   "order": 2,
   "locale": "en"
 }

@@ -3,7 +3,7 @@
  * TIDAK ada AggregateRating/Review untuk bisnis sendiri (kebijakan Google: self-serving).
  */
 import type { Locale } from '../i18n/routes';
-import { isPlaceholder, settings, type Plan, type Service } from './site';
+import { isPlaceholder, settings, type PricedPlan, type Service } from './site';
 
 export const SITE = 'https://rafizaweb.com';
 export const BUSINESS_ID = `${SITE}/#business`;
@@ -47,7 +47,7 @@ export function businessNode(): Node {
       { '@type': 'AdministrativeArea', name: 'Kabupaten Sukoharjo' },
       { '@type': 'Country', name: 'Indonesia' },
     ],
-    priceRange: 'Rp699.000-Rp4.999.000',
+    priceRange: 'Rp300.000–Rp4.999.000',
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
@@ -164,7 +164,7 @@ export function serviceNode(service: Service, url: string, locale: Locale): Node
   return node;
 }
 
-export function offerCatalogNode(plans: Plan[], url: string): Node {
+export function offerCatalogNode(plans: PricedPlan[], url: string): Node {
   return {
     '@type': 'OfferCatalog',
     '@id': `${abs(url)}#catalog`,

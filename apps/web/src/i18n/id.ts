@@ -4,9 +4,9 @@
  */
 const id = {
   meta: {
-    homeTitle: 'Jasa Pembuatan Website Bekasi Mulai Rp699rb | Rafizaweb',
+    homeTitle: 'Jasa Pembuatan Website Bekasi Mulai Rp300rb | Rafizaweb',
     homeDescription:
-      'Jasa pembuatan website di Bekasi untuk UMKM dan bisnis. Mulai Rp699.000 termasuk hosting dan domain tahun pertama, SEO-friendly, konsultasi gratis via WhatsApp.',
+      'Jasa pembuatan website di Bekasi untuk UMKM dan bisnis. Mulai Rp300.000 termasuk hosting dan domain tahun pertama, SEO-friendly, konsultasi gratis via WhatsApp.',
     siteName: 'Rafizaweb',
   },
   common: {
@@ -66,7 +66,7 @@ const id = {
       'klinik',
       'perusahaan',
     ],
-    lead: 'Jasa pembuatan website di Bekasi untuk UMKM dan bisnis: cepat dibuka, rapi di HP, dan mudah ditemukan di Google. Mulai Rp699.000, sudah termasuk hosting dan domain tahun pertama.',
+    lead: 'Jasa pembuatan website di Bekasi untuk UMKM dan bisnis: cepat dibuka, rapi di HP, dan mudah ditemukan di Google. Mulai Rp300.000, sudah termasuk hosting dan domain tahun pertama.',
     proof1: (rating: string, count: number) => `Rating ${rating} dari ${count} ulasan Google`,
     proof2: (n: string) => `${n} website klien sudah live`,
     mockNav: ['Beranda', 'Layanan', 'Portofolio'],
@@ -110,7 +110,7 @@ const id = {
   },
   process: {
     title: 'Proses kerja',
-    lead: 'Contoh jadwal paket Starter UMKM. Paket lain menyesuaikan jumlah halaman dan fitur.',
+    lead: 'Contoh jadwal paket Starter. Paket lain menyesuaikan jumlah halaman dan fitur.',
   },
   pricing: {
     title: 'Paket harga',
@@ -123,7 +123,11 @@ const id = {
     showPlan: 'Lihat detail paket',
     needMore: 'Butuh fitur di luar paket?',
     compare: 'Bandingkan semua fitur',
-    includes: 'Semua paket sudah termasuk hosting dan domain .com tahun pertama.',
+    includes: 'Semua paket sudah termasuk hosting dan domain tahun pertama.',
+    primeQ: 'Butuh website besar dan fitur custom?',
+    primeFrom: (price: string) => `Paket Prime mulai ${price}`,
+    consult: 'Harga lewat konsultasi gratis',
+    upgrade: 'Bisa naik paket kapan saja, cukup bayar selisihnya.',
   },
   reviews: {
     title: 'Kata klien',

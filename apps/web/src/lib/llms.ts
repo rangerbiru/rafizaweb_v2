@@ -3,7 +3,7 @@ import { formatPrice, path } from '../i18n';
 import {
   getArticles,
   getFaq,
-  getPlans,
+  getPricedPlans,
   getServices,
   getStoreProducts,
   isPlaceholder,
@@ -15,7 +15,7 @@ const abs = (p: string) => `${SITE}${p}`;
 
 export async function llmsTxt(full = false): Promise<string> {
   const services = getServices('id');
-  const plans = getPlans('id');
+  const plans = getPricedPlans('id');
   const articles = await getArticles();
   const faqs = await getFaq('home', 'id');
   const products = (await getStoreProducts()).filter(
@@ -26,7 +26,7 @@ export async function llmsTxt(full = false): Promise<string> {
   const lines: string[] = [
     '# Rafizaweb',
     '',
-    `> Rafizaweb adalah jasa pembuatan website di Kota Bekasi sejak Januari 2025 (tagline: "${settings.tagline}"). Melayani UMKM, perusahaan, CV, yayasan, sekolah, dan travel umroh di Bekasi dan sekitarnya serta online ke seluruh Indonesia. Harga mulai Rp699.000 termasuk hosting dan domain tahun pertama.`,
+    `> Rafizaweb adalah jasa pembuatan website di Kota Bekasi sejak Januari 2025 (tagline: "${settings.tagline}"). Melayani UMKM, perusahaan, CV, yayasan, sekolah, dan travel umroh di Bekasi dan sekitarnya serta online ke seluruh Indonesia. Harga mulai Rp300.000 termasuk hosting dan domain tahun pertama.`,
     '',
     '## Kontak',
     `- Alamat: ${a.street}, ${a.city}, ${a.region} ${a.postal}, Indonesia`,
@@ -44,9 +44,10 @@ export async function llmsTxt(full = false): Promise<string> {
     '## Paket harga',
     ...plans.map(
       (p) =>
-        `- ${p.name}: ${formatPrice(p.price)} (perpanjangan ${formatPrice(p.renewal)}/tahun), pengerjaan ${p.time}. ${p.features.join('; ')}.`,
+        `- ${p.name}: ${formatPrice(p.price)} (perpanjangan ${formatPrice(p.renewal)}/tahun), pengerjaan ${p.time}, revisi desain ${p.spec.revisions}, garansi dan support ${p.spec.support}. ${p.features.join('; ')}.`,
     ),
-    '- Semua paket sudah termasuk hosting dan domain .com tahun pertama.',
+    '- Semua paket sudah termasuk hosting dan domain tahun pertama (.my.id/.web.id untuk Paket UMKM, .com untuk paket lainnya).',
+    '- Bisa naik paket kapan saja, cukup bayar selisihnya.',
     '',
     ...(products.length
       ? [
@@ -87,7 +88,7 @@ export async function llmsTxt(full = false): Promise<string> {
       '1. Konsultasi gratis lewat WhatsApp, online, atau tatap muka di Bekasi.',
       '2. Desain dan copywriting.',
       '3. Development (dioptimasi untuk kecepatan dan SEO).',
-      '4. Launch dan support 1–3 bulan sesuai paket.',
+      '4. Launch dan support 14 hari sampai 3 bulan sesuai paket.',
     );
     for (const s of services) {
       lines.push('', `## ${s.name}`, s.desc, ...s.points.map((p) => `- ${p}`), s.price);

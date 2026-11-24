@@ -177,7 +177,7 @@ export default function ogImages(): AstroIntegration {
         }
         await write(
           'og/default.png',
-          await render(card('Jasa Pembuatan Website Bekasi Mulai Rp699rb', 'Solusi Digital Terpercaya')),
+          await render(card('Jasa Pembuatan Website Bekasi Mulai Rp300rb', 'Solusi Digital Terpercaya')),
         );
         logger.info(`${count} OG image dibuat`);
       },

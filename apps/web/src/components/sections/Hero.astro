@@ -21,7 +21,7 @@ const showLive = settings.liveSitesVerified;
 
 <section id="top" class="rz-hero relative overflow-hidden">
   <div class="mx-auto flex max-w-site flex-wrap items-center gap-x-[48px] gap-y-[32px] px-[clamp(16px,3.4vw,48px)] pt-[clamp(104px,9vw,136px)] pb-[clamp(32px,4vw,56px)]">
-    <div class="flex max-w-[640px] min-w-0 flex-[1_1_520px] flex-col items-start gap-[24px]">
+    <div class="flex max-w-[640px] min-w-0 flex-[1_1_520px] flex-col items-start gap-[24px] max-md:items-center max-md:gap-[20px] max-md:text-center">
       <Badge>{t.hero.badge}</Badge>
       <h1 class="rz-h1">
         <span class="block">{t.hero.h1a}</span>{' '}
@@ -39,8 +39,8 @@ const showLive = settings.liveSitesVerified;
         </span>{' '}
         <span class="block">{t.hero.h1c}</span>
       </h1>
-      <p class="m-0 max-w-[34em] text-[clamp(16px,1.2vw,17px)] leading-[1.65] text-text-2">{t.hero.lead}</p>
-      <div class="flex flex-wrap items-center gap-[12px] max-md:w-full">
+      <p class="rz-hero-lead m-0 max-w-[34em] text-[clamp(16px,1.2vw,17px)] leading-[1.65] text-text-2">{t.hero.lead}</p>
+      <div class="flex flex-wrap items-center gap-[12px] max-md:mt-[4px] max-md:w-full max-md:flex-col max-md:gap-[10px]">
         <a
           href={waHref(t.wa.general)}
           class="rz-btn inline-flex h-[52px] items-center justify-center gap-[10px] rounded-pill bg-brand px-[24px] text-[16px] font-bold text-white no-underline shadow-raised hover:text-white max-md:w-full"
@@ -51,13 +51,13 @@ const showLive = settings.liveSitesVerified;
         </a>
         <a
           href="#portofolio"
-          class="rz-btn inline-flex h-[52px] items-center justify-center rounded-pill border border-border bg-white px-[24px] text-[16px] font-bold text-navy no-underline hover:text-navy max-md:w-full"
+          class="rz-btn inline-flex h-[52px] items-center justify-center rounded-pill border border-border bg-white/70 px-[24px] text-[16px] font-bold text-navy no-underline hover:text-navy max-md:h-[48px] max-md:w-full max-md:border-brand/25 max-md:text-brand max-md:hover:text-brand"
         >
           {t.common.cta2}
         </a>
       </div>
       {(showRating || showLive) && (
-        <ul class="m-0 flex list-none flex-wrap gap-x-[24px] gap-y-[8px] p-0 text-[14px] font-semibold text-text-2">
+        <ul class="m-0 flex list-none flex-wrap max-md:justify-center gap-x-[24px] gap-y-[8px] p-0 text-[14px] font-semibold text-text-2">
           {showRating && (
             <li class="flex items-center gap-[8px]" data-dummy={settings.ratingIsDummy ? '' : undefined}>
               <Icon name="star" size={16} />
@@ -183,6 +183,26 @@ const showLive = settings.liveSitesVerified;
     background-image:
       radial-gradient(720px 520px at 16% 38%, rgba(29, 78, 216, 0.16), transparent 70%),
       linear-gradient(180deg, #f5f8ff 0%, #ffffff 100%);
+  }
+  /* Mobile: gradien tiga lapis (biru brand di atas, aksen amber lembut di bawah) + tipografi lebih lega. */
+  @media (max-width: 767px) {
+    .rz-hero,
+    :global([dir='rtl']) .rz-hero {
+      background-image:
+        radial-gradient(420px 320px at 100% 0%, rgba(29, 78, 216, 0.28), transparent 70%),
+        radial-gradient(360px 300px at 0% 62%, rgba(245, 184, 61, 0.2), transparent 70%),
+        linear-gradient(170deg, #e6edfd 0%, #f5f8ff 46%, #ffffff 100%);
+    }
+    .rz-hero :global(.rz-h1) {
+      font-size: clamp(30px, 9.4vw, 42px);
+      line-height: 1.1;
+    }
+    .rz-hero-lead {
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 30em;
+      text-wrap: pretty;
+    }
   }
   /* Kata yang diketik: lebar mengikuti teks, caret lewat ::after agar tidak ada elemen yang bergeser. */
   [data-typing] {

@@ -9,13 +9,16 @@ interface Props {
   locale: Locale;
   rec?: boolean;
   headingLevel?: 'h2' | 'h3';
+  /** false untuk paket yang tidak terhubung ke pilihan tahap: tidak memakai badge "Cocok untuk Anda". */
+  staged?: boolean;
 }
-const { plan, locale, rec = false, headingLevel: H = 'h3' } = Astro.props;
+const { plan, locale, rec = false, headingLevel: H = 'h3', staged = true } = Astro.props;
 const t = useT(locale);
 ---
 
 <div
   data-plan-card={plan.key}
+  data-nostage={staged ? undefined : ''}
   data-rec={rec ? '' : undefined}
   class="rz-plan relative flex min-w-0 flex-[1_1_300px] flex-col gap-[16px] rounded-card bg-white p-[24px] md:gap-[20px] md:p-[28px]"
 >
@@ -28,13 +31,18 @@ const t = useT(locale);
   </div>
   <div class="flex flex-col gap-[2px] tabular-nums">
     <span
+      data-consult={plan.price === null ? '' : undefined}
       class="rz-price font-heading text-[34px] leading-[1.15] font-extrabold tracking-[-0.04em] md:text-[40px]"
       dir={locale === 'ar' ? undefined : 'ltr'}
     >
-      {formatPrice(plan.price, locale)}
+      {plan.price === null ? t.pricing.consult : formatPrice(plan.price, locale)}
     </span>
-    <span class="text-[14px] text-muted">{t.pricing.renew(formatPrice(plan.renewal, locale))}</span>
-    <span class="text-[14px] text-muted">{t.pricing.time(plan.time)}</span>
+    {plan.price !== null && plan.renewal !== null && (
+      <>
+        <span class="text-[14px] text-muted">{t.pricing.renew(formatPrice(plan.renewal, locale))}</span>
+        <span class="text-[14px] text-muted">{t.pricing.time(plan.time)}</span>
+      </>
+    )}
   </div>
   <ul class="m-0 flex list-none flex-col gap-[8px] border-t border-border p-0 pt-[14px] text-[15px] md:gap-[10px] md:pt-[16px]">
     {plan.features.map((f) => (
@@ -69,6 +77,11 @@ const t = useT(locale);
   :global([lang='ar']) .rz-price {
     font-size: 30px;
   }
+  .rz-price[data-consult] {
+    font-size: 24px;
+    line-height: 1.25;
+  }
+
   .rz-price {
     color: var(--color-navy);
   }
@@ -80,7 +93,7 @@ const t = useT(locale);
     border: 2px solid var(--color-brand);
     box-shadow: var(--shadow-raised);
   }
-  .rz-plan[data-rec] .rz-recbadge {
+  .rz-plan[data-rec]:not([data-nostage]) .rz-recbadge {
     display: inline-block;
     animation: var(--animate-pop);
   }

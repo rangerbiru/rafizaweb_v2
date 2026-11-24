@@ -33,23 +33,50 @@ export function getServices(locale: Locale): Service[] {
 }
 export const getService = (key: string, locale: Locale) => getServices(locale).find((s) => s.key === key);
 
-type PlanText = { name: string; desc: string; time: string; features: string[] };
-type PlanRaw = (typeof plansJson.plans)[number];
+export type PlanSpec = {
+  domain: string;
+  pages: string;
+  articles: string;
+  seo: string;
+  email: string;
+  contact: string;
+  responsive: string;
+  revisions: string;
+  time: string;
+  support: string;
+};
+type PlanText = { name: string; desc: string; time: string; spec?: PlanSpec; features: string[] };
+type PlanRaw = {
+  key: string;
+  /** null = harga lewat konsultasi gratis (Toko Online, Aplikasi Web & Mobile). */
+  price: number | null;
+  renewal: number | null;
+  custom: boolean;
+  id: PlanText;
+  en: PlanText;
+  ar: PlanText;
+};
 export type Plan = Omit<PlanRaw, 'id' | 'en' | 'ar'> & PlanText;
+/** Paket berharga tetap: untuk tabel perbandingan, JSON-LD Offer, dan llms.txt. */
+export type PricedPlan = Plan & { price: number; renewal: number; spec: PlanSpec };
 export type Stage = { key: string; plan: string; label: string };
 
 export function getPlans(locale: Locale): Plan[] {
-  return plansJson.plans.map((p) => {
+  return (plansJson.plans as PlanRaw[]).map((p) => {
     const { id, en, ar, ...rest } = p;
     return { ...rest, ...{ id, en, ar }[locale] };
   });
 }
+/** Paket yang tampil sebagai kartu di Home; sisanya (Prime) tampil sebagai strip. */
+export const PRIME_PLAN = 'prime';
+export const getPricedPlans = (locale: Locale) =>
+  getPlans(locale).filter((p): p is PricedPlan => p.price !== null);
 export function getStages(locale: Locale): Stage[] {
   return plansJson.stages.map((s) => ({ key: s.key, plan: s.plan, label: s[locale] }));
 }
 export const defaultStage = plansJson.defaultStage;
 export const recommendedPlan =
-  plansJson.stages.find((s) => s.key === plansJson.defaultStage)?.plan ?? 'growth';
+  plansJson.stages.find((s) => s.key === plansJson.defaultStage)?.plan ?? 'starter';
 
 export function getProcess(locale: Locale) {
   return processJson.steps.map((s, i) => ({ n: i + 1, day: s.day, ...s[locale] }));
