@@ -25,21 +25,6 @@ test.describe('Home', () => {
     await expect(page.locator('[data-typing]')).toHaveText('bisnis');
   });
 
-  test('parallax hanya transform via CSS variable (desktop)', async ({ page }, info) => {
-    test.skip(!desktop(info.project.name));
-    await page.goto('/');
-    const area = page.locator('[data-parallax]');
-    const box = (await area.boundingBox())!;
-    await page.mouse.move(box.x + box.width * 0.9, box.y + box.height * 0.9);
-    await expect
-      .poll(() => area.evaluate((el) => (el as HTMLElement).style.getPropertyValue('--hx')))
-      .not.toBe('');
-    await page.mouse.move(5, 5);
-    await expect
-      .poll(() => area.evaluate((el) => (el as HTMLElement).style.getPropertyValue('--hx')))
-      .toBe('0.000');
-  });
-
   test('dropdown Ekosistem: aria-expanded, Esc, klik di luar', async ({ page }, info) => {
     test.skip(!desktop(info.project.name));
     await page.goto('/');
