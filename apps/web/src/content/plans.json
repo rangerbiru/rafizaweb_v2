@@ -35,18 +35,18 @@
         "time": "2–3 hari kerja",
         "spec": {
           "domain": ".my.id / .web.id",
-          "pages": "1 landing page (pilih template)",
+          "pages": "1 landing page",
           "articles": "–",
           "seo": "Didaftarkan ke Google",
           "email": "–",
           "contact": "Ya",
-          "responsive": "Ya (template)",
+          "responsive": "Ya",
           "revisions": "1×",
           "time": "2–3 hari kerja",
           "support": "14 hari"
         },
         "features": [
-          "1 landing page, pilih template",
+          "1 landing page",
           "Domain .my.id atau .web.id, sudah termasuk hosting",
           "Didaftarkan ke Google agar mudah ditemukan saat orang mencari nama usaha Anda",
           "Tombol WhatsApp, sosial media, dan Google Maps",
@@ -60,18 +60,18 @@
         "time": "2–3 working days",
         "spec": {
           "domain": ".my.id / .web.id",
-          "pages": "1 landing page (choose a template)",
+          "pages": "1 landing page",
           "articles": "–",
           "seo": "Registered with Google",
           "email": "–",
           "contact": "Yes",
-          "responsive": "Yes (template)",
+          "responsive": "Yes",
           "revisions": "1×",
           "time": "2–3 working days",
           "support": "14 days"
         },
         "features": [
-          "1 landing page, choose a template",
+          "1 landing page",
           ".my.id or .web.id domain, hosting included",
           "Registered with Google so people can find it when they search your business name",
           "WhatsApp button, social media, and Google Maps",
@@ -85,25 +85,26 @@
         "time": "2–3 أيام عمل",
         "spec": {
           "domain": ".my.id / .web.id",
-          "pages": "صفحة هبوط واحدة (اختيار قالب)",
+          "pages": "صفحة هبوط واحدة",
           "articles": "–",
           "seo": "تسجيل الموقع في جوجل",
           "email": "–",
           "contact": "نعم",
-          "responsive": "نعم (قالب)",
+          "responsive": "نعم",
           "revisions": "مرة واحدة",
           "time": "2–3 أيام عمل",
           "support": "14 يومًا"
         },
         "features": [
-          "صفحة هبوط واحدة باختيار قالب",
+          "صفحة هبوط واحدة",
           "نطاق .my.id أو .web.id مع الاستضافة",
           "تسجيل الموقع في جوجل ليسهل العثور عليه عند البحث عن اسم نشاطك",
           "زر واتساب ووسائل التواصل وخرائط جوجل",
           "مراجعة واحدة للتصميم",
           "ضمان ودعم لمدة 14 يومًا"
         ]
-      }
+      },
+      "custom": false
     },
     {
       "key": "starter",
@@ -186,7 +187,8 @@
           "مراجعتان للتصميم",
           "ضمان ودعم لمدة شهرين"
         ]
-      }
+      },
+      "custom": false
     },
     {
       "key": "bisnis",
@@ -272,7 +274,8 @@
           "3 مراجعات للتصميم",
           "ضمان ودعم لمدة 3 أشهر"
         ]
-      }
+      },
+      "custom": false
     },
     {
       "key": "prime",
@@ -360,6 +363,91 @@
           "تصميم متجاوب مخصص",
           "3 مراجعات للتصميم",
           "ضمان ودعم لمدة 3 أشهر"
+        ]
+      },
+      "custom": false
+    },
+    {
+      "key": "toko",
+      "price": null,
+      "renewal": null,
+      "custom": true,
+      "id": {
+        "name": "Toko Online",
+        "desc": "Untuk jualan produk langsung.",
+        "time": "",
+        "features": [
+          "Katalog produk dan pemesanan yang Anda kelola sendiri",
+          "Kelola produk, harga, dan stok dari dashboard",
+          "Pesanan langsung masuk ke WhatsApp",
+          "Tanpa potongan komisi marketplace",
+          "Panduan video kelola toko"
+        ]
+      },
+      "en": {
+        "name": "Online Store",
+        "desc": "For selling products directly.",
+        "time": "",
+        "features": [
+          "A product catalog and ordering system you manage yourself",
+          "Manage products, prices, and stock from a dashboard",
+          "Orders go straight to WhatsApp",
+          "No marketplace commission",
+          "Video guide for managing your store"
+        ]
+      },
+      "ar": {
+        "name": "متجر إلكتروني",
+        "desc": "لبيع المنتجات مباشرة.",
+        "time": "",
+        "features": [
+          "كتالوج منتجات ونظام طلبات تديره بنفسك",
+          "إدارة المنتجات والأسعار والمخزون من لوحة التحكم",
+          "تصل الطلبات مباشرة إلى واتساب",
+          "دون عمولة الأسواق الإلكترونية",
+          "دليل فيديو لإدارة المتجر"
+        ]
+      }
+    },
+    {
+      "key": "app",
+      "price": null,
+      "renewal": null,
+      "custom": true,
+      "id": {
+        "name": "Aplikasi Web & Mobile",
+        "desc": "Untuk sistem internal bisnis.",
+        "time": "",
+        "features": [
+          "Sistem custom untuk kebutuhan spesifik",
+          "Contoh: kasir, absensi, booking, dan dashboard laporan",
+          "Dirancang mengikuti alur kerja bisnis Anda",
+          "Akses berbasis akun untuk tim",
+          "Bisa dikembangkan bertahap"
+        ]
+      },
+      "en": {
+        "name": "Web & Mobile Apps",
+        "desc": "For internal business systems.",
+        "time": "",
+        "features": [
+          "Custom systems for specific needs",
+          "For example: point of sale, attendance, bookings, and reporting dashboards",
+          "Designed around your business workflow",
+          "Account-based access for your team",
+          "Can be developed in stages"
+        ]
+      },
+      "ar": {
+        "name": "تطبيقات الويب والجوال",
+        "desc": "للأنظمة الداخلية للأعمال.",
+        "time": "",
+        "features": [
+          "أنظمة مخصصة لاحتياجات محددة",
+          "مثل: نقاط البيع والحضور والحجوزات ولوحات التقارير",
+          "مصمم وفق سير عمل نشاطك التجاري",
+          "وصول بحسابات لأعضاء الفريق",
+          "قابل للتطوير على مراحل"
         ]
       }
     }

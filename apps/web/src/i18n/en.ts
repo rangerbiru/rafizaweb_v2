@@ -127,6 +127,7 @@ const en: Dict = {
     includes: 'Every package includes hosting and a domain for the first year.',
     primeQ: 'Need a large website with custom features?',
     primeFrom: (price: string) => `Prime package from ${price}`,
+    consult: 'Price via free consultation',
     upgrade: 'You can upgrade anytime, just pay the difference.',
   },
   reviews: {

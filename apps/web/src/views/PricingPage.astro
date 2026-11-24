@@ -6,7 +6,7 @@ import Icon from '../components/ui/Icon.astro';
 import { formatPrice, path, useT, type Locale } from '../i18n';
 import { usePages } from '../i18n/pages';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { ALLOW_DUMMY, getFaq, getPlans, isPlaceholder } from '../lib/data';
+import { ALLOW_DUMMY, getFaq, getPricedPlans, isPlaceholder } from '../lib/data';
 import { breadcrumbNode, faqNode, graph, offerCatalogNode, webPageNode } from '../lib/schema';
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 const { locale } = Astro.props;
 const t = useT(locale);
 const p = usePages(locale).pricing;
-const plans = getPlans(locale);
+const plans = getPricedPlans(locale);
 const faqs = await getFaq('harga', locale);
 const url = path('pricing', locale);
 const crumbs = [

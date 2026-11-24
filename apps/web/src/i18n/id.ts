@@ -126,6 +126,7 @@ const id = {
     includes: 'Semua paket sudah termasuk hosting dan domain tahun pertama.',
     primeQ: 'Butuh website besar dan fitur custom?',
     primeFrom: (price: string) => `Paket Prime mulai ${price}`,
+    consult: 'Harga lewat konsultasi gratis',
     upgrade: 'Bisa naik paket kapan saja, cukup bayar selisihnya.',
   },
   reviews: {

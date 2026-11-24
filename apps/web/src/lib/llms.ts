@@ -3,7 +3,7 @@ import { formatPrice, path } from '../i18n';
 import {
   getArticles,
   getFaq,
-  getPlans,
+  getPricedPlans,
   getServices,
   getStoreProducts,
   isPlaceholder,
@@ -15,7 +15,7 @@ const abs = (p: string) => `${SITE}${p}`;
 
 export async function llmsTxt(full = false): Promise<string> {
   const services = getServices('id');
-  const plans = getPlans('id');
+  const plans = getPricedPlans('id');
   const articles = await getArticles();
   const faqs = await getFaq('home', 'id');
   const products = (await getStoreProducts()).filter(

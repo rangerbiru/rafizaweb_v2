@@ -13,9 +13,13 @@ const jsonLd = (html: string) =>
     .flatMap((b) => b['@graph'] ?? [b]) as Record<string, unknown>[];
 
 test.describe('Harga', () => {
-  test('/harga/ menampilkan 4 paket dan tabel perbandingan lengkap', async ({ page }) => {
+  test('/harga/ menampilkan 6 paket dan tabel perbandingan lengkap', async ({ page }) => {
     await page.goto('/harga/');
-    await expect(page.locator('[data-plan-card]')).toHaveCount(4);
+    await expect(page.locator('[data-plan-card]')).toHaveCount(6);
+    for (const key of ['umkm', 'starter', 'bisnis', 'prime', 'toko', 'app'])
+      await expect(page.locator(`[data-plan-card="${key}"]`)).toHaveCount(1);
+    await expect(page.locator('[data-plan-card="toko"]')).toContainText('Harga lewat konsultasi gratis');
+    await expect(page.locator('[data-plan-card="app"]')).toContainText('Harga lewat konsultasi gratis');
     await expect(page.locator('[data-plan-card="starter"]')).toHaveAttribute('data-rec', '');
     const table = page.locator('#perbandingan table');
     await expect(table.locator('thead th')).toHaveText([
@@ -42,9 +46,10 @@ test.describe('Harga', () => {
     ]);
     const row = (n: number) => table.locator('tbody tr').nth(n).locator('td');
     await expect(row(0)).toHaveText(PLANS.map((p) => p.id));
-    await expect(row(8 + 1)).toHaveText(['1×', '2×', '3×', '3×']);
+    await expect(row(9)).toHaveText(['1×', '2×', '3×', '3×']);
     await expect(row(10)).toHaveText(['2–3 hari kerja', '4–7 hari kerja', '5–9 hari kerja', '±15 hari kerja']);
     await expect(row(11)).toHaveText(['14 hari', '2 bulan', '3 bulan', '3 bulan']);
+    await expect(page.locator('main')).not.toContainText(/template/i);
     await expect(page.locator('main')).toContainText('KTP');
     await expect(page.locator('main')).toContainText('Bisa naik paket kapan saja');
   });

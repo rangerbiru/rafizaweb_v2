@@ -16,13 +16,13 @@ interface Props {
   lead?: string;
   showHeading?: boolean;
   compareHref?: string;
-  /** true di /harga/: keempat paket jadi kartu. Di Home, Prime tampil sebagai strip di bawah kartu. */
+  /** true di /harga/: semua paket (6) jadi kartu. Di Home, Prime tampil sebagai strip di bawah kartu. */
   allPlans?: boolean;
 }
 const { locale, title, lead, showHeading = true, compareHref, allPlans = false } = Astro.props;
 const t = useT(locale);
 const allList = getPlans(locale);
-const plans = allPlans ? allList : allList.filter((p) => p.key !== PRIME_PLAN);
+const plans = allPlans ? allList : allList.filter((p) => p.key !== PRIME_PLAN && !p.custom);
 const prime = allList.find((p) => p.key === PRIME_PLAN);
 const stages = getStages(locale);
 const compare = compareHref ?? `${path('pricing', locale)}#perbandingan`;
@@ -69,13 +69,13 @@ const compare = compareHref ?? `${path('pricing', locale)}#perbandingan`;
 
       <div class="rz-plans flex flex-wrap items-stretch gap-[24px] pt-[12px]" data-reveal-stagger="rise">
         {plans.map((p) => (
-          <PricingCard plan={p} locale={locale} rec={p.key === recommendedPlan} compact={allPlans} />
+          <PricingCard plan={p} locale={locale} rec={p.key === recommendedPlan} staged={stages.some((s) => s.plan === p.key)} />
         ))}
       </div>
 
       <p class="m-0 -mt-[8px] text-[14.5px] text-muted">{t.pricing.upgrade}</p>
 
-      {prime && !allPlans && (
+      {prime && prime.price !== null && !allPlans && (
         <div
           data-plan-strip={prime.key}
           class="flex flex-wrap items-center justify-between gap-x-[24px] gap-y-[16px] rounded-panel bg-navy px-[24px] py-[24px] text-white md:px-[32px]"
@@ -116,9 +116,9 @@ const compare = compareHref ?? `${path('pricing', locale)}#perbandingan`;
                   class="font-heading text-[24px] font-extrabold tracking-[-0.03em]"
                   dir={locale === 'ar' ? undefined : 'ltr'}
                 >
-                  {formatPrice(p.price, locale)}
+                  {p.price === null ? t.pricing.consult : formatPrice(p.price, locale)}
                 </span>
-                <span class="text-[14px] text-muted">{t.pricing.time(p.time)}</span>
+                {p.price !== null && <span class="text-[14px] text-muted">{t.pricing.time(p.time)}</span>}
                 <button
                   type="button"
                   data-show-plan={p.key}

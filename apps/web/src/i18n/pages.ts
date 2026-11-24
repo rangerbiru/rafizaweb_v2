@@ -109,7 +109,7 @@ const id = {
     },
     termsTitle: 'Ketentuan paket',
     terms: [
-      'Paket UMKM memakai pilihan template. Materi (logo, foto, dan teks) disiapkan oleh klien.',
+      'Paket UMKM memakai materi (logo, foto, dan teks) yang disiapkan oleh klien.',
       'Pendaftaran domain .my.id atau .web.id untuk Paket UMKM membutuhkan KTP pemilik usaha.',
       'Bisa naik paket kapan saja dengan membayar selisih harga.',
       'Waktu pengerjaan dihitung setelah materi dari klien lengkap.',
@@ -411,7 +411,7 @@ const en: Pages = {
     },
     termsTitle: 'Package terms',
     terms: [
-      'The Small Business package uses a template of your choice. You provide the materials (logo, photos, and text).',
+      'For the Small Business package, you provide the materials (logo, photos, and text).',
       'Registering a .my.id or .web.id domain for the Small Business package requires the business owner’s ID card (KTP).',
       'You can upgrade to a higher package anytime by paying the difference in price.',
       'Delivery time is counted once all your materials are complete.',
@@ -686,7 +686,7 @@ const ar: Pages = {
     },
     termsTitle: 'شروط الباقات',
     terms: [
-      'تعتمد باقة المشاريع الصغيرة على قالب يختاره العميل، ويوفّر العميل المواد (الشعار والصور والنصوص).',
+      'في باقة المشاريع الصغيرة، يوفّر العميل المواد (الشعار والصور والنصوص).',
       'يتطلب تسجيل نطاق .my.id أو .web.id لباقة المشاريع الصغيرة بطاقة هوية (KTP) مالك النشاط.',
       'يمكن الترقية إلى باقة أعلى في أي وقت بدفع فرق السعر.',
       'تُحسب مدة التنفيذ بعد اكتمال مواد العميل.',

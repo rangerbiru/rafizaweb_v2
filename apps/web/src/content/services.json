@@ -125,7 +125,7 @@
       "slugEn": "online-store",
       "soon": false,
       "priceFrom": null,
-      "plan": "prime",
+      "plan": "toko",
       "id": {
         "name": "Toko Online",
         "tagline": "Untuk jualan produk langsung",
@@ -184,7 +184,7 @@
       "slugEn": "web-mobile-apps",
       "soon": false,
       "priceFrom": null,
-      "plan": "",
+      "plan": "app",
       "id": {
         "name": "Aplikasi Web & Mobile",
         "tagline": "Untuk sistem internal bisnis",
