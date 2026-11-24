@@ -9,18 +9,22 @@ document.querySelectorAll<HTMLElement>('[data-pricing]').forEach((root) => {
   const cards = [...root.querySelectorAll<HTMLElement>('[data-plan-card]')];
   const minis = [...root.querySelectorAll<HTMLElement>('[data-plan-mini]')];
 
+  /** Paket tanpa tahap (Prime di /harga/) tetap bisa disorot: semua radio dimatikan. */
+  function highlight(plan: string) {
+    for (const c of cards) c.toggleAttribute('data-rec', c.dataset.planCard === plan);
+    for (const m of minis) m.hidden = m.dataset.planMini === plan;
+    root.dataset.rec = plan;
+  }
+
   function select(stage: string, focus = false) {
     const radio = radios.find((r) => r.dataset.stage === stage);
     if (!radio) return;
-    const plan = radio.dataset.plan!;
     for (const r of radios) {
       const on = r === radio;
       r.setAttribute('aria-checked', String(on));
       r.tabIndex = on ? 0 : -1;
     }
-    for (const c of cards) c.toggleAttribute('data-rec', c.dataset.planCard === plan);
-    for (const m of minis) m.hidden = m.dataset.planMini === plan;
-    root.dataset.rec = plan;
+    highlight(radio.dataset.plan!);
     if (focus) radio.focus();
     track('select_pricing_stage', { stage });
   }
@@ -43,9 +47,15 @@ document.querySelectorAll<HTMLElement>('[data-pricing]').forEach((root) => {
     });
   });
 
-  root.querySelectorAll<HTMLButtonElement>('[data-show-stage]').forEach((b) =>
+  root.querySelectorAll<HTMLButtonElement>('[data-show-plan]').forEach((b) =>
     b.addEventListener('click', () => {
-      select(b.dataset.showStage!);
+      const plan = b.dataset.showPlan!;
+      const radio = radios.find((r) => r.dataset.plan === plan);
+      if (radio) select(radio.dataset.stage!);
+      else {
+        for (const r of radios) r.setAttribute('aria-checked', 'false');
+        highlight(plan);
+      }
       const rec = root.querySelector<HTMLElement>('[data-plan-card][data-rec]');
       rec?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       radios.find((r) => r.getAttribute('aria-checked') === 'true')?.focus({ preventScroll: true });

@@ -118,17 +118,45 @@ test.describe('Home', () => {
     await expect(page.locator('#proj-almumtaz')).toBeHidden();
   });
 
+  test('harga: 3 kartu (UMKM, Starter, Bisnis) + strip Prime, default Starter', async ({ page }, info) => {
+    await page.goto('/');
+    const harga = page.locator('#harga');
+    await harga.scrollIntoViewIfNeeded();
+    await expect(page.locator('[data-plan-card]')).toHaveCount(3);
+    await expect(page.locator('[data-plan-card="prime"]')).toHaveCount(0);
+    await expect(page.locator('[data-plan-card="starter"]')).toHaveAttribute('data-rec', '');
+    await expect(page.getByRole('radio', { name: 'Ingin dapat pelanggan dari Google' })).toHaveAttribute(
+      'aria-checked',
+      'true',
+    );
+    const strip = page.locator('[data-plan-strip="prime"]');
+    await expect(strip).toContainText('Butuh website besar dan fitur custom?');
+    await expect(strip).toContainText('Paket Prime mulai Rp4.999.000');
+    await expect(strip.getByRole('link')).toHaveAttribute(
+      'href',
+      /text=Halo%20Rafizaweb%2C%20saya%20ingin%20konsultasi%20gratis%20tentang%20paket%20Prime/,
+    );
+    await expect(harga).toContainText('Bisa naik paket kapan saja, cukup bayar selisihnya.');
+    if (desktop(info.project.name)) {
+      for (const name of ['UMKM', 'Starter', 'Bisnis']) {
+        await expect(harga.getByRole('heading', { name, exact: true })).toBeVisible();
+      }
+    }
+  });
+
   test('tahap harga mengganti rekomendasi', async ({ page }, info) => {
     await page.goto('/');
     await page.locator('#harga').scrollIntoViewIfNeeded();
     await page.getByRole('radio', { name: 'Baru mulai online' }).click();
-    await expect(page.locator('[data-plan-card="starter"]')).toHaveAttribute('data-rec', '');
-    await expect(page.locator('[data-plan-card="growth"]')).not.toHaveAttribute('data-rec', '');
+    await expect(page.locator('[data-plan-card="umkm"]')).toHaveAttribute('data-rec', '');
+    await expect(page.locator('[data-plan-card="starter"]')).not.toHaveAttribute('data-rec', '');
     if (!desktop(info.project.name)) {
-      await expect(page.locator('[data-plan-card="growth"]')).toBeHidden();
-      await page.locator('[data-plan-mini="prime"] [data-show-stage]').click();
-      await expect(page.locator('[data-plan-card="prime"]')).toBeVisible();
+      await expect(page.locator('[data-plan-card="starter"]')).toBeHidden();
+      await page.locator('[data-plan-mini="bisnis"] [data-show-plan]').click();
+      await expect(page.locator('[data-plan-card="bisnis"]')).toBeVisible();
     }
+    await page.getByRole('radio', { name: 'Siap berkembang lebih besar' }).click();
+    await expect(page.locator('[data-plan-card="bisnis"]')).toHaveAttribute('data-rec', '');
   });
 
   test('waitlist: idle → form → validasi → done', async ({ page }) => {

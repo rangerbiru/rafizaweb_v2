@@ -426,7 +426,7 @@ export default config({
             slugEn: fields.text({ label: 'Slug EN/AR' }),
             soon: fields.checkbox({ label: 'Segera hadir', defaultValue: false }),
             priceFrom: fields.integer({ label: 'Harga mulai (angka, kosong = lewat konsultasi)' }),
-            plan: fields.text({ label: 'Paket terkait (starter/growth/prime)' }),
+            plan: fields.text({ label: 'Paket terkait (umkm/starter/bisnis/prime)' }),
             ...l10n(() => ({
               name: text('Nama'),
               tagline: text('Tagline'),
@@ -454,7 +454,7 @@ export default config({
         stages: fields.array(
           fields.object({
             key: text('Kunci tahap'),
-            plan: text('Paket (starter/growth/prime)'),
+            plan: text('Paket (umkm/starter/bisnis)'),
             id: text('Label ID'),
             en: text('Label EN'),
             ar: text('Label AR [REVIEW AR]'),
@@ -466,14 +466,25 @@ export default config({
             key: text('Kunci paket'),
             price: fields.integer({ label: 'Harga (Rp)' }),
             renewal: fields.integer({ label: 'Perpanjangan per tahun (Rp)' }),
-            pages: text('Jumlah halaman'),
-            articles: fields.integer({ label: 'Artikel blog', defaultValue: 0 }),
-            emails: fields.integer({ label: 'Email bisnis', defaultValue: 0 }),
-            supportMonths: fields.integer({ label: 'Support (bulan)', defaultValue: 1 }),
             ...l10n(() => ({
               name: text('Nama'),
               desc: text('Deskripsi'),
               time: text('Waktu pengerjaan'),
+              spec: fields.object(
+                {
+                  domain: text('Domain tahun pertama (termasuk hosting)'),
+                  pages: text('Halaman'),
+                  articles: text('Artikel blog SEO'),
+                  seo: text('SEO'),
+                  email: text('Email bisnis'),
+                  contact: text('Tombol WhatsApp, sosmed, Google Maps'),
+                  responsive: text('Desain responsif'),
+                  revisions: text('Revisi desain'),
+                  time: text('Pengerjaan (tabel)'),
+                  support: text('Garansi dan support'),
+                },
+                { label: 'Baris tabel perbandingan' },
+              ),
               features: fields.array(text('Fitur'), { label: 'Fitur', itemLabel: (p) => p.value }),
             })),
           }),

@@ -79,23 +79,23 @@ const id: Legal = {
       {
         h: 'Waktu pengerjaan dan materi',
         p: [
-          'Estimasi waktu pengerjaan: 4–7 hari kerja (Starter UMKM), 5–9 hari kerja (Bisnis Growth), dan sekitar 15 hari kerja (Bisnis Prime), dihitung setelah materi dari klien lengkap.',
+          'Estimasi waktu pengerjaan: 2–3 hari kerja (UMKM), 4–7 hari kerja (Starter), 5–9 hari kerja (Bisnis), dan sekitar 15 hari kerja (Prime), dihitung setelah materi dari klien lengkap.',
         ],
       },
       {
         h: 'Revisi',
-        p: ['Setiap paket termasuk 3 kali revisi desain sebelum website tayang.'],
+        p: ['Revisi desain sebelum website tayang: 1 kali untuk Paket UMKM, 2 kali untuk Starter, dan 3 kali untuk Bisnis dan Prime.'],
       },
       {
         h: 'Garansi dan support',
         p: [
-          'Perbaikan bug, panduan penggunaan fitur, dan konsultasi update konten selama 1 bulan untuk Starter UMKM, atau 3 bulan untuk Bisnis Growth dan Bisnis Prime.',
+          'Perbaikan bug, panduan penggunaan fitur, dan konsultasi update konten selama 14 hari untuk Paket UMKM, 2 bulan untuk Starter, dan 3 bulan untuk Bisnis dan Prime.',
         ],
       },
       {
         h: 'Perpanjangan',
         p: [
-          'Paket sudah termasuk hosting dan domain .com tahun pertama. Perpanjangan Rp500.000/tahun untuk Starter UMKM dan Bisnis Growth, serta Rp1.000.000/tahun untuk Bisnis Prime.',
+          'Paket sudah termasuk hosting dan domain tahun pertama (.my.id/.web.id untuk Paket UMKM dan .com untuk paket lainnya). Perpanjangan Rp300.000/tahun untuk Paket UMKM, Rp500.000/tahun untuk Starter dan Bisnis, serta Rp1.000.000/tahun untuk Prime.',
         ],
       },
       {
@@ -187,23 +187,23 @@ const en: Legal = {
       {
         h: 'Timeline and materials',
         p: [
-          'Estimated delivery: 4–7 working days (Small Business Starter), 5–9 working days (Business Growth), and about 15 working days (Business Prime), counted once all client materials are complete.',
+          'Estimated delivery: 2–3 working days (Small Business), 4–7 working days (Starter), 5–9 working days (Business), and about 15 working days (Prime), counted once all client materials are complete.',
         ],
       },
       {
         h: 'Revisions',
-        p: ['Every package includes 3 design revisions before the website goes live.'],
+        p: ['Design revisions before the website goes live: 1 for the Small Business package, 2 for Starter, and 3 for Business and Prime.'],
       },
       {
         h: 'Warranty and support',
         p: [
-          'Bug fixes, feature guidance, and content update consultations for 1 month (Small Business Starter) or 3 months (Business Growth and Business Prime).',
+          'Bug fixes, feature guidance, and content update consultations for 14 days (Small Business), 2 months (Starter), or 3 months (Business and Prime).',
         ],
       },
       {
         h: 'Renewal',
         p: [
-          'Packages include hosting and a .com domain for the first year. Renewal is Rp500,000/year for Small Business Starter and Business Growth, and Rp1,000,000/year for Business Prime.',
+          'Packages include hosting and a domain for the first year (.my.id/.web.id for Small Business, .com for the others). Renewal is Rp300,000/year for Small Business, Rp500,000/year for Starter and Business, and Rp1,000,000/year for Prime.',
         ],
       },
       {
@@ -288,20 +288,20 @@ const ar: Legal = {
       {
         h: 'مدة التنفيذ والمواد',
         p: [
-          'مدة التنفيذ التقديرية: 4–7 أيام عمل (باقة البداية)، و5–9 أيام عمل (باقة النمو)، وحوالي 15 يوم عمل (الباقة المميزة)، بعد اكتمال مواد العميل.',
+          'مدة التنفيذ التقديرية: 2–3 أيام عمل (باقة المشاريع الصغيرة)، و4–7 أيام عمل (ستارتر)، و5–9 أيام عمل (الأعمال)، وحوالي 15 يوم عمل (برايم)، بعد اكتمال مواد العميل.',
         ],
       },
-      { h: 'التعديلات', p: ['تتضمن كل باقة 3 تعديلات على التصميم قبل النشر.'] },
+      { h: 'التعديلات', p: ['مراجعات التصميم قبل النشر: مرة واحدة لباقة المشاريع الصغيرة، ومرتان لستارتر، و3 مرات للأعمال وبرايم.'] },
       {
         h: 'الضمان والدعم',
         p: [
-          'إصلاح الأخطاء والإرشاد واستشارات تحديث المحتوى لمدة شهر (باقة البداية) أو 3 أشهر (باقة النمو والباقة المميزة).',
+          'إصلاح الأخطاء والإرشاد واستشارات تحديث المحتوى لمدة 14 يومًا (باقة المشاريع الصغيرة) أو شهرين (ستارتر) أو 3 أشهر (الأعمال وبرايم).',
         ],
       },
       {
         h: 'التجديد',
         p: [
-          'تشمل الباقات الاستضافة ونطاق .com للسنة الأولى. التجديد 500,000 روبية سنويًا لباقة البداية وباقة النمو، و1,000,000 روبية سنويًا للباقة المميزة.',
+          'تشمل الباقات الاستضافة والنطاق للسنة الأولى. التجديد 300,000 روبية سنويًا لباقة المشاريع الصغيرة، و500,000 روبية سنويًا لستارتر والأعمال، و1,000,000 روبية سنويًا لبرايم.',
         ],
       },
       {

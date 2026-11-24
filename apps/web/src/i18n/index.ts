@@ -27,7 +27,7 @@ export function formatDate(date: Date, locale: Locale = 'id'): string {
   }).format(date);
 }
 
-/** Rp699.000 (ID), Rp699,000 (EN), 699,000 روبية (AR, sesuai desain). */
+/** Rp300.000 (ID), Rp300,000 (EN), 300,000 روبية (AR, sesuai desain). */
 export function formatPrice(value: number, locale: Locale = 'id'): string {
   if (locale === 'id') return `Rp${new Intl.NumberFormat('id-ID').format(value)}`;
   const n = new Intl.NumberFormat('en-US').format(value);

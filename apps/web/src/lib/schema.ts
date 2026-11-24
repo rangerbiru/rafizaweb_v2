@@ -47,7 +47,7 @@ export function businessNode(): Node {
       { '@type': 'AdministrativeArea', name: 'Kabupaten Sukoharjo' },
       { '@type': 'Country', name: 'Indonesia' },
     ],
-    priceRange: 'Rp699.000-Rp4.999.000',
+    priceRange: 'Rp300.000–Rp4.999.000',
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',

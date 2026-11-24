@@ -9,15 +9,21 @@ interface Props {
   locale: Locale;
   rec?: boolean;
   headingLevel?: 'h2' | 'h3';
+  /** 4 kartu sebaris (/harga/): harga dan padding sedikit lebih kecil. */
+  compact?: boolean;
 }
-const { plan, locale, rec = false, headingLevel: H = 'h3' } = Astro.props;
+const { plan, locale, rec = false, headingLevel: H = 'h3', compact = false } = Astro.props;
 const t = useT(locale);
 ---
 
 <div
   data-plan-card={plan.key}
   data-rec={rec ? '' : undefined}
-  class="rz-plan relative flex min-w-0 flex-[1_1_300px] flex-col gap-[16px] rounded-card bg-white p-[24px] md:gap-[20px] md:p-[28px]"
+  data-compact={compact ? '' : undefined}
+  class:list={[
+    compact ? 'flex-[1_1_240px]' : 'flex-[1_1_300px]',
+  ]}
+  class="rz-plan relative flex min-w-0 flex-col gap-[16px] rounded-card bg-white p-[24px] md:gap-[20px] md:p-[28px]"
 >
   <span class="rz-recbadge absolute -top-[14px] start-[20px] rounded-pill bg-amber px-[12px] py-[5px] text-[13px] font-extrabold text-navy md:start-[24px]">
     {t.pricing.rec}
@@ -68,6 +74,14 @@ const t = useT(locale);
   /* Format AR "4,999,000 روبية" lebih panjang; perkecil agar tidak terpotong. */
   :global([lang='ar']) .rz-price {
     font-size: 30px;
+  }
+  @media (min-width: 768px) {
+    .rz-plan[data-compact] .rz-price {
+      font-size: 32px;
+    }
+    :global([lang='ar']) .rz-plan[data-compact] .rz-price {
+      font-size: 22px;
+    }
   }
   .rz-price {
     color: var(--color-navy);

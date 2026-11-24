@@ -1,7 +1,9 @@
 {
   "question": "What is included in the landing page?",
-  "answer": "A responsive 1-page landing page, a WhatsApp button with a pre-filled message, Google Maps and social media integration, basic SEO and schema markup, plus a 1-month warranty and support.",
-  "scope": ["layanan:lp"],
+  "answer": "1 responsive landing page from a template of your choice, a WhatsApp button, social media, and Google Maps, registration with Google so people can find it when they search your business name, 1 design revision, plus a 14-day warranty and support.",
+  "scope": [
+    "layanan:lp"
+  ],
   "order": 3,
   "locale": "en"
 }

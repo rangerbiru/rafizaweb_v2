@@ -1,7 +1,9 @@
 {
   "question": "How much is the SEO & GEO service?",
-  "answer": "Pricing is set through a free consultation. Business Growth already includes 3 blog articles for SEO, and Business Prime includes 10 articles and full SEO optimization.",
-  "scope": ["layanan:seo"],
+  "answer": "Pricing is set through a free consultation. Blog articles for SEO are already included in some website packages: 2 in Starter, 5 in Business, and 10 in Prime together with full SEO.",
+  "scope": [
+    "layanan:seo"
+  ],
   "order": 3,
   "locale": "en"
 }

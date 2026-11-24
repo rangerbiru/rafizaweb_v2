@@ -4,113 +4,272 @@
   "stages": [
     {
       "key": "baru",
-      "plan": "starter",
+      "plan": "umkm",
       "id": "Baru mulai online",
       "en": "Just getting online",
       "ar": "بدأت للتو على الإنترنت"
     },
     {
       "key": "tumbuh",
-      "plan": "growth",
+      "plan": "starter",
       "id": "Ingin dapat pelanggan dari Google",
       "en": "Want customers from Google",
       "ar": "أريد عملاء من جوجل"
     },
     {
       "key": "scale",
-      "plan": "prime",
-      "id": "Siap jualan dan berkembang",
-      "en": "Ready to sell and scale",
-      "ar": "مستعد للبيع والتوسع"
+      "plan": "bisnis",
+      "id": "Siap berkembang lebih besar",
+      "en": "Ready to grow bigger",
+      "ar": "مستعد للنمو أكثر"
     }
   ],
   "plans": [
     {
-      "key": "starter",
-      "price": 699000,
-      "renewal": 500000,
-      "pages": "1",
-      "articles": 0,
-      "emails": 0,
-      "supportMonths": 1,
+      "key": "umkm",
+      "price": 300000,
+      "renewal": 300000,
       "id": {
-        "name": "Starter UMKM",
-        "desc": "Untuk UMKM yang baru mau punya website.",
-        "time": "4–7 hari kerja",
+        "name": "UMKM",
+        "desc": "Untuk usaha yang baru mulai online.",
+        "time": "2–3 hari kerja",
+        "spec": {
+          "domain": ".my.id / .web.id",
+          "pages": "1 landing page (pilih template)",
+          "articles": "–",
+          "seo": "Didaftarkan ke Google",
+          "email": "–",
+          "contact": "Ya",
+          "responsive": "Ya (template)",
+          "revisions": "1×",
+          "time": "2–3 hari kerja",
+          "support": "14 hari"
+        },
         "features": [
-          "Landing page 1 halaman",
-          "Desain responsif di semua perangkat",
-          "Integrasi WhatsApp, sosial media, dan Google Maps",
-          "SEO dasar dan schema markup",
-          "Garansi dan support 1 bulan"
+          "1 landing page, pilih template",
+          "Domain .my.id atau .web.id, sudah termasuk hosting",
+          "Didaftarkan ke Google agar mudah ditemukan saat orang mencari nama usaha Anda",
+          "Tombol WhatsApp, sosial media, dan Google Maps",
+          "1× revisi desain",
+          "Garansi dan support 14 hari"
         ]
       },
       "en": {
-        "name": "Small Business Starter",
-        "desc": "For small businesses getting their first website.",
-        "time": "4–7 working days",
+        "name": "Small Business",
+        "desc": "For businesses just getting online.",
+        "time": "2–3 working days",
+        "spec": {
+          "domain": ".my.id / .web.id",
+          "pages": "1 landing page (choose a template)",
+          "articles": "–",
+          "seo": "Registered with Google",
+          "email": "–",
+          "contact": "Yes",
+          "responsive": "Yes (template)",
+          "revisions": "1×",
+          "time": "2–3 working days",
+          "support": "14 days"
+        },
         "features": [
-          "1-page landing page",
-          "Responsive design on every device",
-          "WhatsApp, social media, and Google Maps integration",
-          "Basic SEO and schema markup",
-          "1-month warranty and support"
+          "1 landing page, choose a template",
+          ".my.id or .web.id domain, hosting included",
+          "Registered with Google so people can find it when they search your business name",
+          "WhatsApp button, social media, and Google Maps",
+          "1× design revision",
+          "14-day warranty and support"
         ]
       },
       "ar": {
-        "name": "باقة البداية للمشاريع الصغيرة",
-        "desc": "للمشاريع الصغيرة التي تريد موقعها الأول.",
-        "time": "4–7 أيام عمل",
+        "name": "باقة المشاريع الصغيرة",
+        "desc": "للأنشطة التي بدأت للتو على الإنترنت.",
+        "time": "2–3 أيام عمل",
+        "spec": {
+          "domain": ".my.id / .web.id",
+          "pages": "صفحة هبوط واحدة (اختيار قالب)",
+          "articles": "–",
+          "seo": "تسجيل الموقع في جوجل",
+          "email": "–",
+          "contact": "نعم",
+          "responsive": "نعم (قالب)",
+          "revisions": "مرة واحدة",
+          "time": "2–3 أيام عمل",
+          "support": "14 يومًا"
+        },
         "features": [
-          "صفحة هبوط واحدة",
-          "تصميم متجاوب على جميع الأجهزة",
-          "ربط واتساب ووسائل التواصل وخرائط جوجل",
-          "تحسين أساسي لمحركات البحث وترميز Schema",
-          "ضمان ودعم لمدة شهر"
+          "صفحة هبوط واحدة باختيار قالب",
+          "نطاق .my.id أو .web.id مع الاستضافة",
+          "تسجيل الموقع في جوجل ليسهل العثور عليه عند البحث عن اسم نشاطك",
+          "زر واتساب ووسائل التواصل وخرائط جوجل",
+          "مراجعة واحدة للتصميم",
+          "ضمان ودعم لمدة 14 يومًا"
         ]
       }
     },
     {
-      "key": "growth",
-      "price": 1499000,
+      "key": "starter",
+      "price": 899000,
       "renewal": 500000,
-      "pages": "2–4",
-      "articles": 3,
-      "emails": 1,
-      "supportMonths": 3,
       "id": {
-        "name": "Bisnis Growth",
+        "name": "Starter",
         "desc": "Untuk bisnis yang ingin dapat pelanggan dari Google.",
-        "time": "5–9 hari kerja",
+        "time": "4–7 hari kerja",
+        "spec": {
+          "domain": ".com",
+          "pages": "2–4 halaman",
+          "articles": "2",
+          "seo": "SEO basic",
+          "email": "–",
+          "contact": "Ya",
+          "responsive": "Ya",
+          "revisions": "2×",
+          "time": "4–7 hari kerja",
+          "support": "2 bulan"
+        },
         "features": [
           "2–4 halaman website",
-          "3 artikel blog untuk SEO",
-          "Integrasi WhatsApp, sosial media, dan Google Maps",
+          "Domain .com, sudah termasuk hosting",
+          "2 artikel blog untuk SEO",
+          "SEO basic",
+          "Tombol WhatsApp, sosial media, dan Google Maps",
+          "2× revisi desain",
+          "Garansi dan support 2 bulan"
+        ]
+      },
+      "en": {
+        "name": "Starter",
+        "desc": "For businesses that want customers from Google.",
+        "time": "4–7 working days",
+        "spec": {
+          "domain": ".com",
+          "pages": "2–4 pages",
+          "articles": "2",
+          "seo": "Basic SEO",
+          "email": "–",
+          "contact": "Yes",
+          "responsive": "Yes",
+          "revisions": "2×",
+          "time": "4–7 working days",
+          "support": "2 months"
+        },
+        "features": [
+          "2–4 page website",
+          ".com domain, hosting included",
+          "2 blog articles for SEO",
+          "Basic SEO",
+          "WhatsApp button, social media, and Google Maps",
+          "2× design revisions",
+          "2-month warranty and support"
+        ]
+      },
+      "ar": {
+        "name": "باقة ستارتر",
+        "desc": "للأعمال التي تريد عملاء من جوجل.",
+        "time": "4–7 أيام عمل",
+        "spec": {
+          "domain": ".com",
+          "pages": "2–4 صفحات",
+          "articles": "2",
+          "seo": "تحسين أساسي لمحركات البحث",
+          "email": "–",
+          "contact": "نعم",
+          "responsive": "نعم",
+          "revisions": "مرتان",
+          "time": "4–7 أيام عمل",
+          "support": "شهران"
+        },
+        "features": [
+          "موقع من 2–4 صفحات",
+          "نطاق .com مع الاستضافة",
+          "مقالان في المدونة لتحسين البحث",
+          "تحسين أساسي لمحركات البحث",
+          "زر واتساب ووسائل التواصل وخرائط جوجل",
+          "مراجعتان للتصميم",
+          "ضمان ودعم لمدة شهرين"
+        ]
+      }
+    },
+    {
+      "key": "bisnis",
+      "price": 1499000,
+      "renewal": 500000,
+      "id": {
+        "name": "Bisnis",
+        "desc": "Untuk bisnis yang siap berkembang lebih besar.",
+        "time": "5–9 hari kerja",
+        "spec": {
+          "domain": ".com",
+          "pages": "5–8 halaman",
+          "articles": "5",
+          "seo": "SEO on-page",
+          "email": "1",
+          "contact": "Ya",
+          "responsive": "Ya",
+          "revisions": "3×",
+          "time": "5–9 hari kerja",
+          "support": "3 bulan"
+        },
+        "features": [
+          "5–8 halaman website",
+          "Domain .com, sudah termasuk hosting",
+          "5 artikel blog untuk SEO",
+          "SEO on-page",
           "1 email bisnis",
+          "Tombol WhatsApp, sosial media, dan Google Maps",
+          "3× revisi desain",
           "Garansi dan support 3 bulan"
         ]
       },
       "en": {
-        "name": "Business Growth",
-        "desc": "For businesses that want customers from Google.",
+        "name": "Business",
+        "desc": "For businesses ready to grow bigger.",
         "time": "5–9 working days",
+        "spec": {
+          "domain": ".com",
+          "pages": "5–8 pages",
+          "articles": "5",
+          "seo": "On-page SEO",
+          "email": "1",
+          "contact": "Yes",
+          "responsive": "Yes",
+          "revisions": "3×",
+          "time": "5–9 working days",
+          "support": "3 months"
+        },
         "features": [
-          "2–4 page website",
-          "3 blog articles for SEO",
-          "WhatsApp, social media, and Google Maps integration",
+          "5–8 page website",
+          ".com domain, hosting included",
+          "5 blog articles for SEO",
+          "On-page SEO",
           "1 business email",
+          "WhatsApp button, social media, and Google Maps",
+          "3× design revisions",
           "3-month warranty and support"
         ]
       },
       "ar": {
-        "name": "باقة النمو",
-        "desc": "للأعمال التي تريد عملاء من جوجل.",
+        "name": "باقة الأعمال",
+        "desc": "للأعمال المستعدة للنمو أكثر.",
         "time": "5–9 أيام عمل",
+        "spec": {
+          "domain": ".com",
+          "pages": "5–8 صفحات",
+          "articles": "5",
+          "seo": "تحسين SEO داخل الصفحات",
+          "email": "1",
+          "contact": "نعم",
+          "responsive": "نعم",
+          "revisions": "3 مرات",
+          "time": "5–9 أيام عمل",
+          "support": "3 أشهر"
+        },
         "features": [
-          "موقع من 2–4 صفحات",
-          "3 مقالات مدونة لتحسين البحث",
-          "ربط واتساب ووسائل التواصل وخرائط جوجل",
+          "موقع من 5–8 صفحات",
+          "نطاق .com مع الاستضافة",
+          "5 مقالات في المدونة لتحسين البحث",
+          "تحسين SEO داخل الصفحات",
           "بريد إلكتروني واحد للأعمال",
+          "زر واتساب ووسائل التواصل وخرائط جوجل",
+          "3 مراجعات للتصميم",
           "ضمان ودعم لمدة 3 أشهر"
         ]
       }
@@ -119,43 +278,87 @@
       "key": "prime",
       "price": 4999000,
       "renewal": 1000000,
-      "pages": "10+",
-      "articles": 10,
-      "emails": 2,
-      "supportMonths": 3,
       "id": {
-        "name": "Bisnis Prime",
-        "desc": "Untuk bisnis yang siap jualan dan berkembang secara online.",
-        "time": "sekitar 15 hari kerja",
+        "name": "Prime",
+        "desc": "Untuk website besar dan fitur custom.",
+        "time": "±15 hari kerja",
+        "spec": {
+          "domain": ".com",
+          "pages": "10+ halaman dan fitur custom",
+          "articles": "10",
+          "seo": "SEO lengkap",
+          "email": "2",
+          "contact": "Ya",
+          "responsive": "Ya (custom)",
+          "revisions": "3×",
+          "time": "±15 hari kerja",
+          "support": "3 bulan"
+        },
         "features": [
           "10+ halaman dan fitur custom",
+          "Domain .com, sudah termasuk hosting",
           "10 artikel blog untuk SEO",
-          "Optimasi SEO lengkap",
+          "SEO lengkap",
           "2 email bisnis",
+          "Tombol WhatsApp, sosial media, dan Google Maps",
+          "Desain responsif custom",
+          "3× revisi desain",
           "Garansi dan support 3 bulan"
         ]
       },
       "en": {
-        "name": "Business Prime",
-        "desc": "For businesses ready to sell and scale online.",
-        "time": "about 15 working days",
+        "name": "Prime",
+        "desc": "For large websites and custom features.",
+        "time": "±15 working days",
+        "spec": {
+          "domain": ".com",
+          "pages": "10+ pages and custom features",
+          "articles": "10",
+          "seo": "Full SEO",
+          "email": "2",
+          "contact": "Yes",
+          "responsive": "Yes (custom)",
+          "revisions": "3×",
+          "time": "±15 working days",
+          "support": "3 months"
+        },
         "features": [
           "10+ pages and custom features",
+          ".com domain, hosting included",
           "10 blog articles for SEO",
-          "Full SEO optimization",
+          "Full SEO",
           "2 business emails",
+          "WhatsApp button, social media, and Google Maps",
+          "Custom responsive design",
+          "3× design revisions",
           "3-month warranty and support"
         ]
       },
       "ar": {
-        "name": "الباقة المميزة",
-        "desc": "للأعمال المستعدة للبيع والتوسع عبر الإنترنت.",
+        "name": "الباقة برايم",
+        "desc": "للمواقع الكبيرة والميزات المخصصة.",
         "time": "حوالي 15 يوم عمل",
+        "spec": {
+          "domain": ".com",
+          "pages": "أكثر من 10 صفحات وميزات مخصصة",
+          "articles": "10",
+          "seo": "تحسين شامل لمحركات البحث",
+          "email": "2",
+          "contact": "نعم",
+          "responsive": "نعم (مخصص)",
+          "revisions": "3 مرات",
+          "time": "حوالي 15 يوم عمل",
+          "support": "3 أشهر"
+        },
         "features": [
           "أكثر من 10 صفحات وميزات مخصصة",
-          "10 مقالات مدونة لتحسين البحث",
+          "نطاق .com مع الاستضافة",
+          "10 مقالات في المدونة لتحسين البحث",
           "تحسين شامل لمحركات البحث",
           "بريدان إلكترونيان للأعمال",
+          "زر واتساب ووسائل التواصل وخرائط جوجل",
+          "تصميم متجاوب مخصص",
+          "3 مراجعات للتصميم",
           "ضمان ودعم لمدة 3 أشهر"
         ]
       }

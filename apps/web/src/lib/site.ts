@@ -33,7 +33,19 @@ export function getServices(locale: Locale): Service[] {
 }
 export const getService = (key: string, locale: Locale) => getServices(locale).find((s) => s.key === key);
 
-type PlanText = { name: string; desc: string; time: string; features: string[] };
+export type PlanSpec = {
+  domain: string;
+  pages: string;
+  articles: string;
+  seo: string;
+  email: string;
+  contact: string;
+  responsive: string;
+  revisions: string;
+  time: string;
+  support: string;
+};
+type PlanText = { name: string; desc: string; time: string; spec: PlanSpec; features: string[] };
 type PlanRaw = (typeof plansJson.plans)[number];
 export type Plan = Omit<PlanRaw, 'id' | 'en' | 'ar'> & PlanText;
 export type Stage = { key: string; plan: string; label: string };
@@ -44,12 +56,14 @@ export function getPlans(locale: Locale): Plan[] {
     return { ...rest, ...{ id, en, ar }[locale] };
   });
 }
+/** Paket yang tampil sebagai kartu di Home; sisanya (Prime) tampil sebagai strip. */
+export const PRIME_PLAN = 'prime';
 export function getStages(locale: Locale): Stage[] {
   return plansJson.stages.map((s) => ({ key: s.key, plan: s.plan, label: s[locale] }));
 }
 export const defaultStage = plansJson.defaultStage;
 export const recommendedPlan =
-  plansJson.stages.find((s) => s.key === plansJson.defaultStage)?.plan ?? 'growth';
+  plansJson.stages.find((s) => s.key === plansJson.defaultStage)?.plan ?? 'starter';
 
 export function getProcess(locale: Locale) {
   return processJson.steps.map((s, i) => ({ n: i + 1, day: s.day, ...s[locale] }));

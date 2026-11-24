@@ -6,18 +6,18 @@
       "slug": "landing-page-umkm",
       "slugEn": "landing-page",
       "soon": false,
-      "priceFrom": 699000,
-      "plan": "starter",
+      "priceFrom": 300000,
+      "plan": "umkm",
       "id": {
         "name": "Landing Page UMKM",
         "tagline": "Untuk usaha yang baru mulai online",
-        "priceShort": "Mulai Rp699.000",
-        "price": "Mulai Rp699.000",
+        "priceShort": "Mulai Rp300.000",
+        "price": "Mulai Rp300.000",
         "desc": "Satu halaman yang fokus mengubah pengunjung jadi chat WhatsApp. Cocok untuk katering, salon, bengkel, dan toko lokal.",
         "points": [
           "Tombol WhatsApp dengan pesan otomatis",
           "Integrasi Google Maps dan sosial media",
-          "Selesai 4–7 hari kerja"
+          "Selesai 2–3 hari kerja"
         ],
         "problems": [
           "Calon pelanggan sulit menemukan info dan kontak usaha Anda di internet",
@@ -28,13 +28,13 @@
       "en": {
         "name": "Small Business Landing Page",
         "tagline": "For businesses just getting online",
-        "priceShort": "From Rp699,000",
-        "price": "From Rp699,000",
+        "priceShort": "From Rp300,000",
+        "price": "From Rp300,000",
         "desc": "A single page focused on turning visitors into WhatsApp chats. Ideal for caterers, salons, repair shops, and local stores.",
         "points": [
           "WhatsApp button with a pre-filled message",
           "Google Maps and social media integration",
-          "Done in 4–7 working days"
+          "Done in 2–3 working days"
         ],
         "problems": [
           "Prospective customers struggle to find your business details and contact online",
@@ -45,13 +45,13 @@
       "ar": {
         "name": "صفحة هبوط للمشاريع الصغيرة",
         "tagline": "للمشاريع التي بدأت للتو على الإنترنت",
-        "priceShort": "تبدأ من 699,000 روبية",
-        "price": "تبدأ من 699,000 روبية",
+        "priceShort": "تبدأ من 300,000 روبية",
+        "price": "تبدأ من 300,000 روبية",
         "desc": "صفحة واحدة تركّز على تحويل الزوار إلى محادثات واتساب. مناسبة لخدمات الطعام والصالونات وورش الإصلاح والمتاجر المحلية.",
         "points": [
           "زر واتساب برسالة جاهزة",
           "ربط مع خرائط جوجل ووسائل التواصل الاجتماعي",
-          "التسليم خلال 4–7 أيام عمل"
+          "التسليم خلال 2–3 أيام عمل"
         ],
         "problems": [
           "يصعب على العملاء المحتملين العثور على معلومات نشاطك ووسيلة التواصل عبر الإنترنت",
@@ -65,17 +65,17 @@
       "slug": "company-profile",
       "slugEn": "company-profile",
       "soon": false,
-      "priceFrom": 1499000,
-      "plan": "growth",
+      "priceFrom": 899000,
+      "plan": "starter",
       "id": {
         "name": "Company Profile",
         "tagline": "Untuk perusahaan, CV, dan yayasan",
-        "priceShort": "Mulai Rp1.499.000",
-        "price": "Mulai Rp1.499.000",
+        "priceShort": "Mulai Rp899.000",
+        "price": "Mulai Rp899.000",
         "desc": "Profil perusahaan yang rapi untuk meyakinkan calon klien, mitra, dan panitia tender.",
         "points": [
           "Halaman tentang, layanan, portofolio, dan kontak",
-          "Email bisnis dengan domain sendiri",
+          "Domain .com sendiri, sudah termasuk hosting tahun pertama",
           "Siap dicantumkan di proposal dan kartu nama"
         ],
         "problems": [
@@ -87,12 +87,12 @@
       "en": {
         "name": "Company Profile",
         "tagline": "For companies, firms, and foundations",
-        "priceShort": "From Rp1,499,000",
-        "price": "From Rp1,499,000",
+        "priceShort": "From Rp899,000",
+        "price": "From Rp899,000",
         "desc": "A polished company profile that convinces prospective clients, partners, and tender committees.",
         "points": [
           "About, services, portfolio, and contact pages",
-          "Business email on your own domain",
+          "Your own .com domain, first-year hosting included",
           "Ready to put on proposals and business cards"
         ],
         "problems": [
@@ -104,12 +104,12 @@
       "ar": {
         "name": "الملف التعريفي للشركة",
         "tagline": "للشركات والمؤسسات والجمعيات",
-        "priceShort": "تبدأ من 1,499,000 روبية",
-        "price": "تبدأ من 1,499,000 روبية",
+        "priceShort": "تبدأ من 899,000 روبية",
+        "price": "تبدأ من 899,000 روبية",
         "desc": "ملف تعريفي منظّم للشركة يقنع العملاء المحتملين والشركاء ولجان المناقصات.",
         "points": [
           "صفحات من نحن والخدمات والأعمال والتواصل",
-          "بريد إلكتروني للأعمال باسم نطاقك الخاص",
+          "نطاق .com خاص بك مع الاستضافة للسنة الأولى",
           "جاهز لإدراجه في العروض وبطاقات العمل"
         ],
         "problems": [
@@ -225,7 +225,11 @@
         "priceShort": "حسب الاستشارة",
         "price": "التقدير عبر استشارة مجانية",
         "desc": "أنظمة مخصصة لاحتياجات محددة، من نقاط البيع والحضور إلى الحجوزات ولوحات التقارير.",
-        "points": ["مصمم وفق سير عمل نشاطك التجاري", "وصول بحسابات لأعضاء الفريق", "قابل للتطوير على مراحل"],
+        "points": [
+          "مصمم وفق سير عمل نشاطك التجاري",
+          "وصول بحسابات لأعضاء الفريق",
+          "قابل للتطوير على مراحل"
+        ],
         "problems": [
           "لا يزال العمل اليومي يُسجَّل يدويًا على الورق أو الجداول",
           "التطبيقات الجاهزة لا تناسب سير عمل نشاطك",
@@ -239,7 +243,7 @@
       "slugEn": "seo-geo",
       "soon": false,
       "priceFrom": null,
-      "plan": "growth",
+      "plan": "bisnis",
       "id": {
         "name": "SEO & GEO",
         "tagline": "Agar ditemukan di Google dan AI",

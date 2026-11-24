@@ -28,16 +28,19 @@ const jsonLd = graph(locale, [
   offerCatalogNode(plans, url),
   faqNode(faqs),
 ]);
-const dash = '—';
-const rows: { label: string; cells: string[]; check?: boolean }[] = [
+const rows: { label: string; cells: string[] }[] = [
   { label: p.rows.price, cells: plans.map((x) => formatPrice(x.price, locale)) },
   { label: p.rows.renewal, cells: plans.map((x) => formatPrice(x.renewal, locale)) },
-  { label: p.rows.time, cells: plans.map((x) => x.time) },
-  { label: p.rows.pages, cells: plans.map((x) => x.pages) },
-  { label: p.rows.articles, cells: plans.map((x) => (x.articles ? String(x.articles) : dash)) },
-  { label: p.rows.emails, cells: plans.map((x) => (x.emails ? String(x.emails) : dash)) },
-  { label: p.rows.support, cells: plans.map((x) => p.months(x.supportMonths)) },
-  { label: p.rows.hosting, cells: plans.map(() => '✓'), check: true },
+  { label: p.rows.domain, cells: plans.map((x) => x.spec.domain) },
+  { label: p.rows.pages, cells: plans.map((x) => x.spec.pages) },
+  { label: p.rows.articles, cells: plans.map((x) => x.spec.articles) },
+  { label: p.rows.seo, cells: plans.map((x) => x.spec.seo) },
+  { label: p.rows.emails, cells: plans.map((x) => x.spec.email) },
+  { label: p.rows.contact, cells: plans.map((x) => x.spec.contact) },
+  { label: p.rows.responsive, cells: plans.map((x) => x.spec.responsive) },
+  { label: p.rows.revisions, cells: plans.map((x) => x.spec.revisions) },
+  { label: p.rows.time, cells: plans.map((x) => x.spec.time) },
+  { label: p.rows.support, cells: plans.map((x) => x.spec.support) },
 ];
 const showPh = (v: string) => !isPlaceholder(v) || ALLOW_DUMMY;
 ---
@@ -54,6 +57,7 @@ const showPh = (v: string) => !isPlaceholder(v) || ALLOW_DUMMY;
   <Pricing
     locale={locale}
     isHome={false}
+    allPlans
     title={t.pricing.title}
     lead={t.pricing.lead}
     compareHref="#perbandingan"
@@ -73,7 +77,7 @@ const showPh = (v: string) => !isPlaceholder(v) || ALLOW_DUMMY;
         aria-labelledby="cmp-title"
         tabindex="0"
       >
-        <table class="w-full min-w-[640px] border-collapse text-start text-[15px]">
+        <table class="w-full min-w-[820px] border-collapse text-start text-[15px]">
           <caption class="sr-only">{p.compareTitle}</caption>
           <thead>
             <tr>
@@ -97,32 +101,25 @@ const showPh = (v: string) => !isPlaceholder(v) || ALLOW_DUMMY;
                   {r.label}
                 </th>
                 {r.cells.map((c) => (
-                  <td class="p-[16px] font-semibold" dir={/^Rp/.test(c) ? 'ltr' : undefined}>
-                    {r.check ? <Icon name="check" stroke={2.6} class="text-brand" /> : c}
-                    {r.check && <span class="sr-only">✓</span>}
+                  <td class="p-[16px] font-semibold" dir={/^(Rp|\.)/.test(c) ? 'ltr' : undefined}>
+                    {c}
                   </td>
                 ))}
               </tr>
             ))}
-            <tr class="border-t border-border align-top">
-              <th scope="row" class="p-[16px] text-start font-semibold text-text-2">
-                {p.rows.includes}
-              </th>
-              {plans.map((x) => (
-                <td class="p-[16px]">
-                  <ul class="m-0 flex list-none flex-col gap-[6px] p-0 text-[14.5px]">
-                    {x.features.map((f) => (
-                      <li class="flex gap-[8px]">
-                        <Icon name="check" size={16} stroke={2.4} class="mt-[4px] shrink-0 text-brand" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-              ))}
-            </tr>
           </tbody>
         </table>
+      </div>
+      <div class="flex flex-col gap-[12px] rounded-card border border-border bg-surface p-[24px]">
+        <h2 class="rz-h3">{p.termsTitle}</h2>
+        <ul class="m-0 flex list-none flex-col gap-[8px] p-0 text-text-2">
+          {p.terms.map((term) => (
+            <li class="flex gap-[10px]">
+              <Icon name="check" size={18} stroke={2.4} class="mt-[3px] shrink-0 text-brand" />
+              {term}
+            </li>
+          ))}
+        </ul>
       </div>
       <div class="grid gap-[24px] md:grid-cols-3">
         <div class="flex flex-col gap-[8px] rounded-card border border-border bg-surface p-[24px]">

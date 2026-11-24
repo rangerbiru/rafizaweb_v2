@@ -3,9 +3,9 @@ import type { Dict } from './id';
 /** English UI text. Header/hero/banner from docs/CONTENT.md §2; the rest is a faithful translation. */
 const en: Dict = {
   meta: {
-    homeTitle: 'Website Design in Bekasi from Rp699k | Rafizaweb',
+    homeTitle: 'Website Design in Bekasi from Rp300k | Rafizaweb',
     homeDescription:
-      'Website design and development in Bekasi, Indonesia for small businesses and companies. From Rp699,000 with first-year hosting and domain. Free consultation.',
+      'Website design and development in Bekasi, Indonesia for small businesses and companies. From Rp300,000 with first-year hosting and domain. Free consultation.',
     siteName: 'Rafizaweb',
   },
   common: {
@@ -66,7 +66,7 @@ const en: Dict = {
       'clinic',
       'company',
     ],
-    lead: 'Rafizaweb builds fast, mobile-friendly websites that show up on Google for small businesses and companies in Bekasi, Indonesia. From Rp699,000, including hosting and domain for the first year.',
+    lead: 'Rafizaweb builds fast, mobile-friendly websites that show up on Google for small businesses and companies in Bekasi, Indonesia. From Rp300,000, including hosting and domain for the first year.',
     proof1: (rating: string, count: number) =>
       `Rated ${rating.replace(',', '.')} from ${count} Google reviews`,
     proof2: (n: string) => `${n} client websites live`,
@@ -111,7 +111,7 @@ const en: Dict = {
   },
   process: {
     title: 'How we work',
-    lead: 'Sample schedule for the Small Business Starter package. Other packages vary by number of pages and features.',
+    lead: 'Sample schedule for the Starter package. Other packages vary by number of pages and features.',
   },
   pricing: {
     title: 'Pricing',
@@ -124,7 +124,10 @@ const en: Dict = {
     showPlan: 'See package details',
     needMore: 'Need features beyond a package?',
     compare: 'Compare all features',
-    includes: 'Every package includes hosting and a .com domain for the first year.',
+    includes: 'Every package includes hosting and a domain for the first year.',
+    primeQ: 'Need a large website with custom features?',
+    primeFrom: (price: string) => `Prime package from ${price}`,
+    upgrade: 'You can upgrade anytime, just pay the difference.',
   },
   reviews: {
     title: 'What clients say',
